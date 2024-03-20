@@ -1,3 +1,11 @@
 .logo {
-    width: 40%!important;
+    width: 40% !important;
+}
+
+.container {
+    height: 100vh !important;
+}
+
+.viewPortHeight {
+    height: 100vh;
 }
