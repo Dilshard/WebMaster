@@ -1,11 +1,21 @@
+body {
+    padding: 0px !important;
+    margin: 0px !important;
+}
+
 .logo {
     width: 40% !important;
 }
 
 .container {
     height: 100vh !important;
+    box-sizing: border-box !important;
 }
 
 .viewPortHeight {
     height: 100vh;
+}
+
+.nav-space {
+    padding: 0px !important;
 }
