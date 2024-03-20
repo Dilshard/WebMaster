@@ -4,7 +4,7 @@
 <body>
     <div class="container-fluid">
         <div class="row">
-            
+            <?php include("admin-nav.php") ?>
         </div>
         <div class="row">
           <div class="col-md-4 p-4">
