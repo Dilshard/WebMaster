@@ -12,10 +12,10 @@
                 <div class="card-header">
                     <ul class="nav nav-tabs card-header-tabs">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="true" href="index.php">Student</a>
+                        <a class="nav-link" aria-current="true" href="index.php">Student</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="staff-login.php">Staff</a>
+                        <a class="nav-link active" href="staff-login.php">Staff</a>
                     </li>
                     <li class="nav-item">
                     <a class="nav-link" href="admin-login.php">Admin</a>
@@ -32,7 +32,7 @@
                 <div class="row">
                 <div class="left-login col-md-12 d-flex justify-content-center" style="text-align-last: left;">
                         <div class="col-md-8">
-                            <form action="student.php">
+                            <form action="staff.php">
                                 <div class="mb-3">
                                     <label for="exampleInputEmail1" class="form-label">Email address</label>
                                     <input type="email" class="form-control" id="exampleInputEmail1"
