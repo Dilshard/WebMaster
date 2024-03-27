@@ -19,3 +19,7 @@ body {
 .nav-space {
     padding: 0px !important;
 }
+
+.left-login{
+    text-align-last: left!important;
+}
