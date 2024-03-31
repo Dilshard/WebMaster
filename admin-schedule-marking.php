@@ -50,6 +50,7 @@
               <div class="col-6 offset-md-6">
                 <button type="submit" class="btn btn-success">Register</button>
                 <button type="reset" class="btn btn-warning">Clear</button>
+                <a class="btn btn-secondary" href="admin-schedule-manage.php">View</a>
               </div>
             </form>
 
@@ -67,6 +68,7 @@
               <div class="col-12">
                 <button type="submit" class="btn btn-success">Upload</button>
                 <button type="reset" class="btn btn-warning">Clear</button>
+                <a class="btn btn-secondary" href="admin-schedule-manage.php">View</a>
               </div>
             </div>
           
