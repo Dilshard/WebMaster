@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<?php include("head.php"); ?>
-
+<?php 
+include("con.php"); 
+include("head.php");
+?>
 <body>
-
 <div class="container-fluid">
     <div class="row viewPortHeight">
         <div class="col-md-6  mt-4">
@@ -32,23 +32,22 @@
                 <div class="row">
                 <div class="left-login col-md-12 d-flex justify-content-center" style="text-align-last: left;">
                         <div class="col-md-8">
-                            <form action="student.php">
+                            <form method="POST" onsubmit="submitForm()">
                                 <div class="mb-3">
                                     <label for="exampleInputEmail1" class="form-label">Email address</label>
-                                    <input type="email" class="form-control" id="exampleInputEmail1"
-                                        aria-describedby="emailHelp">
+                                    <input name="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                                     <div id="emailHelp" class="form-text">We'll never share your email with anyone else.
                                     </div>
                                 </div>
                                 <div class="mb-3">
                                     <label for="exampleInputPassword1" class="form-label">Password</label>
-                                    <input type="password" class="form-control" id="exampleInputPassword1">
+                                    <input name="pass" type="password" class="form-control" id="exampleInputPassword1">
                                 </div>
                                 <div class="mb-3 form-check">
                                     <input type="checkbox" class="form-check-input" id="exampleCheck1">
                                     <label class="form-check-label" for="exampleCheck1">Check me out</label>
                                 </div>
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <button name="btnsubmit" type="submit" class="btn btn-primary">Submit</button>
                             </form>
                         </div>
                     </div>
@@ -80,9 +79,31 @@
     </div>
 </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+<?php
+    if(isset($_POST["btnsubmit"])){
+        $email = $_POST['email'];
+        $pass = $_POST['pass'];
+        
+        $sql = "SELECT * FROM Staff WHERE staffemail = '$email' and password = '$pass'";
+
+        $result = mysqli_query($conn,$sql);
+        $count = mysqli_num_rows($result); 
+
+        
+        if($count == 1){
+            header("Location: student.php", true, 301);  
+            exit();  
+            
+        }else{
+            echo "Fail!";
+        }
+
+    }
+?>
+
+
 </body>
 
 </html>
