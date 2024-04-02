@@ -20,7 +20,13 @@ body {
     padding: 0px !important;
 }
 
-.left-login{
-    text-align-last: left!important;
-    
+.left-login {
+    text-align-last: left !important;
+    /* color: #d7bcc1; */
+
+}
+
+.refresh {
+    text-decoration: none;
+    color: #b81515;
 }
