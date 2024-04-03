@@ -3,6 +3,37 @@
 <?php 
 include("con.php"); 
 include("head.php");
+
+SESSION_START();
+
+    if(isset($_POST["btnsubmit"])){
+        $email = $_POST['email'];
+        $pass = $_POST['pass'];
+        
+        $sql = "SELECT * FROM Staff WHERE staffemail = '$email' and password = '$pass'";
+
+        $result = mysqli_query($conn,$sql);
+        $count = mysqli_num_rows($result);
+
+        if($count == 1){
+            while($row = mysqli_fetch_assoc($result)){
+                $role = $row['role'];
+            }
+            $_SESSION['email'] = $email;
+            $_SESSION['role'] = $role;
+
+            if($role == "staff"){
+                header("Location: staff.php", true, 301);
+                exit();
+            }elseif($role == "admin"){
+                header("Location: admin.php", true, 301);
+                exit();
+            }
+        }
+        else{
+            echo "Error, Please check your login credentials!";
+        }
+    }
 ?>
 <body>
 <div class="container-fluid">
@@ -81,27 +112,7 @@ include("head.php");
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
-<?php
-    if(isset($_POST["btnsubmit"])){
-        $email = $_POST['email'];
-        $pass = $_POST['pass'];
-        
-        $sql = "SELECT * FROM Staff WHERE staffemail = '$email' and password = '$pass'";
 
-        $result = mysqli_query($conn,$sql);
-        $count = mysqli_num_rows($result); 
-
-        
-        if($count == 1){
-            header("Location: student.php", true, 301);  
-            exit();  
-            
-        }else{
-            echo "Fail!";
-        }
-
-    }
-?>
 
 
 </body>
