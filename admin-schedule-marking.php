@@ -55,8 +55,6 @@
             </form>
 
             </div>
-            <!-- </div> -->
-          <!-- </div> -->
 
           <div class="col-md-6 my-4 p-4">
             <h1 class="display-3 pb-3">Bulk upload</h1>
