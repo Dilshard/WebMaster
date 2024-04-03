@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php include("head.php"); ?>
+<?php
+
+  include 'con.php';
+
+  $sql = "SELECT * FROM Staff";
+
+  $results = mysqli_query($conn, $sql);
+  
+  
+?>
 <body>
     <div class="container-fluid">
         <div class="row">
@@ -15,39 +25,43 @@
                 <tr>
                   <th scope="col">#</th>
                   <th scope="col">Staff email</th>
-                  <th scope="col">Staff name</th>
+                  <th scope="col">Password</th>
+                  <th scope="col">Name</th>
                   <th scope="col">Contact</th>
-                  <th scope="col">Area of interest</th>
                   <th scope="col">FT/FT</th>
+                  <th scope="col">Area of interest</th>
+                  <th scope="col">Role</th>
                   <th scope="col">Action</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>dilshard.a@iit.ac.lk</td>
-                  <td>Dilshard Ahamed</td>
-                  <td>077123343</td>
-                  <td>Machine Learning</td>
-                  <td>Full-time</td>
-                  <td>
-                    <button type="submit" class="btn btn-warning">Edit</button>
-                    <button type="reset" class="btn btn-danger">Delete</button>
-                  </td>
-                </tr>
+                <?php
+                if(mysqli_num_rows($results) > 0){
+                  while($row = mysqli_fetch_assoc($results)){
+                    echo "<tr>";
+                      echo "<td>".$row['staffid']."</td>";
+                      echo "<td>".$row['staffemail']."</td>";
+                      echo "<td>".$row['password']."</td>";
+                      echo "<td>".$row['staffname']."</td>";
+                      echo "<td>".$row['contact']."</td>";
+                      echo "<td>".$row['ftpt']."</td>";
+                      echo "<td>".$row['area']."</td>";
+                      echo "<td>".$row['role']."</td>";
+                      echo '
+                      <td>
+                        <button type="submit" class="btn btn-warning">Edit</button>
+                        <button type="reset" class="btn btn-danger">Delete</button>
+                      </td>
+                      ';
+                    echo "</tr>";
+                  }
+                }else{
+                  echo "<tr>";
+                    echo "<td>No records found!</td>";
+                  echo "</tr>";
+                }
 
-                <tr>
-                  <th scope="row">2</th>
-                  <td>test.a@iit.ac.lk</td>
-                  <td>test Ahamed</td>
-                  <td>077453455</td>
-                  <td>Mobile / UIUX </td>
-                  <td>Part-time</td>
-                  <td>
-                    <button type="submit" class="btn btn-warning">Edit</button>
-                    <button type="reset" class="btn btn-danger">Delete</button>
-                  </td>
-                </tr>
+                ?>
               </tbody>
             </table>
           </div>
