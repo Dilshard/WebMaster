@@ -66,7 +66,7 @@
                         echo '<td>-</td>';
                       }
                       if($row['role']=="Supervisor"){
-                        echo '<td><a href="staff-supervisor-psdp.php?iidit='.$row['iitid'].'staffEmail='.$staffEmail.'" class="btn btn-success">Mark</a></td>';
+                        echo '<td><a href="staff-supervisor-planning.php?iidit='.$row['iitid'].'&staffEmail='.$staffEmail.'" class="btn btn-success">Mark</a></td>';
                       }else{
                         echo '<td>-</td>';
                       }

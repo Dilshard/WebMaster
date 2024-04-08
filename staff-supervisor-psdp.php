@@ -31,12 +31,12 @@ if($_SESSION['email']==""){
   }
 
   $sql_student = "SELECT * FROM Student WHERE iitid = $iitId";
-    $results = mysqli_query($conn, $sql_student);
-    if(mysqli_num_rows($results) > 0){
-      while($row = mysqli_fetch_assoc($results)){
-        $_SESSION['student_proj'] = $row['studentname']."(".$row['iitid'].") - ".$row['projtitle'];
-      }
+  $results = mysqli_query($conn, $sql_student);
+  if(mysqli_num_rows($results) > 0){
+    while($row = mysqli_fetch_assoc($results)){
+      $_SESSION['student_proj'] = $row['studentname']."(".$row['iitid'].") - ".$row['projtitle'];
     }
+  }
 ?>
 
 <!DOCTYPE html>
