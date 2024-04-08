@@ -1,10 +1,9 @@
 <?php
-
-// if(empty($_SESSION['email'])){
-//   header("Location: index.php", true, 301);  
-//   exit();
-// } 
-
+session_start();
+if($_SESSION['email']==""){
+  header("Location: 404.php", true, 301);
+  exit();
+}
 ?>
 
 <!DOCTYPE html>

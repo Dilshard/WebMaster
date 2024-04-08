@@ -19,12 +19,12 @@
                 <li class="nav-item">
                     <a class="nav-link" href="admin-schedule-marking.php">Schedule Marking</a>
                 </li>
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <a class="nav-link" href="admin-student_complain">Student complains</a>
-                </li>
+                </li> -->
             </ul>
             <span class="navbar-text">
-                <button class="btn btn-danger">Sign out</button>
+                <a class="btn btn-danger" href="logout.php">Sign out</a>
             </span>
             </div>
         </div>

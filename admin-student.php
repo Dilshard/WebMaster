@@ -2,6 +2,11 @@
 <html lang="en">
 <?php include("head.php"); ?>
 <?php
+  session_start();
+  if($_SESSION['email']==""){
+    header("Location: 404.php", true, 301);
+    exit();
+  }
 
   include 'con.php';
 
@@ -20,22 +25,28 @@
     $sql = "INSERT INTO `Student` (`iitid`, `email`, `pass`, `uowno`, `studentname`, `projtitle`, `stream`, `resarea`, `shortdes`, `final_viva_mark`, `final_report_mark`, `final_project_mark`, `final_module_mark`) VALUES ('$iitid', '$email', '$password', '$uowno', '$studentname', '$projtitle', '$stream', '$resarea', '$shortdes', 0, 0, 0, 0);";
 
     if(mysqli_query($conn, $sql)){
-      $sql_update_examiner = "INSERT INTO `examiner_mark` (`iitid`) VALUES ('$iitid');";
 
+      //Update examiner marks table with this student
+      $sql_update_examiner = "INSERT INTO `examiner_mark` (`iitid`) VALUES ('$iitid');";
       if(mysqli_query($conn, $sql_update_examiner)){
-        echo "Done!";
+        echo "Examiner table has been updated!";
       }else{
         echo "Error!".mysqli_error($conn);
       }
 
+      //Update supervisor marks table with this student
+      $sql_update_supervisor = "INSERT INTO `sup_mark_pp_pspd` (`iitid`) VALUES ($iitid);";
+      if(mysqli_query($conn, $sql_update_supervisor)){
+        echo "Supervisor table has been updated!";
+      }else{
+        echo "Error!".mysqli_error($conn);
+      }
+
+      //Redirect to the list of students page
       header('Location: admin-student-manage.php');
     }else{
       echo "Error!".mysqli_error($conn);
     }
-
-
-    
-
     
   }
 ?>

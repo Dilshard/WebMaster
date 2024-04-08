@@ -1,6 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php include("head.php"); ?>
+<?php
+  session_start();
+  if($_SESSION['email']==""){
+    header("Location: 404.php", true, 301);
+    exit();
+  }
+
+  include 'con.php';
+
+  if(isset($_SESSION['email'])){
+    $staffEmail = $_SESSION['email'];
+  }else{
+    header("Location: index.php", true, 301);
+    exit();
+  }
+
+  $sql = "SELECT * FROM schedule WHERE staffemail = '$staffEmail'";
+
+  $results = mysqli_query($conn, $sql);
+?>
 <body>
     <div class="container-fluid">
         <div class="row">
@@ -18,75 +38,61 @@
                   <th scope="col">Role</th>
                   <th scope="col">Proposal</th>
                   <th scope="col">PSPD</th>
-                  <th scope="col">Report</th>
                   <th scope="col">Planning</th>
+                  <th scope="col">Report</th>
                   <th scope="col">VIVA</th>
-                  <th scope="col">Meeting</th>
+                  <th scope="col">Link</th>
                   <th scope="col">Date</th>
                   <th scope="col">Time</th>
                   <th scope="col">Hall</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>Fernando | 12345</td>
-                  <td>Supervisor</td>
-                  <td><button type="submit" class="btn btn-success">Mark</button></td>
-                  <td><button type="submit" class="btn btn-success">Mark</button></td>
-                  <td>-</td>
-                  <td><button type="submit" class="btn btn-success">Mark</button></td>
-                  <td>-</td>
-                  <td>Link</td>
-                  <td>12/09/2023</td>
-                  <td>9:30am</td>
-                  <td>GP 4LC</td>
-                </tr>
-
-                <tr>
-                  <th scope="row">2</th>
-                  <td>Silva | 54321</td>
-                  <td>Examiner 1</td>
-                  <td>-</td>
-                  <td>-</td>
-                  <td><button type="submit" class="btn btn-success">Mark</button></td>
-                  <td>-</td>
-                  <td><button type="submit" class="btn btn-success">Mark</button></td>                  
-                  <td>Link</td>
-                  <td>12/09/2023</td>
-                  <td>9:30am</td>
-                  <td>GP 4LC</td>
-                </tr>
-
-                <tr>
-                  <th scope="row">3</th>
-                  <td>Ahamed | 12433</td>
-                  <td>Examiner 2</td>
-                  <td>-</td>
-                  <td>-</td>
-                  <td><button type="submit" class="btn btn-success">Mark</button></td>
-                  <td>-</td>
-                  <td><button type="submit" class="btn btn-success">Mark</button></td>                  
-                  <td>Link</td>
-                  <td>12/09/2023</td>
-                  <td>9:30am</td>
-                  <td>GP 4LC</td>
-                </tr>
-
-                <tr>
-                  <th scope="row">3</th>
-                  <td>Peter | 534433</td>
-                  <td>Chair</td>
-                  <td>-</td>
-                  <td>-</td>               
-                  <td>-</td>               
-                  <td>-</td>
-                  <td><button type="submit" class="btn btn-success">Mark</button></td>                  
-                  <td>Link</td>
-                  <td>12/09/2023</td>
-                  <td>9:30am</td>
-                  <td>GP 4LC</td>
-                </tr>
+                <?php
+                  if(mysqli_num_rows($results) > 0){
+                    while($row = mysqli_fetch_assoc($results)){
+                      echo "<tr>";  
+                      echo "<td>".$row['schid']."</td>";
+                      echo "<td>".$row['iitid']."</td>";
+                      echo "<td>".$row['role']."</td>";
+                      if($row['role']=="Supervisor"){
+                        echo '<td><a href="staff-supervisor-pp.php?iidit='.$row['iitid'].'staffEmail='.$staffEmail.'" class="btn btn-success">Mark</a></td>';
+                      }else{
+                        echo '<td>-</td>';
+                      }
+                      if($row['role']=="Supervisor"){
+                        echo '<td><a href="staff-supervisor-psdp.php?iidit='.$row['iitid'].'&staffEmail='.$staffEmail.'" class="btn btn-success">Mark</a></td>';
+                      }else{
+                        echo '<td>-</td>';
+                      }
+                      if($row['role']=="Supervisor"){
+                        echo '<td><a href="staff-supervisor-psdp.php?iidit='.$row['iitid'].'staffEmail='.$staffEmail.'" class="btn btn-success">Mark</a></td>';
+                      }else{
+                        echo '<td>-</td>';
+                      }
+                      if($row['role']=="Examiner1" || $row['role']=="Examiner2"){
+                        echo '<td><a href="staff-examiner-report.php?iidit='.$row['iitid'].'staffEmail='.$staffEmail.'" class="btn btn-success">Mark</a></td>';
+                      }else{
+                        echo '<td>-</td>';
+                      }
+                      if($row['role']=="Examiner1" || $row['role']=="Examiner2"){
+                        echo '<td><a href="staff-examiner-report.php?iidit='.$row['iitid'].'staffEmail='.$staffEmail.'" class="btn btn-success">Mark</a></td>';
+                      }elseif($row['role']=="Chair"){
+                        echo '<td><a href="staff-chair.php?iidit='.$row['iitid'].'staffEmail='.$staffEmail.'" class="btn btn-success">Mark</a></td>';
+                      }else{
+                        echo '<td>-</td>';
+                      }
+                      
+                      echo "<td>".$row['link']."</td>";
+                      echo "<td>".$row['meeting_date']."</td>";
+                      echo "<td>".$row['meeting_time']."</td>";
+                      echo "<td>".$row['hall']."</td>";
+                      echo "</tr>";  
+                    }
+                  }else{
+                      echo "<td colspan=12>No schedules yet!</td>";
+                  }
+                ?>
               </tbody>
             </table>
           </div>

@@ -2,13 +2,15 @@
 <html lang="en">
 <?php include("head.php"); ?>
 <?php
-
+  session_start();
+  if($_SESSION['email']==""){
+    header("Location: 404.php", true, 301);
+    exit();
+  }
   include 'con.php';
 
   $sql = "SELECT * FROM Staff";
-
   $results = mysqli_query($conn, $sql);
-  
   
 ?>
 <body>

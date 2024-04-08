@@ -1,6 +1,4 @@
-<?php
-SESSION_START();
-?>
+
 <div class="col-md-12 nav-space">
     <nav class="navbar navbar-expand-lg " style="background-color: #123459;" data-bs-theme="dark">
         <div class="container-fluid">
@@ -28,10 +26,10 @@ SESSION_START();
                 
             </ul>
             <span class="navbar-text px-2">
-                <a class="nav-link" href="#"><?php if(isset($_SESSION['email'])){echo $_SESSION['email'];} ?></a>
+                <a class="nav-link" href="#"><?php if(isset($_SESSION['email'])){echo $_SESSION['email'];}?></a>
             </span>
             <span class="navbar-text">
-                <button class="btn btn-danger">Sign out</button>
+                <a class="btn btn-danger" href="logout.php">Sign out</a>
             </span>
             </div>
         </div>

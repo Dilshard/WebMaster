@@ -1,3 +1,27 @@
+<?php
+  session_start();
+  if($_SESSION['email']==""){
+    header("Location: 404.php", true, 301);
+    exit();
+  }
+
+  include 'con.php';
+
+  $sql = "SELECT * FROM Staff";
+
+  $sqlStaffCount = "SELECT staffid FROM Staff";
+  $resultStaff = mysqli_query($conn, $sqlStaffCount);
+  $totalStaffCount = mysqli_num_rows($resultStaff);
+
+  $sqlStudentCount = "SELECT iitid FROM Student";
+  $resultStudent = mysqli_query($conn, $sqlStudentCount);
+  $totalStudentCount = mysqli_num_rows($resultStudent);
+
+  $sqlSchCount = "SELECT schid FROM schedule";
+  $resultSch = mysqli_query($conn, $sqlSchCount);
+  $totalScheduleCount = mysqli_num_rows($resultSch);
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <?php include("head.php"); ?>
@@ -10,9 +34,9 @@
           <div class="col-md-4 p-4">
             <div class="card" style="width: 100%;">
               <div class="card-body bg-danger text-light">
-                <h5 class="card-title">September Intake</h5>
-                <h6 class="card-subtitle mb-2 text-body-secondary"><span class="text-light">2023</span></h6>
-                <p class="card-text display-1 fw-bold">523</p>
+                <h5 class="card-title">Total Staffs</h5>
+                <h6 class="card-subtitle mb-2 text-body-secondary"><span class="text-light">2024</span></h6>
+                <p class="card-text display-1 fw-bold"><?php if(isset($totalStaffCount)){ echo $totalStaffCount;} ?></p>
                 <a href="#" class="card-link text-light">List</a>
                 <a href="#" class="card-link text-light">Projects</a>
               </div>
@@ -21,9 +45,9 @@
           <div class="col-md-4 p-4">
           <div class="card" style="width: 100%;">
               <div class="card-body bg-primary text-light">
-                <h5 class="card-title">Students without supervisor</h5>
-                <h6 class="card-subtitle mb-2 text-body-secondary"><span class="text-light">2023</span></h6>
-                <p class="card-text display-1 fw-bold">21</p>
+                <h5 class="card-title">Total Student</h5>
+                <h6 class="card-subtitle mb-2 text-body-secondary"><span class="text-light">2024</span></h6>
+                <p class="card-text display-1 fw-bold"><?php if(isset($totalStudentCount)){ echo $totalStudentCount;} ?></p>
                 <a href="#" class="card-link text-light">List</a>
                 <a href="#" class="card-link text-light">Projects</a>
               </div>
@@ -32,9 +56,9 @@
           <div class="col-md-4 p-4">
           <div class="card" style="width: 100%;">
               <div class="card-body bg-warning text-dark">
-                <h5 class="card-title">Project completion rate</h5>
-                <h6 class="card-subtitle mb-2 text-body-secondary"><span class="text-light">2023</span></h6>
-                <p class="card-text display-1 fw-bold">33%</p>
+                <h5 class="card-title">Total schedules</h5>
+                <h6 class="card-subtitle mb-2 text-body-secondary"><span class="text-light">2024</span></h6>
+                <p class="card-text display-1 fw-bold"><?php if(isset($totalScheduleCount)){ echo $totalScheduleCount;} ?></p>
                 <a href="#" class="card-link text-light">List</a>
                 <a href="#" class="card-link text-light">Projects</a>
               </div>

@@ -30,3 +30,11 @@ body {
     text-decoration: none;
     color: #b81515;
 }
+
+#shortText {
+    background: #eaeaea;
+    max-width: 200px;
+    max-height: 50px;
+    display: inline-block;
+    overflow: scroll;
+}

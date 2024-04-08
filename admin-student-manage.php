@@ -2,7 +2,11 @@
 <html lang="en">
 <?php include("head.php"); ?>
 <?php
-
+  session_start();
+  if($_SESSION['email']==""){
+    header("Location: 404.php", true, 301);
+    exit();
+  }
   include 'con.php';
 
   $sql = "SELECT * FROM Student";
@@ -18,7 +22,7 @@
         </div>
         <div class="row">
           <div class="col-md-12 my-4 p-4">
-            <h1 class="display-4 pb-3">Manage Staffs</h1>
+            <h1 class="display-4 pb-3">Manage Students</h1>
 
             <table class="table">
               <thead>
@@ -49,10 +53,10 @@
                       echo "<td>".$row['pass']."</td>";
                       echo "<td>".$row['uowno']."</td>";
                       echo "<td>".$row['studentname']."</td>";
-                      echo "<td>".$row['projtitle']."</td>";
+                      echo "<td id='shortText'>".$row['projtitle']."</td>";
                       echo "<td>".$row['stream']."</td>";
                       echo "<td>".$row['resarea']."</td>";
-                      echo "<td>".$row['shortdes']."</td>";
+                      echo "<td id='shortText'>".$row['shortdes']."</td>";
                       echo "<td>".$row['final_viva_mark']."</td>";
                       echo "<td>".$row['final_report_mark']."</td>";
                       echo "<td>".$row['final_project_mark']."</td>";

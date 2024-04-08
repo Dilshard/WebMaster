@@ -1,3 +1,19 @@
+<?php
+session_start();
+if($_SESSION['email']==""){
+  header("Location: 404.php", true, 301);
+  exit();
+}
+
+  include 'con.php';
+
+  $sql = "SELECT * FROM schedule";
+
+  $results = mysqli_query($conn, $sql);
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <?php include("head.php"); ?>
@@ -17,7 +33,7 @@
                   <th scope="col">Staff email</th>
                   <th scope="col">Student Name / ID</th>
                   <th scope="col">Role</th>
-                  <th scope="col">Meeting</th>
+                  <th scope="col">Meeting Link</th>
                   <th scope="col">Date</th>
                   <th scope="col">Time</th>
                   <th scope="col">Hall</th>
@@ -25,33 +41,29 @@
                 </tr>
               </thead>
               <tbody>
+              <?php
+                if(mysqli_num_rows($results) > 0){
+                  while($row = mysqli_fetch_assoc($results)){
+                    echo "<tr>";
+                      echo "<th scope='row'>".$row['schid']."</th>";
+                      echo "<td>".$row['staffemail']."</td>";
+                      echo "<td>".$row['iitid']."</td>";
+                      echo "<td>".$row['role']."</td>";
+                      echo "<td>".$row['link']."</td>";
+                      echo "<td>".$row['meeting_date']."</td>";
+                      echo "<td>".$row['meeting_time']."</td>";
+                      echo "<td>".$row['hall']."</td>";
+                      echo '
+                      <td>
+                      <a href="#?iidit='.$row['schid'].'" class="btn btn-warning">Edit</a>
+                      <a href="#?iidit='.$row['schid'].'" class="btn btn-danger">Delete</a>
+                      </td>';
+                    echo "</tr>";
+                  }
+                }
+                ?>
                 <tr>
-                  <th scope="row">1</th>
-                  <td>dilshard.a@iit.ac.lk</td>
-                  <td>Fernando | 12345</td>
-                  <td>Supervisor</td>
-                  <td>link</td>
-                  <td>13/04/2024</td>
-                  <td>9:30am</td>
-                  <td>GP 4LC</td>
-                  <td>
-                    <button type="submit" class="btn btn-warning">Edit</button>
-                    <button type="reset" class="btn btn-danger">Delete</button>
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>dilshard.a@iit.ac.lk</td>
-                  <td>John | 54321</td>
-                  <td>Examiner 1</td>
-                  <td>link</td>
-                  <td>25/04/2024</td>
-                  <td>10:30am</td>
-                  <td>GP 2LB</td>
-                  <td>
-                    <button type="submit" class="btn btn-warning">Edit</button>
-                    <button type="reset" class="btn btn-danger">Delete</button>
-                  </td>
+                  <td colspan=3><a href="admin-schedule-marking.php" class="btn btn-success">Add +</a></td>
                 </tr>
               </tbody>
             </table>

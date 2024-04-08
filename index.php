@@ -4,7 +4,7 @@
 include("con.php"); 
 include("head.php");
 
-SESSION_START();
+session_start();
 
     if(isset($_POST["btnsubmit"])){
         $email = $_POST['email'];
