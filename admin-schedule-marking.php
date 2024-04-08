@@ -1,6 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php include("head.php"); ?>
+<?php
+  session_start();
+  if($_SESSION['email']==""){
+    header("Location: 404.php", true, 301);
+    exit();
+  }
+
+  include 'con.php';
+
+  if(isset($_POST['btnsub'])){
+    $time = $_POST['time'];
+    $date = $_POST['date'];
+    $hall = $_POST['hall'];
+    $mlink = $_POST['mlink'];
+    $role = $_POST['role'];
+    $iitid = $_POST['iitid'];
+    $staffemail = $_POST['staffemail'];
+
+    $sql = "INSERT INTO `schedule` (`meeting_time`, `meeting_date`, `hall`, `link`, `role`, `iitid`, `staffemail`) VALUES ('$time', '$date', '$hall', '$mlink', '$role', '$iitid', '$staffemail');";
+
+    if(mysqli_query($conn, $sql)){
+      header('Location: admin-schedule-manage.php');
+    }else{
+      echo "Error!".mysqli_error($conn);
+    }
+  }
+?>
 <body>
     <div class="container-fluid">
         <div class="row">
@@ -10,45 +37,72 @@
           <div class="col-md-6 my-4 p-4">
             <h1 class="display-4 pb-3">Schedule Marking</h1>
 
-            <form class="row g-3">
+            <form method="POST" class="row g-3">
               <div class="col-md-6">
-                <label class="form-label">Student email [IIT]</label>
-                <input type="email" class="form-control">
+                <label class="form-label">Student ID [IIT]</label>
+                <!-- <input name="iitid" type="studentID" class="form-control"> -->
+                <select name="iitid" id="inputState" class="form-select">
+                  <?php
+                    $staffEmail = "SELECT iitid,studentname FROM Student";
+                    $staffEmailList = mysqli_query($conn, $staffEmail);
+                    if(mysqli_num_rows($staffEmailList) > 0){
+                      while($emailRow = mysqli_fetch_assoc($staffEmailList)){
+                        echo '<option value="'.$emailRow['iitid'].'">'.$emailRow['iitid'].'-'.$emailRow['studentname'].'</option>';
+                      }
+                    }else{
+                        echo '<option value="None">No student registered!</option>';
+                    }
+                  ?>
+                </select>
               </div>
               <div class="col-md-6">
                 <label class="form-label">Meeting link</label>
-                <input type="url" class="form-control">
+                <input name="mlink" type="url" class="form-control">
               </div>
               <div class="col-6">
                 <label for="fullName" class="form-label">Staff email</label>
-                <input type="email" class="form-control" id="fullName">
+                <select name="staffemail" id="inputState" class="form-select">
+                  <!-- <option value="Supervisor" selected>Select</option> -->
+                  <?php
+                    $staffEmail = "SELECT staffemail,staffname FROM Staff";
+                    $staffEmailList = mysqli_query($conn, $staffEmail);
+                    if(mysqli_num_rows($staffEmailList) > 0){
+                      while($emailRow = mysqli_fetch_assoc($staffEmailList)){
+                        echo '<option value="'.$emailRow['staffemail'].'">'.$emailRow['staffemail'].'</option>';
+                      }
+                    }
+                    else{
+                      echo '<option value="None">No staff registered!</option>';
+                    }
+                  ?>
+                </select>
               </div>
               <div class="col-md-6">
                 <label class="form-label">Date</label>
-                <input type="date" class="form-control">
+                <input name="date" type="date" class="form-control">
               </div>
               <div class="col-md-6">
                 <label class="form-label">Role</label>
-                <select id="inputState" class="form-select">
-                  <option selected>Supervisor</option>
-                  <option>Examiner 1</option>
-                  <option>Examiner 2</option>
-                  <option>Chair</option>
+                <select name="role" id="inputState" class="form-select">
+                  <option value="Supervisor" selected>Supervisor</option>
+                  <option value="Examiner1">Examiner 1</option>
+                  <option value="Examiner2">Examiner 2</option>
+                  <option value="Chair">Chair</option>
                 </select>
               </div>
             
               <div class="col-md-6">
                 <label class="form-label">Time</label>
-                <input type="time" class="form-control">
+                <input name="time" type="time" class="form-control">
               </div>
 
-              <div class="col-md-6 offset-md-6">
+              <div class="col-md-6">
                 <label class="form-label">Hall (Venue)</label>
-                <input type="text" class="form-control">
+                <input name="hall" type="text" class="form-control">
               </div>
              
-              <div class="col-6 offset-md-6">
-                <button type="submit" class="btn btn-success">Register</button>
+              <div class="col-md-6 mt-5">
+                <button name="btnsub" type="submit" class="btn btn-success">Register</button>
                 <button type="reset" class="btn btn-warning">Clear</button>
                 <a class="btn btn-secondary" href="admin-schedule-manage.php">View</a>
               </div>
