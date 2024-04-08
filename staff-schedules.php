@@ -70,13 +70,17 @@
                       }else{
                         echo '<td>-</td>';
                       }
-                      if($row['role']=="Examiner1" || $row['role']=="Examiner2"){
-                        echo '<td><a href="staff-examiner-report.php?iidit='.$row['iitid'].'staffEmail='.$staffEmail.'" class="btn btn-success">Mark</a></td>';
+                      if($row['role']=="Examiner1"){
+                        echo '<td><a href="staff-examiner-report.php?iidit='.$row['iitid'].'&staffEmail='.$staffEmail.'&ex=1" class="btn btn-success">Mark</a></td>';
+                      }elseif($row['role']=="Examiner2"){
+                        echo '<td><a href="staff-examiner-report.php?iidit='.$row['iitid'].'&staffEmail='.$staffEmail.'&ex=2" class="btn btn-success">Mark</a></td>';
                       }else{
                         echo '<td>-</td>';
                       }
-                      if($row['role']=="Examiner1" || $row['role']=="Examiner2"){
-                        echo '<td><a href="staff-examiner-report.php?iidit='.$row['iitid'].'staffEmail='.$staffEmail.'" class="btn btn-success">Mark</a></td>';
+                      if($row['role']=="Examiner1"){
+                        echo '<td><a href="staff-examiner-viva.php?iidit='.$row['iitid'].'&staffEmail='.$staffEmail.'&ex=1" class="btn btn-success">Mark</a></td>';
+                      }elseif($row['role']=="Examiner2"){
+                        echo '<td><a href="staff-examiner-viva.php?iidit='.$row['iitid'].'&staffEmail='.$staffEmail.'&ex=2" class="btn btn-success">Mark</a></td>';
                       }elseif($row['role']=="Chair"){
                         echo '<td><a href="staff-chair.php?iidit='.$row['iitid'].'staffEmail='.$staffEmail.'" class="btn btn-success">Mark</a></td>';
                       }else{

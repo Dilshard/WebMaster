@@ -27,7 +27,7 @@
     if(mysqli_query($conn, $sql)){
 
       //Update examiner marks table with this student
-      $sql_update_examiner = "INSERT INTO `examiner_mark` (`iitid`) VALUES ('$iitid');";
+      $sql_update_examiner = "INSERT INTO `examiner_mark` (`iitid`) VALUES ($iitid);";
       if(mysqli_query($conn, $sql_update_examiner)){
         echo "Examiner table has been updated!";
       }else{

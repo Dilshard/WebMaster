@@ -59,7 +59,7 @@ if($_SESSION['email']==""){
                 
               <div class="col-md-6">
                 <label class="form-label">Aims and objectives (<a href="#">Criteria</a>)</label> 
-                <input name="aims" type="number" class="form-control" onkeyup="ttl()" placeholder="out of 100" required>
+                <input name="aims" type="number" class="form-control" onkeyup="ttl()" placeholder="out of 100">
               </div>
               <div class="col-md-6">
                 <label class="form-label">Requirements analysis and modelling (<a href="#">Criteria</a>)</label>
