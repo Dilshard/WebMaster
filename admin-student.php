@@ -27,7 +27,7 @@
     if(mysqli_query($conn, $sql)){
 
       //Update examiner marks table with this student
-      $sql_update_examiner = "INSERT INTO `examiner_mark` (`iitid`) VALUES ($iitid);";
+      $sql_update_examiner = "INSERT INTO `examiner_mark` (`iitid`,`examiner_count`) VALUES ($iitid,1),($iitid,2);";
       if(mysqli_query($conn, $sql_update_examiner)){
         echo "Examiner table has been updated!";
       }else{
@@ -38,6 +38,14 @@
       $sql_update_supervisor = "INSERT INTO `sup_mark_pp_pspd` (`iitid`) VALUES ($iitid);";
       if(mysqli_query($conn, $sql_update_supervisor)){
         echo "Supervisor table has been updated!";
+      }else{
+        echo "Error!".mysqli_error($conn);
+      }
+
+      //Update chair table with this student
+      $sql_update_chair = "INSERT INTO `chair` (`iitid`) VALUES ($iitid);";
+      if(mysqli_query($conn, $sql_update_chair)){
+        echo "Chair table has been updated!";
       }else{
         echo "Error!".mysqli_error($conn);
       }

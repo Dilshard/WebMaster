@@ -31,7 +31,7 @@ if(isset($_POST['btnsub'])){
   $below40 = $_POST['below40'];
   $tot_report = ($aims + $req + $stak + $reff + $elicit + $proto + $listofreq)/7;
  
-  $sql = "UPDATE `examiner_mark` SET `staffemail` = '$staffEmail',`examiner_count` = $exCount, `aim` = $aims,`stakehold` = $stak,`elicitation` = $elicit,`reqlist` = $listofreq,`reqana` = $req,`ref` = $reff,`protodemo` = $proto,`genfeed` = '$exfeed',`below40` = '$below40',`tot_report` = $tot_report  WHERE `examiner_mark`.`iitid` = $iitId";
+  $sql = "UPDATE `examiner_mark` SET `staffemail` = '$staffEmail', `aim` = $aims,`stakehold` = $stak,`elicitation` = $elicit,`reqlist` = $listofreq,`reqana` = $req,`ref` = $reff,`protodemo` = $proto,`genfeed` = '$exfeed',`below40` = '$below40',`tot_report` = $tot_report  WHERE `examiner_mark`.`iitid` = $iitId AND `examiner_mark`.`examiner_count` = $exCount";
 
   if(mysqli_query($conn, $sql)){
     $_SESSION['ex_status'] = "Success!";

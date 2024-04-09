@@ -56,7 +56,7 @@
                       echo "<td>".$row['iitid']."</td>";
                       echo "<td>".$row['role']."</td>";
                       if($row['role']=="Supervisor"){
-                        echo '<td><a href="staff-supervisor-pp.php?iidit='.$row['iitid'].'staffEmail='.$staffEmail.'" class="btn btn-success">Mark</a></td>';
+                        echo '<td><a href="staff-supervisor-pp.php?iidit='.$row['iitid'].'&staffEmail='.$staffEmail.'" class="btn btn-success">Mark</a></td>';
                       }else{
                         echo '<td>-</td>';
                       }
@@ -82,7 +82,7 @@
                       }elseif($row['role']=="Examiner2"){
                         echo '<td><a href="staff-examiner-viva.php?iidit='.$row['iitid'].'&staffEmail='.$staffEmail.'&ex=2" class="btn btn-success">Mark</a></td>';
                       }elseif($row['role']=="Chair"){
-                        echo '<td><a href="staff-chair.php?iidit='.$row['iitid'].'staffEmail='.$staffEmail.'" class="btn btn-success">Mark</a></td>';
+                        echo '<td><a href="staff-chair.php?iitid='.$row['iitid'].'&staffEmail='.$staffEmail.'" class="btn btn-success">Mark</a></td>';
                       }else{
                         echo '<td>-</td>';
                       }

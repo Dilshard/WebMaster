@@ -1,3 +1,4 @@
+
 body {
     padding: 0px !important;
     margin: 0px !important;
@@ -29,6 +30,8 @@ body {
 .refresh {
     text-decoration: none;
     color: #b81515;
+    /* color: #ed9292; */
+    
 }
 
 #shortText {
@@ -38,3 +41,6 @@ body {
     display: inline-block;
     overflow: scroll;
 }
+
+
+
