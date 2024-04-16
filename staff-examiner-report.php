@@ -83,44 +83,44 @@ if(isset($_POST['btnsub'])){
                 
               <div class="col-md-6">
                 <label class="form-label">Aims and objectives (<a href="#">Criteria</a>)</label> 
-                <input name="aims" type="number" class="form-control" placeholder = "Out of 100" value="<?php if(isset($_SESSION['aim'])){echo $_SESSION['aim'];}?>">
+                <input name="aims" type="number" class="form-control" placeholder = "Out of 100" value="<?php if(isset($_SESSION['aim'])){echo $_SESSION['aim'];} unset($_SESSION['aim']);?>">
               </div>
               <div class="col-md-6">
                 <label class="form-label">Requirements analysis and modelling (<a href="#">Criteria</a>)</label>
-                <input name="req" type="number" class="form-control" placeholder = "Out of 100" value="<?php if(isset($_SESSION['reqana'])){echo $_SESSION['reqana'];}?>">
+                <input name="req" type="number" class="form-control" placeholder = "Out of 100" value="<?php if(isset($_SESSION['reqana'])){echo $_SESSION['reqana'];} unset($_SESSION['reqana']);?>">
               </div>
               <div class="col-md-6">
               <label class="form-label">Stakeholders (<a href="#">Criteria</a>)</label>
-                <input name="stak" type="number" class="form-control" placeholder = "Out of 100" value="<?php if(isset($_SESSION['stak'])){echo $_SESSION['stak'];}?>">
+                <input name="stak" type="number" class="form-control" placeholder = "Out of 100" value="<?php if(isset($_SESSION['stak'])){echo $_SESSION['stak'];} unset($_SESSION['stak']);?>">
               </div>
               <div class="col-md-6">
                 <label class="form-label">References & Bibliography</label>
-                <input name="reff" type="number" class="form-control" placeholder = "Out of 100" value="<?php if(isset($_SESSION['reff'])){echo $_SESSION['reff'];}?>">
+                <input name="reff" type="number" class="form-control" placeholder = "Out of 100" value="<?php if(isset($_SESSION['reff'])){echo $_SESSION['reff'];} unset($_SESSION['reff']);?>">
               </div>
               <div class="col-md-6">
                 <label class="form-label">Elicitation of requirements (<a href="#">Criteria</a>)</label>
-                <input name="elicit" type="number" class="form-control" placeholder = "Out of 100" value="<?php if(isset($_SESSION['elicit'])){echo $_SESSION['elicit'];}?>">
+                <input name="elicit" type="number" class="form-control" placeholder = "Out of 100" value="<?php if(isset($_SESSION['elicit'])){echo $_SESSION['elicit'];} unset($_SESSION['elicit']);?>">
               </div>
               <div class="col-md-6">
                 <label class="form-label">Prototype & Demo Video: Evidence of engagement with realising the design</label>
-                <input name="proto" type="number" class="form-control" placeholder = "Out of 100" value="<?php if(isset($_SESSION['proto'])){echo $_SESSION['proto'];}?>">
+                <input name="proto" type="number" class="form-control" placeholder = "Out of 100" value="<?php if(isset($_SESSION['proto'])){echo $_SESSION['proto'];} unset($_SESSION['proto']);?>">
               </div>
               <div class="col-md-6">
                 <label class="form-label">List of requirements (<a href="#">Criteria</a>)</label>
-                <input name="listofreq" type="number" class="form-control" placeholder = "Out of 100" value="<?php if(isset($_SESSION['listofreq'])){echo $_SESSION['listofreq'];}?>">
+                <input name="listofreq" type="number" class="form-control" placeholder = "Out of 100" value="<?php if(isset($_SESSION['listofreq'])){echo $_SESSION['listofreq'];} unset($_SESSION['listofreq']);?>">
               </div>
               <div class="col-md-6"> </div>
               <div class="col-md-6">
                 <label class="form-label">Examiner Feedback</label>
-                <textarea name="exfeed" class="form-control"><?php if(isset($_SESSION['exfeed'])){echo $_SESSION['exfeed'];}?></textarea>
+                <textarea name="exfeed" class="form-control"><?php if(isset($_SESSION['exfeed'])){echo $_SESSION['exfeed'];} unset($_SESSION['exfeed']);?></textarea>
               </div>
               <div class="col-md-6">
                 <label class="form-label">If student is an resit student (Below 40) What needs to be improved</label>
-                <textarea name="below40" class="form-control"><?php if(isset($_SESSION['below40'])){echo $_SESSION['below40'];}?></textarea>
+                <textarea name="below40" class="form-control"><?php if(isset($_SESSION['below40'])){echo $_SESSION['below40'];} unset($_SESSION['below40']);?></textarea>
               </div>
               <div class="col-md-6">
                 <label class="form-label">Total</label>
-                <input name="tot_report" type="number" class="form-control" value="<?php if(isset($_SESSION['tot_report'])){echo $_SESSION['tot_report'];}?>">
+                <input name="tot_report" type="number" class="form-control" value="<?php if(isset($_SESSION['tot_report'])){echo $_SESSION['tot_report'];} unset($_SESSION['tot_report']);?>">
               </div>
               
               <div class="col-12">

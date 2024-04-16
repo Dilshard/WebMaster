@@ -27,6 +27,65 @@
       echo "Error!".mysqli_error($conn);
     }
   }
+
+  // staff CSV upload
+  if(isset($_POST['staff_upload'])){
+
+    // Allowed mime types
+    $csvMimes = array('text/x-comma-separated-values', 'text/comma-separated-values', 'application/octet-stream', 'application/vnd.ms-excel', 'application/x-csv', 'text/x-csv', 'text/csv', 'application/csv', 'application/excel', 'application/vnd.msexcel', 'text/plain');
+    
+    // Validate whether selected file is a CSV file
+    if(!empty($_FILES['file']['name']) && in_array($_FILES['file']['type'], $csvMimes)){
+        
+        // If the file is uploaded
+        if(is_uploaded_file($_FILES['file']['tmp_name'])){
+            
+            // Open uploaded CSV file with read-only mode
+            $csvFile = fopen($_FILES['file']['tmp_name'], 'r');
+            
+            // Skip the first line
+            fgetcsv($csvFile);
+            
+            // Parse data from CSV file line by line
+            while(($line = fgetcsv($csvFile)) !== FALSE){
+                // Get row data
+                $staffemail = $line[0];
+                $staffname = $line[1];
+                $contact = $line[2];
+                $password = $line[3];
+                $role = $line[4];
+                $ftpt = $line[5];
+                $area = $line[6];
+                
+                // Check whether member already exists in the database with the same email
+                $prevQuery = "SELECT staffid FROM Staff WHERE staffemail = '".$line[0]."'";
+                $prevResult = $conn->query($prevQuery);
+                
+                if($prevResult->num_rows > 0){
+                    // Update member data in the database
+                    $conn->query("UPDATE Staff SET staffname = '".$staffname."', contact = '".$contact."', password = '".$password."', ftpt = '".$ftpt."', area = '".$area."' WHERE staffemail = '".$staffemail."'");
+                }else{
+                    // Insert member data in the database
+                    $conn->query("INSERT INTO `Staff` (`staffemail`, `staffname`, `contact`, `password`, `role`, `ftpt`, `area`,`pass_attempt`) VALUES ('$staffemail','$staffname', $contact,'$password','$role','$ftpt','$area',0);");
+                }
+            }
+            
+            // Close opened CSV file
+            fclose($csvFile);
+            
+            $qstring = '?status=succ';
+            $_SESSION['status_staff_csv_load'] = "Success!";
+        }else{
+            $qstring = '?status=err';
+            $_SESSION['status_staff_csv_load'] = "Error!";
+        }
+    }else{
+        $qstring = '?status=invalid_file';
+        $_SESSION['status_staff_csv_load'] = "Invalid file type!";
+    }
+}
+
+// End
 ?>
 <body>
     <div class="container-fluid">
@@ -84,16 +143,18 @@
 
           <div class="col-md-6 my-4 p-4">
             <h1 class="display-3 pb-3">Bulk upload</h1>
-              <div class="mb-3">
-                <label for="formFile" class="form-label">Upload from CSV File</label>
-                <input class="form-control" type="file" id="formFile">
-                <a class="nav-link" href="#">Download template</a>
-              </div>
-              <div class="col-12">
-                <button type="submit" class="btn btn-success">Upload</button>
-                <button type="reset" class="btn btn-warning">Clear</button>
-              </div>
-            </div>
+              <form method="post" enctype="multipart/form-data">
+                <div class="mb-3">
+                  <label for="formFile" class="form-label">Upload from CSV File <a href="">Download the template</a></label>
+                  <input class="form-control" type="file" name="file" id="formFile">
+                </div>
+                <div class="col-12">
+                  <button type="submit" name="staff_upload" class="btn btn-success">Upload</button>
+                  <button type="reset" class="btn btn-warning">Clear</button>
+                  <span><?php if(isset($_SESSION['status_staff_csv_load'])){echo $_SESSION['status_staff_csv_load'];} unset($_SESSION['status_staff_csv_load']);?></span>
+                </div>
+              </form>
+          </div>
           
       </div>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"

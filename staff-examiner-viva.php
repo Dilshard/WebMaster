@@ -47,7 +47,7 @@ if(isset($_POST['btnsub'])){
   $overallcom = $_POST['overallcom'];
   $tot_viva = ($difficulty + $exisskill + $newskill + $proimp + $understand)/5;
  
-  $sql = "UPDATE `examiner_mark` SET `staffemail` = '$staffEmail',`examiner_count` = $exCount, `difficulty` = $difficulty,`exisskill` = $exisskill,`newskill` = $newskill,`proimp` = $proimp,`understand` = $understand,`addedval` = '$addedval',`overallcom` = '$overallcom',`total_viva` = $tot_viva  WHERE `examiner_mark`.`iitid` = $iitId";
+  $sql = "UPDATE `examiner_mark` SET `staffemail` = '$staffEmail',`examiner_count` = $exCount, `difficulty` = $difficulty,`exisskill` = $exisskill,`newskill` = $newskill,`proimp` = $proimp,`understand` = $understand,`addedval` = '$addedval',`overallcom` = '$overallcom',`total_viva` = $tot_viva  WHERE `examiner_mark`.`iitid` = $iitId AND `examiner_count` = $exCount";
 
   if(mysqli_query($conn, $sql)){
     $_SESSION['ex_status'] = "Success!";
@@ -78,15 +78,15 @@ if(isset($_POST['btnsub'])){
                 
               <div class="col-md-6">
                 <label class="form-label">Difficulty (<a href="#">Criteria</a>)</label> 
-                <input name="difficulty" type="number" class="form-control" placeholder = "Out of 100" value="<?php if(isset($_SESSION['difficulty'])){echo $_SESSION['difficulty'];}?>">
+                <input name="difficulty" type="number" class="form-control" placeholder = "Out of 100" value="<?php if(isset($_SESSION['difficulty'])){echo $_SESSION['difficulty'];} unset($_SESSION['difficulty']);?>">
               </div>
               <div class="col-md-6">
                 <label class="form-label">Understanding (<a href="#">Criteria</a>)</label>
-                <input name="understand" type="number" class="form-control" placeholder = "Out of 100" value="<?php if(isset($_SESSION['understand'])){echo $_SESSION['understand'];}?>">
+                <input name="understand" type="number" class="form-control" placeholder = "Out of 100" value="<?php if(isset($_SESSION['understand'])){echo $_SESSION['understand'];} unset($_SESSION['understand']);?>">
               </div>
               <div class="col-md-6">
               <label class="form-label">Development of existing skills  (<a href="#">Criteria</a>)</label>
-                <input name="exisskill" type="number" class="form-control" placeholder = "Out of 100" value="<?php if(isset($_SESSION['exisskill'])){echo $_SESSION['exisskill'];}?>">
+                <input name="exisskill" type="number" class="form-control" placeholder = "Out of 100" value="<?php if(isset($_SESSION['exisskill'])){echo $_SESSION['exisskill'];} unset($_SESSION['exisskill']);?>">
               </div>
               <div class="col-md-6">
                 <label class="form-label">Added Value. </label>
@@ -94,7 +94,7 @@ if(isset($_POST['btnsub'])){
               </div>
               <div class="col-md-6">
                 <label class="form-label">Development of new skills. (<a href="#">Criteria</a>)</label>
-                <input name="newskill" type="number" class="form-control" placeholder = "Out of 100" value="<?php if(isset($_SESSION['newskill'])){echo $_SESSION['newskill'];}?>">
+                <input name="newskill" type="number" class="form-control" placeholder = "Out of 100" value="<?php if(isset($_SESSION['newskill'])){echo $_SESSION['newskill'];} unset($_SESSION['newskill']);?>">
               </div>
               <div class="col-md-6">
                 <label class="form-label">Over all comment</label>
@@ -102,18 +102,18 @@ if(isset($_POST['btnsub'])){
               </div>
               <div class="col-md-6">
                 <label class="form-label">Product/Implementation/Application/Research (Criteria)(<a href="#">Criteria</a>)</label>
-                <input name="proimp" type="number" class="form-control" placeholder = "Out of 100" value="<?php if(isset($_SESSION['proimp'])){echo $_SESSION['proimp'];}?>">
+                <input name="proimp" type="number" class="form-control" placeholder = "Out of 100" value="<?php if(isset($_SESSION['proimp'])){echo $_SESSION['proimp'];} unset($_SESSION['proimp']);?>">
               </div>
               <div class="col-md-6"></div>
               <div class="col-md-6">
                 <label class="form-label">Total</label>
-                <input type="number" class="form-control" disabled value="<?php if(isset($_SESSION['total_viva'])){echo $_SESSION['total_viva'];}?>">
+                <input type="number" class="form-control" disabled value="<?php if(isset($_SESSION['total_viva'])){echo $_SESSION['total_viva'];} unset($_SESSION['total_viva']);?>">
               </div>
               
               <div class="col-12">
                 <button name="btnsub" type="submit" class="btn btn-success">Submit</button>
                 <button type="reset" class="btn btn-warning">Clear</button>
-                <span id="status"><?php if(isset($_SESSION['ex_status'])){echo $_SESSION['ex_status'];} unset($_SESSION['ex_status']);  ?></span>
+                <span id="status"><?php if(isset($_SESSION['ex_status'])){echo $_SESSION['ex_status'];} unset($_SESSION['ex_status']); unset($_SESSION['ex_status']);?></span>
               </div>
             </form>
 
