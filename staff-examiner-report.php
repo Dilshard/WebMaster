@@ -11,6 +11,27 @@ $iitId = $_GET['iidit'];
 $staffEmail = $_GET['staffEmail'];
 $exCount = $_GET['ex'];
 
+// ----- examiner pre-entered data load -----
+$sql_ex_load = "SELECT * FROM examiner_mark WHERE iitid = $iitId AND examiner_count = $exCount";
+$results_ex_load = mysqli_query($conn, $sql_ex_load);
+if(mysqli_num_rows($results_ex_load) == 1){
+  while($row_load = mysqli_fetch_assoc($results_ex_load)){
+    $_SESSION['aim'] = $row_load['aim'];
+    $_SESSION['stak'] = $row_load['stakehold'];
+    $_SESSION['elicit'] = $row_load['elicitation'];
+    $_SESSION['listofreq'] = $row_load['reqlist'];
+    $_SESSION['reqana'] = $row_load['reqana'];
+    $_SESSION['reqana'] = $row_load['reqana'];
+    $_SESSION['reff'] = $row_load['ref'];
+    $_SESSION['proto'] = $row_load['protodemo'];
+    $_SESSION['exfeed'] = $row_load['genfeed'];
+    $_SESSION['below40'] = $row_load['below40'];
+    $_SESSION['tot_report'] = $row_load['tot_report'];
+   
+  }
+}
+// ----- END -----
+
 $sql_student = "SELECT * FROM Student WHERE iitid = $iitId";
 $results = mysqli_query($conn, $sql_student);
 if(mysqli_num_rows($results) > 0){
@@ -35,6 +56,7 @@ if(isset($_POST['btnsub'])){
 
   if(mysqli_query($conn, $sql)){
     $_SESSION['ex_status'] = "Success!";
+    // echo "Success!";
   }else{
     echo "Error!".mysqli_error($conn);
   }
@@ -61,44 +83,44 @@ if(isset($_POST['btnsub'])){
                 
               <div class="col-md-6">
                 <label class="form-label">Aims and objectives (<a href="#">Criteria</a>)</label> 
-                <input name="aims" type="number" class="form-control" placeholder = "Out of 100">
+                <input name="aims" type="number" class="form-control" placeholder = "Out of 100" value="<?php if(isset($_SESSION['aim'])){echo $_SESSION['aim'];}?>">
               </div>
               <div class="col-md-6">
                 <label class="form-label">Requirements analysis and modelling (<a href="#">Criteria</a>)</label>
-                <input name="req" type="number" class="form-control" placeholder = "Out of 100">
+                <input name="req" type="number" class="form-control" placeholder = "Out of 100" value="<?php if(isset($_SESSION['reqana'])){echo $_SESSION['reqana'];}?>">
               </div>
               <div class="col-md-6">
               <label class="form-label">Stakeholders (<a href="#">Criteria</a>)</label>
-                <input name="stak" type="number" class="form-control" placeholder = "Out of 100">
+                <input name="stak" type="number" class="form-control" placeholder = "Out of 100" value="<?php if(isset($_SESSION['stak'])){echo $_SESSION['stak'];}?>">
               </div>
               <div class="col-md-6">
                 <label class="form-label">References & Bibliography</label>
-                <input name="reff" type="number" class="form-control" placeholder = "Out of 100">
+                <input name="reff" type="number" class="form-control" placeholder = "Out of 100" value="<?php if(isset($_SESSION['reff'])){echo $_SESSION['reff'];}?>">
               </div>
               <div class="col-md-6">
                 <label class="form-label">Elicitation of requirements (<a href="#">Criteria</a>)</label>
-                <input name="elicit" type="number" class="form-control" placeholder = "Out of 100">
+                <input name="elicit" type="number" class="form-control" placeholder = "Out of 100" value="<?php if(isset($_SESSION['elicit'])){echo $_SESSION['elicit'];}?>">
               </div>
               <div class="col-md-6">
                 <label class="form-label">Prototype & Demo Video: Evidence of engagement with realising the design</label>
-                <input name="proto" type="number" class="form-control" placeholder = "Out of 100">
+                <input name="proto" type="number" class="form-control" placeholder = "Out of 100" value="<?php if(isset($_SESSION['proto'])){echo $_SESSION['proto'];}?>">
               </div>
               <div class="col-md-6">
                 <label class="form-label">List of requirements (<a href="#">Criteria</a>)</label>
-                <input name="listofreq" type="number" class="form-control" placeholder = "Out of 100">
+                <input name="listofreq" type="number" class="form-control" placeholder = "Out of 100" value="<?php if(isset($_SESSION['listofreq'])){echo $_SESSION['listofreq'];}?>">
               </div>
               <div class="col-md-6"> </div>
               <div class="col-md-6">
                 <label class="form-label">Examiner Feedback</label>
-                <textarea name="exfeed" class="form-control"></textarea>
+                <textarea name="exfeed" class="form-control"><?php if(isset($_SESSION['exfeed'])){echo $_SESSION['exfeed'];}?></textarea>
               </div>
               <div class="col-md-6">
                 <label class="form-label">If student is an resit student (Below 40) What needs to be improved</label>
-                <textarea name="below40" class="form-control"></textarea>
+                <textarea name="below40" class="form-control"><?php if(isset($_SESSION['below40'])){echo $_SESSION['below40'];}?></textarea>
               </div>
               <div class="col-md-6">
                 <label class="form-label">Total</label>
-                <input name="" type="number" class="form-control" disabled>
+                <input name="tot_report" type="number" class="form-control" value="<?php if(isset($_SESSION['tot_report'])){echo $_SESSION['tot_report'];}?>">
               </div>
               
               <div class="col-12">

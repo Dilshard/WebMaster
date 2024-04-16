@@ -19,7 +19,7 @@
     $stcontact = $_POST['stcontact'];
     $strole = $_POST['strole'];
 
-    $sql = "INSERT INTO `Staff` (`staffemail`, `password`, `staffname`, `contact`, `ftpt`, `area`, `role`) VALUES ('$email', '$stpass', '$stname', '$stcontact', '$ftpt', '$stspecial', '$strole');";
+    $sql = "INSERT INTO `Staff` (`staffemail`, `password`, `staffname`, `contact`, `ftpt`, `area`, `role`, `pass_attempt`) VALUES ('$email', '$stpass', '$stname', '$stcontact', '$ftpt', '$stspecial', '$strole', 0);";
 
     if(mysqli_query($conn, $sql)){
       header('Location: admin-staff-manage.php');

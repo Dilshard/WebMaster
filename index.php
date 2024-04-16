@@ -18,11 +18,15 @@ session_start();
         if($count == 1){
             while($row = mysqli_fetch_assoc($result)){
                 $role = $row['role'];
+                $pass_attempt = $row['pass_attempt'];
             }
             $_SESSION['email'] = $email;
             $_SESSION['role'] = $role;
 
-            if($role == "staff"){
+            if($pass_attempt == 0){
+                header("Location: staff_reset_password.php", true, 301);
+                exit();
+            }elseif($role == "staff"){
                 header("Location: staff.php", true, 301);
                 exit();
             }elseif($role == "admin"){
@@ -31,7 +35,7 @@ session_start();
             }
         }
         else{
-            echo "Error, Please check your login credentials!";
+            $_SESSION['error_login'] = "Error: Please check your credentials";
         }
     }
 ?>
@@ -48,9 +52,9 @@ session_start();
                     <li class="nav-item">
                         <a class="nav-link" href="student-login.php">Student</a>
                     </li>
-                    <li class="nav-item">
-                    <a class="nav-link" href="admin-login.php">Admin</a>
-                    </li>
+                    <!-- <li class="nav-item">
+                        <a class="nav-link" href="admin-login.php">Admin</a>
+                    </li> -->
                     </ul>
                 </div>
             <div class="card-body">
@@ -67,18 +71,18 @@ session_start();
                                 <div class="mb-3">
                                     <label for="exampleInputEmail1" class="form-label">Email address</label>
                                     <input name="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                                    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.
-                                    </div>
+                                    
                                 </div>
                                 <div class="mb-3">
                                     <label for="exampleInputPassword1" class="form-label">Password</label>
                                     <input name="pass" type="password" class="form-control" id="exampleInputPassword1">
                                 </div>
-                                <div class="mb-3 form-check">
+                                <!-- <div class="mb-3 form-check">
                                     <input type="checkbox" class="form-check-input" id="exampleCheck1">
                                     <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                                </div>
+                                </div> -->
                                 <button name="btnsubmit" type="submit" class="btn btn-primary">Submit</button>
+                                <span><?php if(isset($_SESSION['error_login'])){echo $_SESSION['error_login'];}?></span>
                             </form>
                         </div>
                     </div>

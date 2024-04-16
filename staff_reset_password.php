@@ -1,10 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php 
+include("con.php"); 
+include("head.php");
 
-<?php include("head.php"); ?>
+session_start();
 
+include 'con.php';
+
+$staffEmail = $_SESSION['email'];
+
+if(isset($_POST['btnsubmit'])){
+    $pass1 = $_POST['pass1'];
+    $pass2 = $_POST['pass2'];
+
+    if($pass1 == $pass2){
+        $sql = "UPDATE `Staff` SET `password` = '$pass1', `pass_attempt` = 1  WHERE `staffemail` = '$staffEmail'";
+  
+        if(mysqli_query($conn, $sql)){
+            header("Location: staff.php", true, 301);
+            exit();
+        }else{
+            echo "Error!".mysqli_error($conn);
+        }
+    }
+    
+   
+    
+  }
+
+?>
 <body>
-
 <div class="container-fluid">
     <div class="row viewPortHeight">
         <div class="col-md-6  mt-4">
@@ -12,14 +38,11 @@
                 <div class="card-header">
                     <ul class="nav nav-tabs card-header-tabs">
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="true" href="index.php">Staff</a>
+                        <a class="nav-link active" aria-current="true" href="index.php">Staff</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="student-login.php">Student</a>
-                    </li>
-                    <!-- <li class="nav-item">
-                    <a class="nav-link active" href="admin-login.php">Admin</a>
-                    </li> -->
+                    </li>                    
                     </ul>
                 </div>
             <div class="card-body">
@@ -32,23 +55,21 @@
                 <div class="row">
                 <div class="left-login col-md-12 d-flex justify-content-center" style="text-align-last: left;">
                         <div class="col-md-8">
-                            <form action="admin.php">
+                            <form method="POST" onsubmit="confirmPass()">
                                 <div class="mb-3">
                                     <label for="exampleInputEmail1" class="form-label">Email address</label>
-                                    <input type="email" class="form-control" id="exampleInputEmail1"
-                                        aria-describedby="emailHelp">
-                                    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.
-                                    </div>
+                                    <input name="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" disabled value="<?php if(isset($_SESSION['email'])){echo $_SESSION['email'];}?>">
+                                    
                                 </div>
                                 <div class="mb-3">
                                     <label for="exampleInputPassword1" class="form-label">Password</label>
-                                    <input type="password" class="form-control" id="exampleInputPassword1">
+                                    <input name="pass1" type="password" class="form-control" id="exampleInputPassword1">
                                 </div>
-                                <!-- <div class="mb-3 form-check">
-                                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                                </div> -->
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <div class="mb-3">
+                                    <label for="exampleInputPassword1" class="form-label">Confirm Password</label>
+                                    <input name="pass2" type="password" class="form-control" id="exampleInputPassword1">
+                                </div>
+                                <button name="btnsubmit" type="submit" class="btn btn-primary">Submit</button>
                             </form>
                         </div>
                     </div>
@@ -80,9 +101,19 @@
     </div>
 </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script>
+    function confirmPass(){
+        let pass1 = document.getElementsByName("pass1")[0].value;
+        let pass2 = document.getElementsByName("pass2")[0].value;
+
+        if(pass1 != pass2){
+            alert("Password mismatch!\nPlease try again!");
+            event.preventDefault();
+        }
+    }
+</script>
+
 </body>
 
 </html>

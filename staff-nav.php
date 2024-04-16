@@ -26,7 +26,7 @@
                 
             </ul>
             <span class="navbar-text px-2">
-                <a class="nav-link" href="#"><?php if(isset($_SESSION['email'])){echo $_SESSION['email'];}?></a>
+                <a class="nav-link" href="staff_reset_password.php">Reset password :  <?php if(isset($_SESSION['email'])){echo $_SESSION['email'];}?></a>
             </span>
             <span class="navbar-text">
                 <a class="btn btn-danger" href="logout.php">Sign out</a>

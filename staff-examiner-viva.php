@@ -11,6 +11,24 @@ $iitId = $_GET['iidit'];
 $staffEmail = $_GET['staffEmail'];
 $exCount = $_GET['ex'];
 
+
+// ----- examiner pre-entered data load -----
+$sql_ex_load = "SELECT * FROM examiner_mark WHERE iitid = $iitId AND examiner_count = $exCount";
+$results_ex_load = mysqli_query($conn, $sql_ex_load);
+if(mysqli_num_rows($results_ex_load) > 0){
+  while($row_load = mysqli_fetch_assoc($results_ex_load)){
+    $_SESSION['difficulty'] = $row_load['difficulty'];
+    $_SESSION['exisskill'] = $row_load['exisskill'];
+    $_SESSION['newskill'] = $row_load['newskill'];
+    $_SESSION['proimp'] = $row_load['proimp'];
+    $_SESSION['understand'] = $row_load['understand'];
+    $_SESSION['addedval'] = $row_load['addedval'];
+    $_SESSION['overallcom'] = $row_load['overallcom'];
+    $_SESSION['total_viva'] = $row_load['total_viva'];
+  }
+}
+// ----- END -----
+
 $sql_student = "SELECT * FROM Student WHERE iitid = $iitId";
 $results = mysqli_query($conn, $sql_student);
 if(mysqli_num_rows($results) > 0){
@@ -60,36 +78,36 @@ if(isset($_POST['btnsub'])){
                 
               <div class="col-md-6">
                 <label class="form-label">Difficulty (<a href="#">Criteria</a>)</label> 
-                <input name="difficulty" type="number" class="form-control" placeholder = "Out of 100">
+                <input name="difficulty" type="number" class="form-control" placeholder = "Out of 100" value="<?php if(isset($_SESSION['difficulty'])){echo $_SESSION['difficulty'];}?>">
               </div>
               <div class="col-md-6">
                 <label class="form-label">Understanding (<a href="#">Criteria</a>)</label>
-                <input name="understand" type="number" class="form-control" placeholder = "Out of 100">
+                <input name="understand" type="number" class="form-control" placeholder = "Out of 100" value="<?php if(isset($_SESSION['understand'])){echo $_SESSION['understand'];}?>">
               </div>
               <div class="col-md-6">
               <label class="form-label">Development of existing skills  (<a href="#">Criteria</a>)</label>
-                <input name="exisskill" type="number" class="form-control" placeholder = "Out of 100">
+                <input name="exisskill" type="number" class="form-control" placeholder = "Out of 100" value="<?php if(isset($_SESSION['exisskill'])){echo $_SESSION['exisskill'];}?>">
               </div>
               <div class="col-md-6">
                 <label class="form-label">Added Value. </label>
-                <textarea name="addedval" class="form-control"></textarea>
+                <textarea name="addedval" class="form-control"><?php if(isset($_SESSION['addedval'])){echo $_SESSION['addedval'];}?></textarea>
               </div>
               <div class="col-md-6">
                 <label class="form-label">Development of new skills. (<a href="#">Criteria</a>)</label>
-                <input name="newskill" type="number" class="form-control" placeholder = "Out of 100">
+                <input name="newskill" type="number" class="form-control" placeholder = "Out of 100" value="<?php if(isset($_SESSION['newskill'])){echo $_SESSION['newskill'];}?>">
               </div>
               <div class="col-md-6">
                 <label class="form-label">Over all comment</label>
-                <textarea name="overallcom" class="form-control"></textarea>
+                <textarea name="overallcom" class="form-control"><?php if(isset($_SESSION['overallcom'])){echo $_SESSION['overallcom'];}?></textarea>
               </div>
               <div class="col-md-6">
                 <label class="form-label">Product/Implementation/Application/Research (Criteria)(<a href="#">Criteria</a>)</label>
-                <input name="proimp" type="number" class="form-control" placeholder = "Out of 100">
+                <input name="proimp" type="number" class="form-control" placeholder = "Out of 100" value="<?php if(isset($_SESSION['proimp'])){echo $_SESSION['proimp'];}?>">
               </div>
               <div class="col-md-6"></div>
               <div class="col-md-6">
                 <label class="form-label">Total</label>
-                <input type="number" class="form-control" disabled>
+                <input type="number" class="form-control" disabled value="<?php if(isset($_SESSION['total_viva'])){echo $_SESSION['total_viva'];}?>">
               </div>
               
               <div class="col-12">
