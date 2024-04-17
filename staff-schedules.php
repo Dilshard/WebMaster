@@ -37,7 +37,7 @@
                   <th scope="col">Student Name / ID</th>
                   <th scope="col">Role</th>
                   <th scope="col">Proposal</th>
-                  <th scope="col">PSPD</th>
+                  <th scope="col">PSDP</th>
                   <th scope="col">Planning</th>
                   <th scope="col">Report</th>
                   <th scope="col">VIVA</th>
