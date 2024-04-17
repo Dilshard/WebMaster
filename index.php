@@ -26,17 +26,29 @@ session_start();
             if($pass_attempt == 0){
                 header("Location: staff_reset_password.php", true, 301);
                 exit();
+            }elseif($role == "admin"){
+                $_SESSION['key'] = generateRandomString();
+                $_SESSION['security'] = $_SESSION['key'];
+                header("Location: admin.php", true, 301);
+                exit();
             }elseif($role == "staff"){
                 header("Location: staff.php", true, 301);
-                exit();
-            }elseif($role == "admin"){
-                header("Location: admin.php", true, 301);
                 exit();
             }
         }
         else{
             $_SESSION['error_login'] = "Error: Please check your credentials";
         }
+    }
+
+    function generateRandomString($length = 10) {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[random_int(0, $charactersLength - 1)];
+        }
+        return $randomString;
     }
 ?>
 <body>

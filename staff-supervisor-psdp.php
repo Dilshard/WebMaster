@@ -28,6 +28,12 @@ if($_SESSION['email']==""){
     }else{
       echo "Error!".mysqli_error($conn);
     }
+
+    // ---- update log ------
+    $log_details = strval($aims.", ".$req.", ".$stak.", ".$reff.", ".$elicit.", ".$proto.", ".$listofreq.", ".$supfeed.", ".$below40.", ".$total_pspd);
+
+    $sql_log = "INSERT INTO `logs` (`table_name`, `login_email`, `log`, `time`,`student_id`) VALUES ('Supervisor-PP', '$staffEmail', '$log_details',now(),$iitId);";
+    mysqli_query($conn, $sql_log);
   }
 
   $sql_student = "SELECT * FROM Student WHERE iitid = $iitId";
@@ -37,6 +43,8 @@ if($_SESSION['email']==""){
       $_SESSION['student_proj'] = $row['studentname']."(".$row['iitid'].") - ".$row['projtitle'];
     }
   }
+
+
 ?>
 
 <!DOCTYPE html>

@@ -19,10 +19,19 @@
                 <li class="nav-item">
                     <a class="nav-link" href="admin-schedule-marking.php">Schedule Marking</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="logs.php">Logs</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="staff-schedules.php">| Schedule</a>
+                </li>
                 <!-- <li class="nav-item">
                     <a class="nav-link" href="admin-student_complain">Student complains</a>
                 </li> -->
             </ul>
+            <span class="navbar-text px-2">
+                <a class="nav-link" href="staff_reset_password.php">Reset password :  <?php if(isset($_SESSION['email'])){echo $_SESSION['email'];}?></a>
+            </span>
             <span class="navbar-text">
                 <a class="btn btn-danger" href="logout.php">Sign out</a>
             </span>

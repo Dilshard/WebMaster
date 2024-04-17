@@ -1,5 +1,11 @@
 <?php
 session_start();
+//--- admin check ----
+if(empty($_SESSION['security'])){
+  header("Location: 404.php", true, 301);
+  exit();
+}
+
 if($_SESSION['email']==""){
   header("Location: 404.php", true, 301);
   exit();
@@ -11,6 +17,19 @@ if($_SESSION['email']==""){
 
   $results = mysqli_query($conn, $sql);
 
+  // ----- Delete -----
+  if(isset($_POST['btndel'])){
+    $id = $_POST['id'];
+
+    $sqldel = "DELETE FROM schedule WHERE schid = $id";
+
+    if(mysqli_query($conn, $sqldel)){
+      header('Location: admin-schedule-manage.php');
+    }else{
+      echo "Error!".mysqli_error($conn);
+    }
+  }
+
 
 ?>
 
@@ -18,6 +37,7 @@ if($_SESSION['email']==""){
 <html lang="en">
 <?php include("head.php"); ?>
 <body>
+  
     <div class="container-fluid">
         <div class="row">
             <?php include("admin-nav.php") ?>
@@ -55,8 +75,8 @@ if($_SESSION['email']==""){
                       echo "<td>".$row['hall']."</td>";
                       echo '
                       <td>
+                      <form method="post" onsubmit="return confirm(\'Do you really want to delete?\');"> <input name="id" type="text" value="'.$row['schid'].'" hidden> <input name="btndel" type="submit" class="btn btn-danger" value="D">  </form>
                       <a href="#?iidit='.$row['schid'].'" class="btn btn-warning">Edit</a>
-                      <a href="#?iidit='.$row['schid'].'" class="btn btn-danger">Delete</a>
                       </td>';
                     echo "</tr>";
                   }
@@ -74,3 +94,4 @@ if($_SESSION['email']==""){
       crossorigin="anonymous"></script>
 </body>
 </html>
+

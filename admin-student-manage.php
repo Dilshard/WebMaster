@@ -3,6 +3,11 @@
 <?php include("head.php"); ?>
 <?php
   session_start();
+  //--- admin check ----
+  if(empty($_SESSION['security'])){
+    header("Location: 404.php", true, 301);
+    exit();
+  }
   if($_SESSION['email']==""){
     header("Location: 404.php", true, 301);
     exit();
@@ -12,6 +17,47 @@
   $sql = "SELECT * FROM Student";
 
   $results = mysqli_query($conn, $sql);
+
+    // ----- Delete -----
+    if(isset($_POST['btndel'])){
+      $iitid = $_POST['iitid'];
+  
+      $sqldelex = "DELETE FROM examiner_mark WHERE iitid = $iitid";
+      if(mysqli_query($conn, $sqldelex)){
+        echo "Deleted from examiner";
+      }else{
+        echo "Error!".mysqli_error($conn);
+      }
+
+      $sqldelsup = "DELETE FROM sup_mark_pp_pspd WHERE iitid = $iitid";
+      mysqli_query($conn, $sqldelsup);
+      if(mysqli_query($conn, $sqldelsup)){
+        echo "Deleted from supervisor";
+      }else{
+        echo "Error!".mysqli_error($conn);
+      }
+
+      $sqldelch = "DELETE FROM chair WHERE iitid = $iitid";
+      if(mysqli_query($conn, $sqldelch)){
+        echo "Deleted from chair";
+      }else{
+        echo "Error!".mysqli_error($conn);
+      }
+
+      $sqldelch = "DELETE FROM schedule WHERE iitid = $iitid";
+      if(mysqli_query($conn, $sqldelch)){
+        echo "Deleted from schedule";
+      }else{
+        echo "Error!".mysqli_error($conn);
+      }
+
+      $sqldelst = "DELETE FROM Student WHERE iitid = $iitid";
+      if(mysqli_query($conn, $sqldelst)){
+        echo "Deleted from student";
+      }else{
+        echo "Error!".mysqli_error($conn);
+      }
+    }
   
   
 ?>
@@ -21,6 +67,7 @@
             <?php include("admin-nav.php") ?>
         </div>
         <div class="row">
+
           <div class="col-md-12 my-4 p-4">
             <h1 class="display-4 pb-3">Manage Students</h1>
 
@@ -41,6 +88,11 @@
                   <th scope="col">Project mk</th>
                   <th scope="col">Module mk</th>
                   <th scope="col">Action</th>
+                </tr>
+                <tr>
+                <div class="alert alert-warning" role="alert">
+                  <b>Deleting a student</b> from below button will delete from all 4 tables, including the marks entered!
+                </div>              
                 </tr>
               </thead>
               <tbody>
@@ -63,8 +115,8 @@
                       echo "<td>".$row['final_module_mark']."</td>";
                       echo '
                       <td>
+                        <form method="post" onsubmit="return confirm(\'Do you really want to delete?\');"> <input name="iitid" type="text" value="'.$row['iitid'].'" hidden> <input name="btndel" type="submit" class="btn btn-danger" value="D">  </form>
                         <button type="submit" class="btn btn-warning"><i class="bi bi-pencil-square"></i></button>
-                        <button type="reset" class="btn btn-danger"><i class="bi bi-trash"></i></button>
                       </td>
                       ';
                     echo "</tr>";

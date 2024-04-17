@@ -3,6 +3,12 @@
 <?php include("head.php"); ?>
 <?php
   session_start();
+  //--- admin check ----
+  if(empty($_SESSION['security'])){
+    header("Location: 404.php", true, 301);
+    exit();
+  }
+
   if($_SESSION['email']==""){
     header("Location: 404.php", true, 301);
     exit();
@@ -27,6 +33,66 @@
       echo "Error!".mysqli_error($conn);
     }
   }
+
+//---- Bulk schedule CSV upload ----
+
+if(isset($_POST['schedule_bulk_upload'])){
+
+  // Allowed mime types
+  $csvMimes = array('text/x-comma-separated-values', 'text/comma-separated-values', 'application/octet-stream', 'application/vnd.ms-excel', 'application/x-csv', 'text/x-csv', 'text/csv', 'application/csv', 'application/excel', 'application/vnd.msexcel', 'text/plain');
+  
+  // Validate whether selected file is a CSV file
+  if(!empty($_FILES['file']['name']) && in_array($_FILES['file']['type'], $csvMimes)){
+      
+      // If the file is uploaded
+      if(is_uploaded_file($_FILES['file']['tmp_name'])){
+          
+          // Open uploaded CSV file with read-only mode
+          $csvFile = fopen($_FILES['file']['tmp_name'], 'r');
+          
+          // Skip the first line
+          fgetcsv($csvFile);
+          
+          // Parse data from CSV file line by line
+          while(($line = fgetcsv($csvFile)) !== FALSE){
+              // Get row data
+              $time = $line[0];
+              $date = $line[1];
+              $hall = $line[2];
+              $mlink = $line[3];
+              $role = $line[4];
+              $iitid = $line[5];
+              $staffemail = $line[6];
+              
+              // Check whether schedule already exists in the database with the same iitid
+              $prevQuery = "SELECT iitid FROM schedule WHERE iitid = '".$line[5]."' AND role = '".$line[4]."' AND staffemail = '".$line[6]."'";
+              $prevResult = $conn->query($prevQuery);
+              
+              if($prevResult->num_rows == 1){
+                  // Update schedule data in the database
+                  $conn->query("UPDATE schedule SET meeting_time = '".$time."',meeting_date = '".$date."',hall = '".$hall."',link = '".$mlink."'  WHERE iitid = '".$iitid."' AND role = '".$role."' AND staffemail = '".$staffemail."'");
+              }else{
+                  // Insert schedule data in the database
+                  $conn->query("INSERT INTO `schedule` (`meeting_time`, `meeting_date`, `hall`, `link`, `role`, `iitid`, `staffemail`) VALUES ('$time', '$date', '$hall', '$mlink', '$role', '$iitid', '$staffemail');");
+              }
+          }
+          
+          // Close opened CSV file
+          fclose($csvFile);
+          
+          $qstring = '?status=succ';
+          $_SESSION['status_schedule_csv_load'] = "Success!";
+      }else{
+          $qstring = '?status=err';
+          $_SESSION['status_schedule_csv_load'] = "Error!";
+      }
+  }else{
+      $qstring = '?status=invalid_file';
+      $_SESSION['status_schedule_csv_load'] = "Invalid file type!";
+  }
+}
+
+ //---- END ----
 ?>
 <body>
     <div class="container-fluid">
@@ -112,16 +178,19 @@
 
           <div class="col-md-6 my-4 p-4">
             <h1 class="display-3 pb-3">Bulk upload</h1>
-              <div class="mb-3">
-                <label for="formFile" class="form-label">Upload from CSV File</label>
-                <input class="form-control" type="file" id="formFile">
-                <a class="nav-link" href="#">Download template</a>
-              </div>
-              <div class="col-12">
-                <button type="submit" class="btn btn-success">Upload</button>
-                <button type="reset" class="btn btn-warning">Clear</button>
-                <a class="btn btn-secondary" href="admin-schedule-manage.php">View</a>
-              </div>
+              <form method="post" enctype="multipart/form-data">
+                <div class="mb-3">
+                  <label for="formFile" class="form-label">Upload from CSV File <a href="https://drive.google.com/file/d/1RpxTVQI6c8sCCWGM15lJppdAX11msbXa/view?usp=sharing" download="schedule template">Download the template</a> [delete sample record]</label>
+                  <input class="form-control" type="file" name="file" id="formFile">
+                  <a class="nav-link" href="#">Download template</a>
+                </div>
+                <div class="col-12">
+                  <button type="submit" name="schedule_bulk_upload" class="btn btn-success">Upload</button>
+                  <button type="reset" class="btn btn-warning">Clear</button>
+                  <a class="btn btn-secondary" href="admin-schedule-manage.php">View</a>
+                  <span><?php if(isset($_SESSION['status_schedule_csv_load'])){echo $_SESSION['status_schedule_csv_load'];} unset($_SESSION['status_schedule_csv_load']);?></span>
+                </div>
+              </form>
             </div>
           
       </div>

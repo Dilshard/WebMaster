@@ -132,6 +132,27 @@ if(isset($_POST['btnsub'])){
   }else{
     echo "Error!".mysqli_error($conn);
   }
+
+  // ----- student table update ----
+  $sql_chair = "UPDATE `Student` SET 
+  `final_viva_mark`= $final_viva_mk_update, 
+  `final_report_mark` = $final_report_mk_update, 
+  `final_project_mark` = $final_project_mk_update, 
+  `final_module_mark` = $final_module_mk_update
+  
+  WHERE `iitid` = $iitId;";
+
+  if(mysqli_query($conn, $sql_chair)){
+    header('Location: staff-schedules.php');
+  }else{
+    echo "Error!".mysqli_error($conn);
+  }
+
+     // ---- update log ------
+     $log_details = strval($ex1_rep_mk.", ".$ex1_viva_mk.", ".$ex1_difficult.", ".$ex1_understand.", ".$ex1_exiskill.", ".$ex1_newskill.", ".$ex1_proimpl.", ".$ex1_addedval.", ".$ex1_overall.", ".$ex2_rep_mk.", ".$ex2_viva_mk.", ".$ex2_difficult.", ".$ex2_understand.", ".$ex2_exiskill.", ".$ex2_newskill.", ".$ex2_proimpl.", ".$ex2_addedval.", ".$ex2_overall.", ".$simindex.", ".$similaritycon.", ".$thirdmk.", ".$final_mk_chair.", ".$chair_feed.", ".$final_viva_mk_update.", ".$final_report_mk_update.", ".$final_project_mk_update.", ".$final_module_mk_update);
+
+     $sql_log = "INSERT INTO `logs` (`table_name`, `login_email`, `log`, `time`,`student_id`) VALUES ('Chair', '$staffEmail', '$log_details',now(),$iitId);";
+     mysqli_query($conn, $sql_log);
 }
 
 ?>

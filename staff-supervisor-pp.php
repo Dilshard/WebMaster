@@ -27,6 +27,12 @@ if(isset($_POST['btnsub'])){
   }else{
     echo "Error!".mysqli_error($conn);
   }
+
+  // ---- update log ------
+  $log_details = strval($probstate.", ".$revsim.", ".$tool.", ".$reqlist_pp.", ".$challenge.", ".$supfeed_pp.", ".$below40_pp.", ".$total_pp);
+
+  $sql_log = "INSERT INTO `logs` (`table_name`, `login_email`, `log`, `time`,`student_id`) VALUES ('Supervisor-PP', '$staffEmail', '$log_details',now(),$iitId);";
+  mysqli_query($conn, $sql_log);
 }
 ?>
 

@@ -3,6 +3,11 @@
 <?php include("head.php"); ?>
 <?php
   session_start();
+  //--- admin check ----
+  if(empty($_SESSION['security'])){
+    header("Location: 404.php", true, 301);
+    exit();
+  }
   if($_SESSION['email']==""){
     header("Location: 404.php", true, 301);
     exit();
@@ -28,7 +33,7 @@
     }
   }
 
-  // staff CSV upload
+  //---- Bulk student CSV upload ----
   if(isset($_POST['staff_upload'])){
 
     // Allowed mime types
@@ -84,8 +89,9 @@
         $_SESSION['status_staff_csv_load'] = "Invalid file type!";
     }
 }
+//---- END ----
 
-// End
+
 ?>
 <body>
     <div class="container-fluid">
@@ -145,7 +151,7 @@
             <h1 class="display-3 pb-3">Bulk upload</h1>
               <form method="post" enctype="multipart/form-data">
                 <div class="mb-3">
-                  <label for="formFile" class="form-label">Upload from CSV File <a href="">Download the template</a></label>
+                  <label for="formFile" class="form-label">Upload from CSV File <a href="https://drive.google.com/file/d/1g_hpkHRn_I03mkeraIqxt4tphDvkLUbx/view?usp=sharing">Download the template</a>[delete sample record]</label>
                   <input class="form-control" type="file" name="file" id="formFile">
                 </div>
                 <div class="col-12">

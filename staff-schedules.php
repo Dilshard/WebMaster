@@ -87,7 +87,7 @@
                         echo '<td>-</td>';
                       }
                       
-                      echo "<td>".$row['link']."</td>";
+                      echo "<td><a href=".$row['link'].">Meeting link</a></td>";
                       echo "<td>".$row['meeting_date']."</td>";
                       echo "<td>".$row['meeting_time']."</td>";
                       echo "<td>".$row['hall']."</td>";
