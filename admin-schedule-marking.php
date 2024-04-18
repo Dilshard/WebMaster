@@ -180,7 +180,7 @@ if(isset($_POST['schedule_bulk_upload'])){
             <h1 class="display-3 pb-3">Bulk upload</h1>
               <form method="post" enctype="multipart/form-data">
                 <div class="mb-3">
-                  <label for="formFile" class="form-label">Upload from CSV File <a href="https://drive.google.com/file/d/1RpxTVQI6c8sCCWGM15lJppdAX11msbXa/view?usp=sharing" download="schedule template">Download the template</a> [delete sample record]</label>
+                  <label for="formFile" class="form-label">Upload from CSV File <a href="Images/schedules.csv" download>Download the template</a> [delete sample record]</label>
                   <input class="form-control" type="file" name="file" id="formFile">
                   <a class="nav-link" href="#">Download template</a>
                 </div>

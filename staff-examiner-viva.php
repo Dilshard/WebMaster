@@ -51,6 +51,7 @@ if(isset($_POST['btnsub'])){
   $sql = "UPDATE `examiner_mark` SET `staffemail` = '$staffEmail',`examiner_count` = $exCount, `difficulty` = $difficulty,`exisskill` = $exisskill,`newskill` = $newskill,`proimp` = $proimp,`understand` = $understand,`addedval` = '$addedval',`overallcom` = '$overallcom',`total_viva` = $tot_viva  WHERE `examiner_mark`.`iitid` = $iitId AND `examiner_count` = $exCount";
 
   if(mysqli_query($conn, $sql)){
+    email();
     $_SESSION['ex_status'] = "Success!";
   }else{
     echo "Error!".mysqli_error($conn);
@@ -59,10 +60,10 @@ if(isset($_POST['btnsub'])){
    // ---- update log ------
    $log_details = strval($difficulty.", ".$exisskill.", ".$newskill.", ".$proimp.", ".$understand.", ".$addedval.", ".$overallcom.", ".$tot_viva);
 
-   $sql_log = "INSERT INTO `logs` (`table_name`, `login_email`, `log`, `time`,`student_id`) VALUES ('Examiner-viva', '$staffEmail', '$log_details',now(),$iitId);";
+   $sql_log = "INSERT INTO `logs` (`table_name`, `login_email`, `log`, `time`,`student_id`) VALUES ('Examiner-viva', '$staffEmail', '$log_details',now(),'$iitId');";
    mysqli_query($conn, $sql_log);
 
-   email();
+   
 
 }
 

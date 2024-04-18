@@ -24,6 +24,7 @@ if(isset($_POST['btnsub'])){
   $sql = "UPDATE `sup_mark_pp_pspd` SET `planning` = '$plan', `staffemail` = '$staffEmail' WHERE `sup_mark_pp_pspd`.`iitid` = $iitId";
 
   if(mysqli_query($conn, $sql)){
+    email();
     $_SESSION['status'] = "Updated!";
   }else{
     echo "Error!".mysqli_error($conn);
@@ -32,10 +33,10 @@ if(isset($_POST['btnsub'])){
     // ---- update log ------
     $log_details = strval($plan);
 
-    $sql_log = "INSERT INTO `logs` (`table_name`, `login_email`, `log`, `time`,`student_id`) VALUES ('Supervisor-Planning', '$staffEmail', '$log_details',now(),$iitId);";
+    $sql_log = "INSERT INTO `logs` (`table_name`, `login_email`, `log`, `time`,`student_id`) VALUES ('Supervisor-Planning', '$staffEmail', '$log_details',now(),'$iitId');";
     mysqli_query($conn, $sql_log);
 
-    email();
+    
 }
 
 function email(){
@@ -409,8 +410,9 @@ function email(){
                 
                 <div class="col-8 mt-5">
                   <button name="btnsub" type="submit" class="btn btn-success">Submit</button>
-                  <button type="reset" class="btn btn-warning">Clear</button>
+                  <button type="reset" class="btn btn-warning" onclick="f1()">Clear</button>
                   <span id="status"><?php if(isset($_SESSION['status'])){echo $_SESSION['status'];} unset($_SESSION['status']);  ?></span>
+                  <span id="loading">loading</span>
                 </div>
               </form>
             </div>

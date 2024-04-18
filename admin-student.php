@@ -199,7 +199,7 @@
 
             <form method="post" enctype="multipart/form-data">
               <div class="mb-3">
-                <label for="formFile" class="form-label">Upload from CSV File <a href="https://drive.google.com/file/d/1GwCkiU_C4WA744ZB5Yr2UU0Jet01pp_P/view?usp=sharing" download>Download the template</a>[delete sample record]</label>
+                <label for="formFile" class="form-label">Upload from CSV File <a href="Images/student_list.csv" download>Download the template</a>[delete sample record]</label>
                 <input class="form-control" type="file" name="file" id="formFile">
               </div>
               <div class="col-12">

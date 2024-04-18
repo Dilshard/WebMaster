@@ -40,7 +40,10 @@ include 'con.php';
               <tbody>
               <?php
                 if(mysqli_num_rows($results) > 0){
+                  $data = [];
+                  array_push($data,"ID, Table Name, Login Email, Effected Account, Log Date Time, Log Details");
                   while($row = mysqli_fetch_assoc($results)){
+                    array_push($data,"$row[id],$row[table_name],$row[login_email],$row[student_id],$row[time],$row[log]");
                     echo "<tr>";
                       echo "<th scope='row'>".$row['id']."</th>";
                       echo "<td>".$row['table_name']."</td>";
@@ -50,8 +53,12 @@ include 'con.php';
                       echo "<td id='shortText_log'>".$row['log']."</td>";
                     echo "</tr>";
                   }
+                  $_SESSION['export_data_csv'] = $data;
                 }
                 ?>
+                <tr>
+                  <td colspan="3"><a href="mail-export-csv.php" class="btn btn-success">Download CSV</a></td>
+                </tr>
               </tbody>
             </table>
           </div>

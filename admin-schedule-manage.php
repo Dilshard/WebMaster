@@ -63,7 +63,10 @@ if($_SESSION['email']==""){
               <tbody>
               <?php
                 if(mysqli_num_rows($results) > 0){
+                  $data = [];
+                  array_push($data,"Schedule ID, Staff Email, IIT ID, Staff Role, Meeting Link, Meeting Date, Meeting Time, Hall");
                   while($row = mysqli_fetch_assoc($results)){
+                    array_push($data,"$row[schid],$row[staffemail],$row[iitid],$row[role],$row[link],$row[meeting_date],$row[meeting_time],$row[hall]");
                     echo "<tr>";
                       echo "<th scope='row'>".$row['schid']."</th>";
                       echo "<td>".$row['staffemail']."</td>";
@@ -76,14 +79,17 @@ if($_SESSION['email']==""){
                       echo '
                       <td>
                       <form method="post" onsubmit="return confirm(\'Do you really want to delete?\');"> <input name="id" type="text" value="'.$row['schid'].'" hidden> <input name="btndel" type="submit" class="btn btn-danger" value="D">  </form>
-                      <a href="#?iidit='.$row['schid'].'" class="btn btn-warning">Edit</a>
                       </td>';
                     echo "</tr>";
                   }
+                  $_SESSION['export_data_csv'] = $data;
                 }
                 ?>
                 <tr>
-                  <td colspan=3><a href="admin-schedule-marking.php" class="btn btn-success">Add +</a></td>
+                  <td colspan=4>
+                    <a href="admin-schedule-marking.php" class="btn btn-success">Add +</a>
+                    <a href="mail-export-csv.php" class="btn btn-success">Download CSV</a>
+                  </td>
                 </tr>
               </tbody>
             </table>

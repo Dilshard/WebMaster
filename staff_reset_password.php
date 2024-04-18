@@ -18,7 +18,7 @@ if(isset($_POST['btnsubmit'])){
         $sql = "UPDATE `Staff` SET `password` = '$pass1', `pass_attempt` = 1  WHERE `staffemail` = '$staffEmail'";
   
         if(mysqli_query($conn, $sql)){
-            header("Location: staff.php", true, 301);
+            header("Location: index.php", true, 301);
             exit();
         }else{
             echo "Error!".mysqli_error($conn);

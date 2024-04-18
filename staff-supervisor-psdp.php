@@ -25,6 +25,7 @@ if($_SESSION['email']==""){
     $sql = "UPDATE `sup_mark_pp_pspd` SET `staffemail` = '$staffEmail', `aim` = $aims,`stakehold` = $stak,`elicitation` = $elicit,`reqlist_pspd` = $listofreq,`reqana` = $req,`ref` = $reff,`protodemo` = $proto,`supfeed_pspd` = '$supfeed',`below40_pspd` = '$below40',`tot_pspd` = $total_psdp  WHERE `sup_mark_pp_pspd`.`iitid` = $iitId";
 
     if(mysqli_query($conn, $sql)){
+      email();
       $_SESSION['status'] = "Success!";
     }else{
       echo "Error!".mysqli_error($conn);
@@ -33,10 +34,10 @@ if($_SESSION['email']==""){
     // ---- update log ------
     $log_details = strval($aims.", ".$req.", ".$stak.", ".$reff.", ".$elicit.", ".$proto.", ".$listofreq.", ".$supfeed.", ".$below40.", ".$total_psdp);
 
-    $sql_log = "INSERT INTO `logs` (`table_name`, `login_email`, `log`, `time`,`student_id`) VALUES ('Supervisor-PP', '$staffEmail', '$log_details',now(),$iitId);";
+    $sql_log = "INSERT INTO `logs` (`table_name`, `login_email`, `log`, `time`,`student_id`) VALUES ('Supervisor-PP', '$staffEmail', '$log_details',now(),'$iitId');";
     mysqli_query($conn, $sql_log);
 
-    email();
+    
   }
 
   $sql_student = "SELECT * FROM Student WHERE iitid = $iitId";

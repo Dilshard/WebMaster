@@ -13,50 +13,68 @@
     exit();
   }
   include 'con.php';
+  if(isset($_SESSION['email'])){
+    $staffEmail = $_SESSION['email'];
+  }else{
+    $staffEmail =  "N/A";
+  }
 
   $sql = "SELECT * FROM Student";
 
   $results = mysqli_query($conn, $sql);
 
+  $status = "Deleted from ";
     // ----- Delete -----
     if(isset($_POST['btndel'])){
       $iitid = $_POST['iitid'];
   
       $sqldelex = "DELETE FROM examiner_mark WHERE iitid = $iitid";
       if(mysqli_query($conn, $sqldelex)){
-        echo "Deleted from examiner";
+        $status .= "Examiner ";
       }else{
-        echo "Error!".mysqli_error($conn);
+        $status .= "Error!".mysqli_error($conn);
       }
 
       $sqldelsup = "DELETE FROM sup_mark_pp_pspd WHERE iitid = $iitid";
       mysqli_query($conn, $sqldelsup);
       if(mysqli_query($conn, $sqldelsup)){
-        echo "Deleted from supervisor";
+        $status .= "Supervisor ";
       }else{
         echo "Error!".mysqli_error($conn);
       }
 
       $sqldelch = "DELETE FROM chair WHERE iitid = $iitid";
       if(mysqli_query($conn, $sqldelch)){
-        echo "Deleted from chair";
+        $status .= "Chair ";
       }else{
         echo "Error!".mysqli_error($conn);
       }
 
       $sqldelch = "DELETE FROM schedule WHERE iitid = $iitid";
       if(mysqli_query($conn, $sqldelch)){
-        echo "Deleted from schedule";
+        $status .= "Schedule ";
       }else{
         echo "Error!".mysqli_error($conn);
       }
 
       $sqldelst = "DELETE FROM Student WHERE iitid = $iitid";
       if(mysqli_query($conn, $sqldelst)){
-        echo "Deleted from student";
+        $status .= "Student ";
       }else{
         echo "Error!".mysqli_error($conn);
       }
+
+      // ---- update log ------
+      $log_details = "Deleted from examiner_mark, sup_mark_pp_pspd, chair, schedule, Student table";
+
+      $sql_log = "INSERT INTO `logs` (`table_name`, `login_email`, `log`, `time`,`student_id`) VALUES ('By Admin', '$staffEmail', '$log_details',now(),$iitid);";
+      if(mysqli_query($conn, $sql_log)){
+        $status .= "& Log updated!";
+      }else{
+        echo "Error!".mysqli_error($conn);
+      }
+
+      $_SESSION['del_status'] = $status;
     }
   
   
@@ -98,7 +116,10 @@
               <tbody>
                 <?php
                 if(mysqli_num_rows($results) > 0){
+                  $data = [];
+                  array_push($data,"Student IIT ID,Email,Password,UoW No,Student Name,Project Title, Stream, Research Area, Short Desc, Final VIVA Marks,Final Report Marks, Final Project Marks, Final Module Marks");
                   while($row = mysqli_fetch_assoc($results)){
+                    array_push($data,"$row[iitid],$row[email],$row[pass],$row[uowno],$row[studentname],$row[projtitle],$row[stream],$row[resarea],$row[shortdes],$row[final_viva_mark],$row[final_report_mark],$row[final_project_mark],$row[final_module_mark]");
                     echo "<tr>";
                       echo "<td>".$row['iitid']."</td>";
                       echo "<td>".$row['email']."</td>";
@@ -115,12 +136,13 @@
                       echo "<td>".$row['final_module_mark']."</td>";
                       echo '
                       <td>
-                        <form method="post" onsubmit="return confirm(\'Do you really want to delete?\');"> <input name="iitid" type="text" value="'.$row['iitid'].'" hidden> <input name="btndel" type="submit" class="btn btn-danger" value="D">  </form>
-                        <button type="submit" class="btn btn-warning"><i class="bi bi-pencil-square"></i></button>
+                        <form method="post" onsubmit="return confirm(\'Do you really want to delete?\');"> <input name="iitid" type="text" value="'.$row['iitid'].'" hidden> <input name="btndel" type="submit" class="btn btn-danger" value="&#x2716;">  </form>
                       </td>
                       ';
                     echo "</tr>";
+                    
                   }
+                  $_SESSION['export_data_csv'] = $data;
                 }else{
                   echo "<tr>";
                     echo "<td>No records found!</td>";
@@ -128,7 +150,12 @@
                 }
 
                 ?>
+                <tr>
+                  <td colspan="4"><a href="mail-export-csv.php" class="btn btn-success">Download CSV</a></td>
+                  
+                </tr>
               </tbody>
+              <?php if(isset($_SESSION['del_status'])){echo $_SESSION['del_status'];} unset($_SESSION['del_status']); ?>
             </table>
           </div>
       </div>
