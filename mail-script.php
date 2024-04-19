@@ -109,6 +109,7 @@ function sendMail($email, $subject, $message){
       Assigning the incoming subject to the 
       $mail->subject property. 	
     */
+   
    $mail->Subject = $subject;
  
    /*
@@ -136,11 +137,13 @@ function sendMail($email, $subject, $message){
 
     
    /* removed below */
-   if(!$mail->send()){
-      return "Email not send. Please try again";
-   }else{
-      return "success";
-   }
+   // if(!$mail->send()){
+   //    return "Email not send. Please try again";
+   // }else{
+   //    return "success";
+   // }
+
+   $mail->send();
 
 }
 

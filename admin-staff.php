@@ -113,6 +113,10 @@
 
                     $sql_log = "INSERT INTO `logs` (`table_name`, `login_email`, `log`, `time`,`student_id`) VALUES ('Admin - inserted Staff', '$staffemail', '$log_details',now(),'$_SESSION[email]');";
                     mysqli_query($conn, $sql_log);
+
+                    //email();
+                    // require("mail-script.php"); 
+                    // sendMail("mrdilshard@gmail.com", "sample", "Test");
                 }
             }
             fclose($csvFile);

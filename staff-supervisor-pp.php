@@ -10,6 +10,23 @@ include 'con.php';
 $iitId = $_GET['iidit'];
 $staffEmail = $_GET['staffEmail'];
 
+// ----- Supervisor pp pre-entered data load -----
+$sql_sup_pp_load = "SELECT * FROM sup_mark_pp_pspd WHERE iitid = $iitId";
+$results_sup_pp_load = mysqli_query($conn, $sql_sup_pp_load);
+if(mysqli_num_rows($results_sup_pp_load) == 1){
+  while($row_load = mysqli_fetch_assoc($results_sup_pp_load)){
+    $_SESSION['probstate']= $row_load['probstate'];
+    $_SESSION['revsim'] = $row_load['revsim'];
+    $_SESSION['tool'] = $row_load['tool'];
+    $_SESSION['reqlist_pp'] = $row_load['reqlist_pp'];
+    $_SESSION['challenge'] = $row_load['challenge'];
+    $_SESSION['supfeed_pp'] = $row_load['supfeed_pp'];
+    $_SESSION['below40_pp'] = $row_load['below40_pp'];  
+    $_SESSION['tot_pp'] = $row_load['tot_pp'];  
+   
+  }
+}
+
 if(isset($_POST['btnsub'])){
   $probstate = $_POST['probstate'];
   $revsim = $_POST['revsim'];
@@ -395,7 +412,7 @@ function email(){
             <div class="row">
             <div class="col-md-12">
                     <h1 class="display-3 pb-3">Staff Supervisor PP</h1>
-                    <h5 class="pb-3">Fernando | 12345 | HarmonyCare: Enhancing Mental Health Support</h5>
+                    <h5 class="pb-3"><?php if(isset($_SESSION['student_proj'])){echo $_SESSION['student_proj'];}?></h5>
             </div>
                 
             <div class="col-md-6 my-4 p-4 offset-md-3">
@@ -404,35 +421,35 @@ function email(){
                 
               <div class="col-md-6">
                 <label class="form-label">Problem statement, aims & objectives (<a href="#">Criteria</a>)</label> 
-                <input name="probstate" type="number" class="form-control">
+                <input name="probstate" type="number" class="form-control" value="<?php if(isset($_SESSION['probstate'])){echo $_SESSION['probstate'];} unset($_SESSION['probstate']);?>">
               </div>
               <div class="col-md-6">
                 <label class="form-label">List of challenges (including technical and other), timeline and references (<a href="#">Criteria</a>)</label>
-                <input name="challenge" type="number" class="form-control">
+                <input name="challenge" type="number" class="form-control" value="<?php if(isset($_SESSION['challenge'])){echo $_SESSION['challenge'];} unset($_SESSION['challenge']);?>">
               </div>
               <div class="col-6">
               <label class="form-label">Review of similar applications or similar research (<a href="#">Criteria</a>)</label>
-                <input name="revsim" type="number" class="form-control" id="fullName">
+                <input name="revsim" type="number" class="form-control" id="fullName" value="<?php if(isset($_SESSION['revsim'])){echo $_SESSION['revsim'];} unset($_SESSION['revsim']);?>">
               </div>
               <div class="col-md-6">
                 <label class="form-label">Supervisor Feedback</label>
-                <textarea name="supfeed_pp" class="form-control"></textarea>
+                <textarea name="supfeed_pp" class="form-control"><?php if(isset($_SESSION['supfeed_pp'])){echo $_SESSION['supfeed_pp'];} unset($_SESSION['supfeed_pp']);?></textarea>
               </div>
               <div class="col-md-6">
                 <label class="form-label">Tools (equipment, software, etc.) and technical skills (<a href="#">Criteria</a>)</label>
-                <input name="tool" type="number" class="form-control">
+                <input name="tool" type="number" class="form-control" value="<?php if(isset($_SESSION['tool'])){echo $_SESSION['tool'];} unset($_SESSION['tool']);?>">
               </div>
               <div class="col-md-6">
                 <label class="form-label">If student is an resit student (Below 40) What needs to be improved</label>
-                <textarea name="below40_pp" class="form-control"></textarea>
+                <textarea name="below40_pp" class="form-control"><?php if(isset($_SESSION['below40_pp'])){echo $_SESSION['below40_pp'];} unset($_SESSION['below40_pp']);?></textarea>
               </div>
               <div class="col-md-6">
                 <label class="form-label">Initial list of requirements and on-going methods for project requirement elicitation (<a href="#">Criteria</a>)</label>
-                <input name="reqlist_pp" type="number" class="form-control">
+                <input name="reqlist_pp" type="number" class="form-control" value="<?php if(isset($_SESSION['reqlist_pp'])){echo $_SESSION['reqlist_pp'];} unset($_SESSION['reqlist_pp']);?>">
               </div>
               <div class="col-md-6">
                 <label class="form-label">Total</label>
-                <input name="total_pp" type="number" class="form-control" disabled>
+                <input name="total_pp" type="number" class="form-control" value="<?php if(isset($_SESSION['tot_pp'])){echo $_SESSION['tot_pp'];} unset($_SESSION['tot_pp']);?>" disabled>
               </div>
               
               <div class="col-12">

@@ -137,7 +137,12 @@ if(isset($_POST['btnsub'])){
   `ex2_understand` = $ex2_understand, 
   `ex2_addedval` = '$ex2_addedval', 
   `ex2_overallcom` = '$ex2_overall', 
-  `staffemail` = '$staffEmail'
+  `staffemail` = '$staffEmail',
+
+  `final_viva_mark` = '$final_viva_mk_update',
+  `final_report_mark` = '$final_report_mk_update',
+  `final_project_mark` = '$final_project_mk_update',
+  `final_module_mark` = '$final_module_mk_update'
   
   WHERE `iitid` = $iitId;";
 

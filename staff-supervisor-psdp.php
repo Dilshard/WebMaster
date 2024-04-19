@@ -9,6 +9,24 @@ if($_SESSION['email']==""){
   $iitId = $_GET['iidit'];
   $staffEmail = $_GET['staffEmail'];
 
+  // ----- Supervisor pp pre-entered data load -----
+  $sql_sup_psdp_load = "SELECT * FROM sup_mark_pp_pspd WHERE iitid = $iitId";
+  $results_sup_spdp_load = mysqli_query($conn, $sql_sup_psdp_load);
+  if(mysqli_num_rows($results_sup_spdp_load) == 1){
+    while($row_load = mysqli_fetch_assoc($results_sup_spdp_load)){
+      $_SESSION['aims'] = $row_load['aim'];
+      $_SESSION['req'] = $row_load['reqana'];
+      $_SESSION['stak'] = $row_load['stakehold'];
+      $_SESSION['reff'] = $row_load['ref'];
+      $_SESSION['elicit'] = $row_load['elicitation'];
+      $_SESSION['proto'] = $row_load['protodemo'];
+      $_SESSION['listofreq'] = $row_load['reqlist_pspd'];
+      $_SESSION['supfeed'] = $row_load['supfeed_pspd'];
+      $_SESSION['below40'] = $row_load['below40_pspd'];
+      $_SESSION['total_psdp'] = $row_load['tot_pspd'];
+    }
+  }
+
   if(isset($_POST['btnsub'])){
     $aims = $_POST['aims'];
     $req = $_POST['req'];
@@ -415,44 +433,44 @@ if($_SESSION['email']==""){
                 
               <div class="col-md-6">
                 <label class="form-label">Aims and objectives (<a href="#">Criteria</a>)</label> 
-                <input name="aims" type="number" class="form-control" onkeyup="ttl()" placeholder="out of 100">
+                <input name="aims" type="number" class="form-control" onkeyup="ttl()" placeholder="out of 100" value="<?php if(isset($_SESSION['aims'])){echo $_SESSION['aims'];} unset($_SESSION['aims']);?>">
               </div>
               <div class="col-md-6">
                 <label class="form-label">Requirements analysis and modelling (<a href="#">Criteria</a>)</label>
-                <input name="req" type="number" class="form-control" onkeyup="ttl()" placeholder="out of 100">
+                <input name="req" type="number" class="form-control" onkeyup="ttl()" placeholder="out of 100" value="<?php if(isset($_SESSION['req'])){echo $_SESSION['req'];} unset($_SESSION['req']);?>">
               </div>
               <div class="col-md-6">
               <label class="form-label">Stakeholders (<a href="#">Criteria</a>)</label>
-                <input name="stak" type="number" class="form-control" onkeyup="ttl()" placeholder="out of 100">
+                <input name="stak" type="number" class="form-control" onkeyup="ttl()" placeholder="out of 100" value="<?php if(isset($_SESSION['stak'])){echo $_SESSION['stak'];} unset($_SESSION['stak']);?>">
               </div>
               <div class="col-md-6">
                 <label class="form-label">References & Bibliography</label>
-                <input name="reff" type="number" class="form-control" onkeyup="ttl()" placeholder="out of 100">
+                <input name="reff" type="number" class="form-control" onkeyup="ttl()" placeholder="out of 100" value="<?php if(isset($_SESSION['reff'])){echo $_SESSION['reff'];} unset($_SESSION['reff']);?>">
               </div>
               <div class="col-md-6">
                 <label class="form-label">Elicitation of requirements (<a href="#">Criteria</a>)</label>
-                <input name="elicit" type="number" class="form-control" onkeyup="ttl()" placeholder="out of 100">
+                <input name="elicit" type="number" class="form-control" onkeyup="ttl()" placeholder="out of 100" value="<?php if(isset($_SESSION['elicit'])){echo $_SESSION['elicit'];} unset($_SESSION['elicit']);?>">
               </div>
               <div class="col-md-6">
                 <label class="form-label">Prototype & Demo Video: Evidence of engagement with realising the design</label>
-                <input name="proto" type="number" class="form-control" onkeyup="ttl()" placeholder="out of 100">
+                <input name="proto" type="number" class="form-control" onkeyup="ttl()" placeholder="out of 100" value="<?php if(isset($_SESSION['proto'])){echo $_SESSION['proto'];} unset($_SESSION['proto']);?>">
               </div>
               <div class="col-md-6">
                 <label class="form-label">List of requirements (<a href="#">Criteria</a>)</label>
-                <input name="listofreq" type="number" class="form-control" onkeyup="ttl()" placeholder="out of 100">
+                <input name="listofreq" type="number" class="form-control" onkeyup="ttl()" placeholder="out of 100" value="<?php if(isset($_SESSION['listofreq'])){echo $_SESSION['listofreq'];} unset($_SESSION['aaalistofreqaa']);?>">
               </div>
               <div class="col-md-6"> </div>
               <div class="col-md-6">
                 <label class="form-label">Supervisor Feedback</label>
-                <textarea name="supfeed" class="form-control" ></textarea>
+                <textarea name="supfeed" class="form-control" ><?php if(isset($_SESSION['supfeed'])){echo $_SESSION['supfeed'];} unset($_SESSION['supfeed']);?></textarea>
               </div>
               <div class="col-md-6">
                 <label class="form-label">If student is an resit student (Below 40) What needs to be improved</label>
-                <textarea name="below40" class="form-control"></textarea>
+                <textarea name="below40" class="form-control"><?php if(isset($_SESSION['below40'])){echo $_SESSION['below40'];} unset($_SESSION['below40']);?></textarea>
               </div>
               <div class="col-md-12">
                 
-                <input name="total_pp" id="total_pp" type="number" class="form-control" placeholder="Please fill all criteria for average marks" disabled>
+                <input name="total_pp" id="total_pp" type="number" class="form-control" placeholder="Please fill all criteria for average marks" value="<?php if(isset($_SESSION['total_psdp'])){echo $_SESSION['total_psdp'];} unset($_SESSION['total_psdp']);?>" disabled>
                 
               </div>
               

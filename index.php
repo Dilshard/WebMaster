@@ -107,21 +107,16 @@ session_start();
         </div>
         <div class="col-md-6 bg-danger p-5 text-center">
                 <h1 class="display-3 text-light">
-                    Main heading
+                    IIT School of Computing
                 </h1>
-                <p class="text-light mt-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto mollitia
-                    vitae rem, commodi neque excepturi enim id dolores soluta! Voluptates magni qui, corporis sed esse
-                    vitae at possimus non provident dolore quia modi deleniti! Numquam sapiente cupiditate asperiores
-                    odio doloribus assumenda consectetur error, reiciendis necessitatibus molestias iusto. Consequatur
-                    aspernatur possimus laudantium nobis cum voluptates cupiditate soluta porro ipsum quidem modi,
-                    necessitatibus vero dolores explicabo saepe expedita harum. Omnis illum aliquid expedita est. Culpa
-                    accusantium quidem, eum nostrum optio odit doloribus expedita sit illo, ducimus alias consequuntur
-                    doloremque sint? Sed velit voluptatum, similique odio nisi minima ratione praesentium dignissimos
-                    ad, vitae cumque deleniti et possimus. Reiciendis, molestias sint! Veniam quam eum fugit eius ipsa!
-                    Ullam labore fugit quidem. Vitae, deleniti maiores! Beatae consequatur ullam possimus earum delectus
-                    sint, repudiandae dolorem. Inventore officiis excepturi iure! Inventore minima, hic, amet in saepe
-                    aperiam officia distinctio sunt, voluptatum placeat consequuntur repellendus optio necessitatibus
-                    veritatis!</p>
+                <p class="text-light mt-4">Welcome to the IIT School of Computing, an intellectual centre for ambitious minds interested in the Computing field — where you can learn, grow and reach your full potential!
+                    IIT is more than just a school that provides a variety of computing programmes. We are committed to creating outstanding computing professionals for the future of the industry who can make an impact. We are widely regarded as one of the leading educational institutes in Sri Lanka, and our highly sought-after alumni are proof of our success. So I invite you to join us and shape a better future for the world through technology and computing.
+                    Our focus on academic excellence and countless opportunities for extra-curricular activities and skills development has resulted in many of our graduates achieving success in their careers. Our alumni of over 5000 graduates has amazed and inspired us with their achievements at IIT and beyond.
+                </p>
+                <p class="text-light">
+                    What makes us different is how we prepare you for your future career. The IIT student experience goes beyond the classroom. Our strong links with industry and the training and development that forms part of our courses, will equip you with the knowledge, skills and confidence required for successful and rewarding careers.
+                    We offer you an exciting and vibrant university life through internships, mentoring programmes, extra-curricular activities, such as sports, clubs & societies, local / global competitions and so much more. We groom the independent minds of tomorrow. With IIT you will discover your own path to future success
+                </p>
             </div>
     </div>
 </div>

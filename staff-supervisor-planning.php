@@ -9,6 +9,15 @@ include 'con.php';
 $iitId = $_GET['iidit'];
 $staffEmail = $_GET['staffEmail'];
 
+// ----- Supervisor pp pre-entered data load -----
+$sql_sup_psdp_load = "SELECT * FROM sup_mark_pp_pspd WHERE iitid = $iitId";
+$results_sup_spdp_load = mysqli_query($conn, $sql_sup_psdp_load);
+if(mysqli_num_rows($results_sup_spdp_load) == 1){
+  while($row_load = mysqli_fetch_assoc($results_sup_spdp_load)){
+    $_SESSION['planning'] = $row_load['planning'];
+  }
+}
+
 $sql_student = "SELECT * FROM Student WHERE iitid = $iitId";
 $results = mysqli_query($conn, $sql_student);
 if(mysqli_num_rows($results) > 0){
@@ -405,7 +414,7 @@ function email(){
                   
                 <div class="col-md-8">
                   <label class="form-label">Planning, consultation, and engagement (<a href="#">Criteria</a>)</label> 
-                  <input name="planning" type="number" class="form-control" placeholder = "Out of 100">
+                  <input name="planning" type="number" class="form-control" placeholder = "Out of 100" value="<?php if(isset($_SESSION['planning'])){echo $_SESSION['planning'];} unset($_SESSION['planning']);?>">
                 </div>
                 
                 <div class="col-8 mt-5">
