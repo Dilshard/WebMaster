@@ -852,7 +852,8 @@ function email(){
                 
               </div>
               <div class="col-12">
-                <button name="btnsub" type="submit" class="btn btn-success">Submit</button>
+                <!-- <button name="btnsub" type="submit" class="btn btn-success">Submit</button> -->
+                <input type="submit" name="btnsub" class="btn btn-success" value="Submit" onclick="f1()">
                 <button type="reset" class="btn btn-warning">Clear</button>
               </div>
             </form>
@@ -923,16 +924,15 @@ function email(){
 
     report_viva_avg();
    
-    // function validate(form) {
-    //   if(!valid) {
-    //       alert('Please correct the errors in the form!');
-    //       return false;
-    //   }
-    //   else {
-    //       return confirm('Do you really want to submit the form?');
-    //   }
-    // }
-    
-  </script>
+    $button = document.getElementsByName("btnsub")[0];
+
+    function f1(){
+      if($button.value == "Submit"){
+          $button.value = "Loading...";
+      }else{
+          $button.value = "Submit";
+      }
+    }
+    </script>
 </body>
 </html>
