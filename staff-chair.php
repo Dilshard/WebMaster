@@ -631,51 +631,51 @@ function email(){
                 <div class="row mt-3">
                   <div class="col-md-3">
                     <label class="form-label">Report </label>
-                    <input name="ex1_rep_mk" value="<?php if(isset($_SESSION[$iitId.'tot_report'])){echo $_SESSION[$iitId.'tot_report'];}else{echo -1;}?>" type="number" class="form-control">
+                    <input name="ex1_rep_mk" value="<?php if(isset($_SESSION[$iitId.'tot_report'])){echo $_SESSION[$iitId.'tot_report'];}else{echo -1;}?>" type="number" class="form-control" disabled>
                   </div>
                   <div class="col-md-3">
                     <label class="form-label">VIVA </label>
-                    <input name="ex1_viva_mk" value="<?php if(isset($_SESSION[$iitId.'total_viva'])){echo $_SESSION[$iitId.'total_viva'];}else{echo -1;}?>" type="number" class="form-control">
+                    <input onkeyup="update_total_viva()" name="ex1_viva_mk" value="<?php if(isset($_SESSION[$iitId.'total_viva'])){echo $_SESSION[$iitId.'total_viva'];}else{echo -1;}?>" type="number" class="form-control green">
                   </div>
                 </div>
 
                 <div class="row mt-3">
                   <div class="col-md-6">
                     <label class="form-label">Difficulty</label>
-                    <input name="ex1_difficult" value="<?php if(isset($_SESSION[$iitId.'difficulty'])){echo $_SESSION[$iitId.'difficulty'];}else{echo -1;}?>" type="number" class="form-control">
+                    <input name="ex1_difficult" value="<?php if(isset($_SESSION[$iitId.'difficulty'])){echo $_SESSION[$iitId.'difficulty'];}else{echo -1;}?>" type="number" class="form-control" disabled>
                   </div>
                   <div class="col-md-6">
                     <label class="form-label">Understanding</label>
-                    <input name="ex1_understand" value="<?php if(isset($_SESSION[$iitId.'understand'])){echo $_SESSION[$iitId.'understand'];}else{echo -1;}?>" type="number" class="form-control">
+                    <input name="ex1_understand" value="<?php if(isset($_SESSION[$iitId.'understand'])){echo $_SESSION[$iitId.'understand'];}else{echo -1;}?>" type="number" class="form-control" disabled>
                   </div>
                 </div>
 
                 <div class="row mt-3">
                   <div class="col-md-6">
                     <label class="form-label">Development of existing skills</label>
-                    <input name="ex1_exiskill" value="<?php if(isset($_SESSION[$iitId.'exisskill'])){echo $_SESSION[$iitId.'exisskill'];}else{echo -1;}?>" type="number" class="form-control">
+                    <input name="ex1_exiskill" value="<?php if(isset($_SESSION[$iitId.'exisskill'])){echo $_SESSION[$iitId.'exisskill'];}else{echo -1;}?>" type="number" class="form-control" disabled>
                   </div>
                   <div class="col-md-6">
                     <label class="form-label">Development of new skills</label>
-                    <input name="ex1_newskill" value="<?php if(isset($_SESSION[$iitId.'newskill'])){echo $_SESSION[$iitId.'newskill'];}else{echo -1;}?>" type="number" class="form-control">
+                    <input name="ex1_newskill" value="<?php if(isset($_SESSION[$iitId.'newskill'])){echo $_SESSION[$iitId.'newskill'];}else{echo -1;}?>" type="number" class="form-control" disabled>
                   </div>
                 </div>
 
                 <div class="row mt-3">
                   <div class="col-md-12">
                     <label class="form-label">Product/Implementation/Application/Research</label>
-                    <input name="ex1_proimpl" value="<?php if(isset($_SESSION[$iitId.'proimp'])){echo $_SESSION[$iitId.'proimp'];}else{echo -1;}?>" type="number" class="form-control">
+                    <input name="ex1_proimpl" value="<?php if(isset($_SESSION[$iitId.'proimp'])){echo $_SESSION[$iitId.'proimp'];}else{echo -1;}?>" type="number" class="form-control" disabled>
                   </div>
                 </div>
 
                 <div class="row mt-3">
                   <div class="col-md-6">
                     <label class="form-label">Added Value</label>
-                    <textarea name="ex1_addedval" class="form-control" rows="4"><?php if(isset($_SESSION[$iitId.'addedval'])){echo $_SESSION[$iitId.'addedval'];}else{echo "Not updated!";}?></textarea>
+                    <textarea name="ex1_addedval" class="form-control" rows="4" disabled><?php if(isset($_SESSION[$iitId.'addedval'])){echo $_SESSION[$iitId.'addedval'];}else{echo "Not updated!";}?></textarea>
                   </div>
                   <div class="col-md-6">
                     <label class="form-label">Over all comment</label>
-                    <textarea name="ex1_overall" class="form-control" rows="4"><?php if(isset($_SESSION[$iitId.'overallcom'])){echo $_SESSION[$iitId.'overallcom'];}else{echo "Not updated!";}?></textarea>
+                    <textarea name="ex1_overall" class="form-control" rows="4" disabled><?php if(isset($_SESSION[$iitId.'overallcom'])){echo $_SESSION[$iitId.'overallcom'];}else{echo "Not updated!";}?></textarea>
                   </div>
                 </div>
                 
@@ -691,51 +691,51 @@ function email(){
                 <div class="row mt-3">
                   <div class="col-md-3">
                     <label class="form-label">Report </label>
-                    <input name="ex2_rep_mk" value="<?php if(isset($_SESSION[$iitId.'tot_report_ex2'])){echo $_SESSION[$iitId.'tot_report_ex2'];}else{echo -1;}?>" type="number" class="form-control">
+                    <input name="ex2_rep_mk" value="<?php if(isset($_SESSION[$iitId.'tot_report_ex2'])){echo $_SESSION[$iitId.'tot_report_ex2'];}else{echo -1;}?>" type="number" class="form-control" disabled>
                   </div>
                   <div class="col-md-3">
                     <label class="form-label">VIVA </label>
-                    <input name="ex2_viva_mk" value="<?php if(isset($_SESSION[$iitId.'total_viva_ex2'])){echo $_SESSION[$iitId.'total_viva_ex2'];}else{echo -1;}?>" type="number" class="form-control">
+                    <input onkeyup="update_total_viva()" name="ex2_viva_mk" value="<?php if(isset($_SESSION[$iitId.'total_viva_ex2'])){echo $_SESSION[$iitId.'total_viva_ex2'];}else{echo -1;}?>" type="number" class="form-control green">
                   </div>
                 </div>
 
                 <div class="row mt-3">
                   <div class="col-md-6">
                     <label class="form-label">Difficulty</label>
-                    <input name="ex2_difficult" value="<?php if(isset($_SESSION[$iitId.'difficulty_ex2'])){echo $_SESSION[$iitId.'difficulty_ex2'];}else{echo -1;}?>" type="number" class="form-control">
+                    <input name="ex2_difficult" value="<?php if(isset($_SESSION[$iitId.'difficulty_ex2'])){echo $_SESSION[$iitId.'difficulty_ex2'];}else{echo -1;}?>" type="number" class="form-control" disabled>
                   </div>
                   <div class="col-md-6">
                     <label class="form-label">Understanding</label>
-                    <input name="ex2_understand" value="<?php if(isset($_SESSION[$iitId.'understand_ex2'])){echo $_SESSION[$iitId.'understand_ex2'];}else{echo -1;}?>" type="number" class="form-control">
+                    <input name="ex2_understand" value="<?php if(isset($_SESSION[$iitId.'understand_ex2'])){echo $_SESSION[$iitId.'understand_ex2'];}else{echo -1;}?>" type="number" class="form-control" disabled>
                   </div>
                 </div>
 
                 <div class="row mt-3">
                   <div class="col-md-6">
                     <label class="form-label">Development of existing skills</label>
-                    <input name="ex2_exiskill" value="<?php if(isset($_SESSION[$iitId.'exisskill_ex2'])){echo $_SESSION[$iitId.'exisskill_ex2'];}else{echo -1;}?>" type="number" class="form-control">
+                    <input name="ex2_exiskill" value="<?php if(isset($_SESSION[$iitId.'exisskill_ex2'])){echo $_SESSION[$iitId.'exisskill_ex2'];}else{echo -1;}?>" type="number" class="form-control" disabled>
                   </div>
                   <div class="col-md-6">
                     <label class="form-label">Development of new skills</label>
-                    <input name="ex2_newskill" value="<?php if(isset($_SESSION[$iitId.'newskill_ex2'])){echo $_SESSION[$iitId.'newskill_ex2'];}else{echo -1;}?>" type="number" class="form-control">
+                    <input name="ex2_newskill" value="<?php if(isset($_SESSION[$iitId.'newskill_ex2'])){echo $_SESSION[$iitId.'newskill_ex2'];}else{echo -1;}?>" type="number" class="form-control" disabled>
                   </div>
                 </div>
 
                 <div class="row mt-3">
                   <div class="col-md-12">
                     <label class="form-label">Product/Implementation/Application/Research</label>
-                    <input name="ex2_proimpl" value="<?php if(isset($_SESSION[$iitId.'proimp_ex2'])){echo $_SESSION[$iitId.'proimp_ex2'];}else{echo -1;}?>" type="number" class="form-control">
+                    <input name="ex2_proimpl" value="<?php if(isset($_SESSION[$iitId.'proimp_ex2'])){echo $_SESSION[$iitId.'proimp_ex2'];}else{echo -1;}?>" type="number" class="form-control" disabled>
                   </div>
                 </div>
 
                 <div class="row mt-3">
                   <div class="col-md-6">
                     <label class="form-label">Added Value</label>
-                    <textarea name="ex2_addedval" class="form-control" rows="4"><?php if(isset($_SESSION[$iitId.'addedval_ex2'])){echo $_SESSION[$iitId.'addedval_ex2'];}else{echo "Not updated!";}?></textarea>
+                    <textarea name="ex2_addedval" class="form-control" rows="4" disabled><?php if(isset($_SESSION[$iitId.'addedval_ex2'])){echo $_SESSION[$iitId.'addedval_ex2'];}else{echo "Not updated!";}?></textarea>
                   </div>
                   <div class="col-md-6">
                     <label class="form-label">Over all comment</label>
-                    <textarea name="ex2_overall" class="form-control" rows="4"><?php if(isset($_SESSION[$iitId.'overallcom_ex2'])){echo $_SESSION[$iitId.'overallcom_ex2'];}else{echo "Not updated!";}?></textarea>
+                    <textarea name="ex2_overall" class="form-control" rows="4" disabled><?php if(isset($_SESSION[$iitId.'overallcom_ex2'])){echo $_SESSION[$iitId.'overallcom_ex2'];}else{echo "Not updated!";}?></textarea>
                   </div>
                 </div>
               </div>
@@ -781,8 +781,8 @@ function email(){
 
                 <div class="row mt-3">
                   <div class="col-md-12 mt-4">
-                    <label class="form-label">Final VIVA Marks by chair</label>
-                    <input name="final_mk_chair" type="text" class="form-control" value="">
+                    <label class="form-label">Final VIVA Marks by chair (Without Planning)</label>
+                    <input name="final_mk_chair" type="text" class="form-control" value="" disabled>
                   </div>
                   <div class="col-md-12 mt-4">
                     <label class="form-label">Report Average : <span id="rep_avg"></span> Difference : <span id="rep_dif"></span></label> <br>
@@ -800,13 +800,13 @@ function email(){
               <div class="col-md-6 p-4" style="background-color:#e1e1e1">                        
                 <div class="row mt-3">
                   <div class="col-md-4">
-                    <label class="form-label">Final VIVA Marks : </label>
+                    <label class="form-label">Final VIVA Marks <br>(Including Planning): </label>
                   </div>
                   <div class="col-md-8">
                     <input name="final_viva_mk_update" type="text" class="form-control">
                   </div>
                   <div class="col-md-12">
-                    <label class="form-label">Average (Difficulty + Understanding + Existing skill + New skills + Implementation/App/ Research)</label>
+                    <label class="form-label">Average (Difficulty + Understanding + Existing skill + New skills + Implementation/App/ Research + Planning and Consultation)</label>
                   </div>
                 </div>
 
@@ -914,7 +914,7 @@ function email(){
       let planning = parseFloat(document.getElementById("planning").innerHTML);
       
       document.getElementsByName("final_viva_mk_update")[0].value = ((difficulty + understand + existingSkill + newSkill + productImplement + planning)/6).toFixed(2);
-      document.getElementsByName("final_mk_chair")[0].value = ((difficulty + understand + existingSkill + newSkill + productImplement + planning)/6).toFixed(2);
+      document.getElementsByName("final_mk_chair")[0].value = avg_viva;
       
       document.getElementsByName("final_report_mk_update")[0].value = (avg_rep).toFixed(2);
       document.getElementsByName("final_project_mk_update")[0].value = ((avg_rep*0.7) + (avg_viva*0.3)).toFixed(2);
@@ -923,6 +923,46 @@ function email(){
     }
 
     report_viva_avg();
+
+    function update_total_viva(){
+      let ex1_viva = document.getElementsByName("ex1_viva_mk")[0].value;
+      let ex2_viva = document.getElementsByName("ex2_viva_mk")[0].value;
+
+      let difference_viva = ex2_viva - ex1_viva;
+      document.getElementById("viva_dif").innerHTML = difference_viva;
+      
+      
+
+      if(difference_viva > 0){
+        if(difference_viva > 5){
+          document.getElementById("viva_dif").style.backgroundColor = "red";
+          document.getElementById("viva_dif").style.color = "white";
+        }else{
+          document.getElementById("viva_dif").style.backgroundColor = "green";
+          document.getElementById("viva_dif").style.color = "white";
+        }
+      }else{
+        if(difference_viva < -5){
+          document.getElementById("viva_dif").style.backgroundColor = "red";
+          document.getElementById("viva_dif").style.color = "white";
+        }else{
+          document.getElementById("viva_dif").style.backgroundColor = "green";
+          document.getElementById("viva_dif").style.color = "white";
+        }
+      }
+      
+      let planning = parseFloat(document.getElementById("planning").innerHTML);
+
+      let total_viva_without_plan = (parseFloat(ex1_viva) + parseFloat(ex2_viva)) / 2 ;
+      let total_viva = (parseFloat(ex1_viva) + parseFloat(ex2_viva) + planning) / 3 ;
+      document.getElementById("viva_avg").innerHTML = total_viva_without_plan;
+      
+      
+      document.getElementsByName("final_viva_mk_update")[0].value = total_viva.toFixed(2);
+      document.getElementsByName("final_mk_chair")[0].value = total_viva_without_plan.toFixed(2);
+      total_viva = 0;
+    }
+
    
     $button = document.getElementsByName("btnsub")[0];
 

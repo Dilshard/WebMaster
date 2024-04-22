@@ -49,3 +49,8 @@ body {
     overflow: scroll;
     margin-bottom: 2px;
 }
+
+.green {
+    background-color: rgb(146, 239, 146);
+    border-color: green;
+}

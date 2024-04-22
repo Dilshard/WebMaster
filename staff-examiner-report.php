@@ -478,7 +478,6 @@ function email(){
               </div>
               
               <div class="col-12">
-                <!-- <button name="btnsub" type="submit" class="btn btn-success" onclick="f1()">Submit</button> -->
                 <input type="submit" name="btnsub" class="btn btn-success" value="Submit" onclick="f1()">
                 <button type="reset" class="btn btn-warning">Clear</button>
                 <span id="status"><?php if(isset($_SESSION['ex_status'])){echo $_SESSION['ex_status'];} unset($_SESSION['ex_status']);  ?></span>
@@ -491,16 +490,16 @@ function email(){
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
       crossorigin="anonymous"></script>
 
-      <script>
-        $button = document.getElementsByName("btnsub")[0];
+  <script>
+    $button = document.getElementsByName("btnsub")[0];
 
-       function f1(){
-        if($button.value == "Submit"){
-          $button.value = "Loading...";
-        }else{
-          $button.value = "Submit";
-        }
-       }
-      </script>
+    function f1(){
+    if($button.value == "Submit"){
+      $button.value = "Loading...";
+    }else{
+      $button.value = "Submit";
+    }
+    }
+  </script>
 </body>
 </html>

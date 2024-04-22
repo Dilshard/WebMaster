@@ -67,7 +67,7 @@
       // ---- update log ------
       $log_details = "Deleted from examiner_mark, sup_mark_pp_pspd, chair, schedule, Student table";
 
-      $sql_log = "INSERT INTO `logs` (`table_name`, `login_email`, `log`, `time`,`student_id`) VALUES ('By Admin', '$staffEmail', '$log_details',now(),$iitid);";
+      $sql_log = "INSERT INTO `logs` (`table_name`, `login_email`, `log`, `time`,`student_id`) VALUES ('By Admin', '$staffEmail', '$log_details',now(),'$iitid');";
       if(mysqli_query($conn, $sql_log)){
         $status .= "& Log updated!";
       }else{

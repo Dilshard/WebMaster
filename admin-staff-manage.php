@@ -35,6 +35,13 @@
       $status .= "Error!".mysqli_error($conn);
     }
 
+    $sqldelsupervisor = "DELETE FROM sup_mark_pp_pspd WHERE staffemail = '$staffEmailDeleted'";
+    if(mysqli_query($conn, $sqldelsupervisor)){
+      $status .= "Supervisor ";
+    }else{
+      $status .= "Error!".mysqli_error($conn);
+    }
+
     $sqldelexaminer = "DELETE FROM examiner_mark WHERE staffemail = '$staffEmailDeleted'";
     if(mysqli_query($conn, $sqldelexaminer)){
       $status .= "Examiner ";

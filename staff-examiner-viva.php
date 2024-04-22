@@ -432,15 +432,18 @@ function email(){
             <form method="POST" class="row g-3">
                 
               <div class="col-md-6">
-                <label class="form-label">Difficulty (<a href="#">Criteria</a>)</label> 
+                <label class="form-label">Difficulty (<a data-bs-toggle="modal" data-bs-target="#exampleModal" href="#">Criteria</a>)</label> 
+                <p>How difficult or ambitious was the project?</p>
                 <input name="difficulty" type="number" class="form-control" placeholder = "Out of 100" value="<?php if(isset($_SESSION['difficulty'])){echo $_SESSION['difficulty'];} unset($_SESSION['difficulty']);?>">
               </div>
               <div class="col-md-6">
-                <label class="form-label">Understanding (<a href="#">Criteria</a>)</label>
+                <label class="form-label">Understanding (<a data-bs-toggle="modal" data-bs-target="#exampleModal" href="#">Criteria</a>)</label>
+                <p>The student was able to explain his/her work, part of the code/ research results and defend decisions.</p>
                 <input name="understand" type="number" class="form-control" placeholder = "Out of 100" value="<?php if(isset($_SESSION['understand'])){echo $_SESSION['understand'];} unset($_SESSION['understand']);?>">
               </div>
               <div class="col-md-6">
-              <label class="form-label">Development of existing skills  (<a href="#">Criteria</a>)</label>
+              <label class="form-label">Development of existing skills  (<a data-bs-toggle="modal" data-bs-target="#exampleModal" href="#">Criteria</a>)</label>
+              <p>To what extent did the student develop known skills, and are these selected and applied correctly in the project domain?</p>
                 <input name="exisskill" type="number" class="form-control" placeholder = "Out of 100" value="<?php if(isset($_SESSION['exisskill'])){echo $_SESSION['exisskill'];} unset($_SESSION['exisskill']);?>">
               </div>
               <div class="col-md-6">
@@ -448,7 +451,8 @@ function email(){
                 <textarea name="addedval" class="form-control"><?php if(isset($_SESSION['addedval'])){echo $_SESSION['addedval'];}?></textarea>
               </div>
               <div class="col-md-6">
-                <label class="form-label">Development of new skills. (<a href="#">Criteria</a>)</label>
+                <label class="form-label">Development of new skills. (<a data-bs-toggle="modal" data-bs-target="#exampleModal" href="#">Criteria</a>)</label>
+                <p>To what extent did the student acquire new skills, and were these selected and applied correctly in the project domain?</p>
                 <input name="newskill" type="number" class="form-control" placeholder = "Out of 100" value="<?php if(isset($_SESSION['newskill'])){echo $_SESSION['newskill'];} unset($_SESSION['newskill']);?>">
               </div>
               <div class="col-md-6">
@@ -456,25 +460,156 @@ function email(){
                 <textarea name="overallcom" class="form-control"><?php if(isset($_SESSION['overallcom'])){echo $_SESSION['overallcom'];}?></textarea>
               </div>
               <div class="col-md-6">
-                <label class="form-label">Product/Implementation/Application/Research (Criteria)(<a href="#">Criteria</a>)</label>
+                <label class="form-label">Product/Implementation/Application/Research (<a data-bs-toggle="modal" data-bs-target="#Modal_pro_implementation" href="#">Criteria</a>)</label>
                 <input name="proimp" type="number" class="form-control" placeholder = "Out of 100" value="<?php if(isset($_SESSION['proimp'])){echo $_SESSION['proimp'];} unset($_SESSION['proimp']);?>">
               </div>
               <div class="col-md-6"></div>
               <div class="col-md-6">
-                <label class="form-label">Total</label>
-                <input type="number" class="form-control" disabled value="<?php if(isset($_SESSION['total_viva'])){echo $_SESSION['total_viva'];} unset($_SESSION['total_viva']);?>">
+                <label class="form-label">Total <a onclick="total_gen()">&#8635;</a></label>
+                <input name="total_viva" type="number" class="form-control" disabled value="<?php if(isset($_SESSION['total_viva'])){echo $_SESSION['total_viva'];} unset($_SESSION['total_viva']);?>" >
+                
               </div>
               
               <div class="col-12">
                 <!-- <button name="btnsub" type="submit" class="btn btn-success">Submit</button> -->
                 <input type="submit" name="btnsub" class="btn btn-success" value="Submit" onclick="f1()">
+                
                 <button type="reset" class="btn btn-warning">Clear</button>
                 <span id="status"><?php if(isset($_SESSION['ex_status'])){echo $_SESSION['ex_status'];} unset($_SESSION['ex_status']); unset($_SESSION['ex_status']);?></span>
               </div>
             </form>
 
             </div>
+    </div>
+    <!-- Modal Criteria-->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Criteria</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col" colspan="2">Range</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Fail </td>
+                  <td>(0 – 39)</td>
+                </tr>
+                <tr>
+                  <td>Pass</td>
+                  <td>(40 – 49)</td>
+                </tr>
+                <tr>
+                  <td>Fair</td>
+                  <td>(50 – 59)</td>
+                </tr>
+                <tr>
+                  <td>Good</td>
+                  <td>(60 – 69)</td>
+                </tr>
+                <tr>
+                  <td>Very Good</td>
+                  <td>(70-79)</td>
+                </tr>
+                <tr>
+                  <td>Exceptional</td>
+                  <td>(80+)</td>
+                </tr>
+                
+              </tbody>
+            </table>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
       </div>
+    </div>
+
+    <!-- Modal Criteria-->
+    <div class="modal fade" id="Modal_pro_implementation" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Criteria</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="row p-4">
+            <p><b>The demonstrated product:</b></p>
+              <ul>
+                <li>Satisfied the specifications.</li>
+                <li>Run without errors.</li>
+                <li>Had a suitable user interface.</li>
+                <li>Was tested and refined.</li>
+                <li>Was accompanied by any documentation (note: this has not been asked, if it is provided, it can be treated as extra).</li>
+              </ul>
+            </div>
+            <div class="row p-3">
+              <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col" colspan="2">Range</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Fail </td>
+                  <td>(0 – 39)</td>
+                </tr>
+                <tr>
+                  <td>Pass</td>
+                  <td>(40 – 49)</td>
+                </tr>
+                <tr>
+                  <td>Fair</td>
+                  <td>(50 – 59)</td>
+                </tr>
+                <tr>
+                  <td>Good</td>
+                  <td>(60 – 69)</td>
+                </tr>
+                <tr>
+                  <td>Very Good</td>
+                  <td>(70-79)</td>
+                </tr>
+                <tr>
+                  <td>Exceptional</td>
+                  <td>(80+)</td>
+                </tr>
+                
+              </tbody>
+            </table>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      function total_gen(){
+        var mk1 = parseInt(document.getElementsByName("difficulty")[0].value);
+        var mk2 = parseInt(document.getElementsByName("understand")[0].value);
+        var mk3 = parseInt(document.getElementsByName("exisskill")[0].value);
+        var mk4 = parseInt(document.getElementsByName("newskill")[0].value);
+        var mk5 = parseInt(document.getElementsByName("proimp")[0].value);
+        
+        let total = (mk1 + mk2 + mk3 + mk4 + mk5)/5;
+        document.getElementsByName("total_viva")[0].value = total;
+        console.log(total);
+      }
+      
+    </script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
       crossorigin="anonymous"></script>
@@ -489,6 +624,7 @@ function email(){
           $button.value = "Submit";
         }
        }
-      </script>
+       </script>
+
 </body>
 </html>
