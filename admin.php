@@ -1,16 +1,6 @@
 <?php
   session_start();
-  //--- admin check ----
-  if(empty($_SESSION['security'])){
-    header("Location: 404.php", true, 301);
-    exit();
-  }
-  if($_SESSION['email']==""){
-    header("Location: 404.php", true, 301);
-    exit();
-  }
-
-  include 'con.php';
+  include("validate.php");
 
   $sql = "SELECT * FROM Staff";
 
@@ -29,7 +19,9 @@
 ?>
 <!DOCTYPE html>
 <html lang="en">
-<?php include("head.php"); ?>
+<?php include("head.php"); 
+if(isset($_SESSION['token'])){
+?>
 <body>
     <div class="container-fluid">
         <div class="row">
@@ -75,4 +67,11 @@
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
       crossorigin="anonymous"></script>
 </body>
+
+<?php
+}else{
+  header("Location: 404.php", true, 301);
+  exit();
+}
+?>
 </html>

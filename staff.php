@@ -1,9 +1,6 @@
 <?php
 session_start();
-if($_SESSION['email']==""){
-  header("Location: 404.php", true, 301);
-  exit();
-}
+include("validate.php");
 ?>
 
 <!DOCTYPE html>

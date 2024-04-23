@@ -1,10 +1,18 @@
+<?php
+session_start();
+$_SESSION['token'] = "abcd";
+// echo $_SESSION['token'];
+
+// unset($_SESSION['email']);
+// session_destroy();
+?>
 <!doctype html>
 <html lang="en">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap demo</title>
+    <title>404 - Page not found!</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/livecanvas-team/ninjabootstrap/dist/css/bootstrap.min.css" media="all">
 </head>
 
@@ -37,7 +45,7 @@
                         </div>
                     </div><!-- /lc-block -->
                     <div class="lc-block">
-                        <a class="btn btn-lg btn-primary" href="index.php" role="button">Back to homepage</a>
+                        <a class="btn btn-lg btn-primary" href="index.php">Back to homepage</a>
                     </div><!-- /lc-block -->
                 </div><!-- /col -->
             </div>

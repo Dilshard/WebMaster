@@ -3,16 +3,7 @@
 <?php include("head.php"); ?>
 <?php
   session_start();
-  //--- admin check ----
-  if(empty($_SESSION['security'])){
-    header("Location: 404.php", true, 301);
-    exit();
-  }
-  if($_SESSION['email']==""){
-    header("Location: 404.php", true, 301);
-    exit();
-  }
-  include 'con.php';
+  include("validate.php");
 
   $sql = "SELECT * FROM Staff";
   $results = mysqli_query($conn, $sql);
@@ -101,13 +92,17 @@
                   <th scope="col">FT/FT</th>
                   <th scope="col">Area of interest</th>
                   <th scope="col">Role</th>
+                  <th scope="col">Initial log</th>
                   <th scope="col">Action</th>
                 </tr>
               </thead>
               <tbody>
                 <?php
                 if(mysqli_num_rows($results) > 0){
+                  $data = [];
+                  array_push($data,"Staff ID, Staff Email, Password, Staff Name, Contact, FullTime/Part-time, Area, Role, Password_change_attempts");
                   while($row = mysqli_fetch_assoc($results)){
+                    array_push($data,"$row[staffid],$row[staffemail],$row[password],$row[staffname],$row[contact],$row[ftpt],$row[area],$row[role],$row[pass_attempt]");
                     echo "<tr>";
                       echo "<td>".$row['staffid']."</td>";
                       echo "<td>".$row['staffemail']."</td>";
@@ -117,6 +112,11 @@
                       echo "<td>".$row['ftpt']."</td>";
                       echo "<td>".$row['area']."</td>";
                       echo "<td>".$row['role']."</td>";
+                      if($row['pass_attempt'] == "0"){
+                        echo "<td>No</td>";
+                      }else{
+                        echo "<td>Yes</td>";
+                      }
                       echo '
                       <td>
                         <form method="post" onsubmit="return confirm(\'Do you really want to delete this staff?\');"> <input name="staff_email" type="text" value="'.$row['staffemail'].'" hidden> <input name="btndel" type="submit" class="btn btn-danger" value="D">  </form>
@@ -124,13 +124,18 @@
                       ';
                     echo "</tr>";
                   }
+                  $_SESSION['export_data_csv'] = $data;
                 }else{
+                  
                   echo "<tr>";
                     echo "<td>No records found!</td>";
                   echo "</tr>";
                 }
                 ?>
-
+                <tr>
+                  <td colspan="4"><a href="mail-export-csv.php" class="btn btn-success">Download CSV</a></td>
+                  
+                </tr>
               </tbody>
               <?php if(isset($_SESSION['del_status'])){echo $_SESSION['del_status'];} unset($_SESSION['del_status']); ?>
             </table>

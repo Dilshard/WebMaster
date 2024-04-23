@@ -1,43 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php 
-include("con.php"); 
-include("head.php");
 
+include("head.php");
 session_start();
 
     if(isset($_POST["btnsubmit"])){
-        $email = $_POST['email'];
-        $pass = $_POST['pass'];
-        
-        $sql = "SELECT * FROM Staff WHERE staffemail = '$email' and password = '$pass'";
+        include("con.php");
+        if(empty($_POST['email']) || empty($_POST['pass'])){
+            $_SESSION['error_login'] = "Error: Email or password cannot be empty!";
+        }else{
+            $email = mysqli_real_escape_string($conn, $_POST['email']);
+            $pass = mysqli_real_escape_string($conn, $_POST['pass']);
+            
+            $result = mysqli_query($conn,"SELECT * FROM Staff WHERE staffemail = '$email' and password = '$pass'");
+            $count = mysqli_num_rows($result);
 
-        $result = mysqli_query($conn,$sql);
-        $count = mysqli_num_rows($result);
+            if($count == 1){
+                $token = generateRandomString(15);
+                $_SESSION['token'] = $token;
+                $sql_token = "UPDATE `Staff` SET `token` = '$token' WHERE `staffemail` = '$email';";
+                if(!mysqli_query($conn, $sql_token)){
+                    $_SESSION['error_login'] = "Token not generated!";
+                }
 
-        if($count == 1){
-            while($row = mysqli_fetch_assoc($result)){
-                $role = $row['role'];
-                $pass_attempt = $row['pass_attempt'];
+                while($row = mysqli_fetch_assoc($result)){
+                    $role = $row['role'];
+                    $pass_attempt = $row['pass_attempt'];
+                }
+                $_SESSION['email'] = $email;
+                $_SESSION['role'] = $role;
+
+                if($pass_attempt == 0){
+                    header("Location: staff_reset_password.php", true, 301);
+                    exit();
+                }elseif(strtolower($role) == "admin"){
+                    header("Location: admin.php", true, 301);
+                    exit();
+                }elseif(strtolower($role) == "staff"){
+                    header("Location: staff.php", true, 301);
+                    exit();
+                }
+            }else{
+                $_SESSION['error_login'] = "Error: Please check your login credentials!";
             }
-            $_SESSION['email'] = $email;
-            $_SESSION['role'] = $role;
-
-            if($pass_attempt == 0){
-                header("Location: staff_reset_password.php", true, 301);
-                exit();
-            }elseif($role == "admin"){
-                $_SESSION['key'] = generateRandomString();
-                $_SESSION['security'] = $_SESSION['key'];
-                header("Location: admin.php", true, 301);
-                exit();
-            }elseif($role == "staff"){
-                header("Location: staff.php", true, 301);
-                exit();
-            }
-        }
-        else{
-            $_SESSION['error_login'] = "Error: Please check your credentials";
         }
     }
 
@@ -122,9 +128,6 @@ session_start();
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-
-
-
 
 </body>
 

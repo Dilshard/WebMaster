@@ -3,16 +3,10 @@
 <?php include("head.php"); ?>
 <?php
   session_start();
-  //--- admin check ----
-  if(empty($_SESSION['security'])){
-    header("Location: 404.php", true, 301);
-    exit();
-  }
-  if($_SESSION['email']==""){
-    header("Location: 404.php", true, 301);
-    exit();
-  }
-  include 'con.php';
+  include("validate.php");
+  
+
+
   if(isset($_SESSION['email'])){
     $staffEmail = $_SESSION['email'];
   }else{

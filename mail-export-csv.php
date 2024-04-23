@@ -1,5 +1,6 @@
 <?php
 session_start();
+include("validate.php");
 
 header('Content-Type: text/csv');
 header('Content-Disposition: attachment; filename="data.csv"');

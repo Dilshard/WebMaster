@@ -1,12 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php 
-include("con.php"); 
-include("head.php");
-
 session_start();
+include("validate.php");
 
-include 'con.php';
+include("head.php");
 
 $staffEmail = $_SESSION['email'];
 

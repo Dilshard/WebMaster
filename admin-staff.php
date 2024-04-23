@@ -3,19 +3,11 @@
 <?php include("head.php"); ?>
 <?php
   session_start();
-  //--- admin check ----
-  if(empty($_SESSION['security'])){
-    header("Location: 404.php", true, 301);
-    exit();
-  }
-  if($_SESSION['email']==""){
-    header("Location: 404.php", true, 301);
-    exit();
-  }
+  include("validate.php");
 
   $staffEmail = "by ".$_SESSION['email'];
 
-  include 'con.php';
+//   include 'con.php';
 
   if(isset($_POST['btnsub'])){
     $email = $_POST['stemail'];
@@ -598,7 +590,8 @@ function generatePass($length = 8) {
                 <div class="col-12">
                   <button type="submit" name="staff_upload" class="btn btn-success">Upload</button>
                   <button type="reset" class="btn btn-warning">Clear</button>
-                  <a href="mail-export-csv.php" class="btn btn-secondary">Download CSV</a>
+                  <!-- <a href="mail-export-csv.php" class="btn btn-secondary">Download CSV</a> -->
+                  <a class="btn btn-secondary" href="admin-staff-manage.php">View</a>
                   <span><?php if(isset($_SESSION['status_staff_csv_load'])){echo $_SESSION['status_staff_csv_load'];} unset($_SESSION['status_staff_csv_load']);?></span>
                 </div>
               </form>
