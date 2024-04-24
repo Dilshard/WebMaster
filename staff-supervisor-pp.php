@@ -305,7 +305,7 @@ function email(){
                                             <td
                                               style="line-height: 24px; font-size: 16px; border-radius: 6px; font-weight: 700 !important; margin: 0;"
                                               align="center" bgcolor="#0d6efd">
-                                              <a href="Webmaster.lk"
+                                              <a href="http://fpv.iit.ac.lk/WebMaster"
                                                 style="color: #ffffff; font-size: 16px; font-family: Helvetica, Arial, sans-serif; text-decoration: none; border-radius: 6px; line-height: 20px; display: block; font-weight: 700 !important; white-space: nowrap; background-color: #c41b18; padding: 12px; border: 1px solid #741211;">Visit
                                                 WebMaster</a>
                                             </td>
@@ -351,7 +351,7 @@ function email(){
                               <div class="text-muted text-center" style="color: #718096;" align="center">
                                 IIT School of Computing. <br>
                                 10, Trelawney Pl, Colombo 04<br>
-                                fp2022viva@iit.ac.lk <br>
+                                fypsystem@iit.ac.lk <br>
                               </div>
                               <table class="s-6 w-full" role="presentation" border="0" cellpadding="0" cellspacing="0"
                                 style="width: 100%;" width="100%">

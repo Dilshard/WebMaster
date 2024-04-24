@@ -1,9 +1,13 @@
 <?php
-
     $servername = "localhost";
     $username = "root";
     $password = "";
     $database = "WebMaster";
+
+    // $servername = "localhost";
+    // $username = "acd";
+    // $password = "neUPeAStopHO@96";
+    // $database = "webmaster";
 
     // Create connection
     $conn = new mysqli($servername, $username, $password, $database);
@@ -13,7 +17,4 @@
         die("Connection failed: " . $conn->connect_error);
     }
     // echo "Connected successfully";
-  
-
-    
 ?>

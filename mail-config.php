@@ -3,22 +3,22 @@
 define('MAILHOST', "smtp.gmail.com");
  
 // Define as a username the email that you use in your Gmail account.
-define('USERNAME', "dilshard.20220423@iit.ac.lk");
+define('USERNAME', "fypsystem@iit.ac.lk");
  
 // Define your 16 digit Gmail app-password.
-define('PASSWORD', "ixha cehw lhqh ygcb");
+define('PASSWORD', "lgkr dlxy apaj gnfc");
  
 // Define the email address from which the email is sent.
-define('SEND_FROM', "fp2022viva@iit.ac.lk");
+define('SEND_FROM', "fypsystem@iit.ac.lk");
  
 // Define the name of the website from which the email is sent. 
-define('SEND_FROM_NAME', "Web Master");
+define('SEND_FROM_NAME', "FYP System");
  
 // Define the reply-to address.
-define('REPLY_TO', "fp2022viva@iit.ac.lk");
+define('REPLY_TO', "fypsystem@iit.ac.lk");
  
 // Define the reply-to name.
-define('REPLY_TO_NAME', "fp2022viva@iit.ac.lk");
+define('REPLY_TO_NAME', "FYP System 2024");
 
 
 // https://www.youtube.com/watch?v=fSfNTACbplA

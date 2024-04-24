@@ -1,10 +1,10 @@
 <?php
 session_start();
-$_SESSION['token'] = "abcd";
+// $_SESSION['token'] = "abcd";
 // echo $_SESSION['token'];
 
 // unset($_SESSION['email']);
-// session_destroy();
+session_destroy();
 ?>
 <!doctype html>
 <html lang="en">
@@ -29,7 +29,7 @@ $_SESSION['token'] = "abcd";
                 <div class="col-md-6 text-center text-md-start ">
                     <div class="lc-block mb-3">
                         <div editable="rich">
-                            <img src="images/logo.png" alt="" width="200px">
+                            <img src="logo.png" alt="" width="200px">
                             <h1 class="fw-bold h4">PAGE NOT FOUND!<br></h1>
                         </div>
                     </div>
