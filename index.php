@@ -13,36 +13,44 @@ session_start();
             $email = mysqli_real_escape_string($conn, $_POST['email']);
             $pass = mysqli_real_escape_string($conn, $_POST['pass']);
             
-            $result = mysqli_query($conn,"SELECT * FROM Staff WHERE staffemail = '$email' and password = '$pass'");
+            $result = mysqli_query($conn,"SELECT * FROM Staff WHERE staffemail = '$email'");
             $count = mysqli_num_rows($result);
 
             if($count == 1){
-                $token = generateRandomString(15);
-                $_SESSION['token'] = $token;
-                $sql_token = "UPDATE `Staff` SET `token` = '$token' WHERE `staffemail` = '$email';";
-                if(!mysqli_query($conn, $sql_token)){
-                    $_SESSION['error_login'] = "Token not generated!";
-                }
-
                 while($row = mysqli_fetch_assoc($result)){
                     $role = $row['role'];
                     $pass_attempt = $row['pass_attempt'];
+                    $password = $row['password'];
                 }
-                $_SESSION['email'] = $email;
-                $_SESSION['role'] = $role;
 
-                if($pass_attempt == 0){
-                    header("Location: staff_reset_password.php", true, 301);
-                    exit();
-                }elseif(strtolower($role) == "admin"){
-                    header("Location: admin.php", true, 301);
-                    exit();
-                }elseif(strtolower($role) == "staff"){
-                    header("Location: staff.php", true, 301);
-                    exit();
+                if(password_verify($pass,$password) == 1){
+                    $token = generateRandomString(15);
+                    $_SESSION['token'] = $token;
+                    $sql_token = "UPDATE `Staff` SET `token` = '$token' WHERE `staffemail` = '$email';";
+                    if(!mysqli_query($conn, $sql_token)){
+                        $_SESSION['error_login'] = "Token not generated!";
+                    }
+                    
+                    $_SESSION['email'] = $email;
+                    $_SESSION['role'] = $role;
+
+                    if($pass_attempt == 0){
+                        header("Location: staff_reset_password.php", true, 301);
+                        exit();
+                    }elseif(strtolower($role) == "admin"){
+                        header("Location: admin.php", true, 301);
+                        exit();
+                    }elseif(strtolower($role) == "staff"){
+                        header("Location: staff.php", true, 301);
+                        exit();
+                    }
+                }else{
+                    $_SESSION['error_login'] = "Error: Incorrect password!";
                 }
+
+                
             }else{
-                $_SESSION['error_login'] = "Error: Please check your login credentials!";
+                $_SESSION['error_login'] = "Error: Your not registered with the system!";
             }
         }
     }
@@ -100,7 +108,7 @@ session_start();
                                     <label class="form-check-label" for="exampleCheck1">Check me out</label>
                                 </div> -->
                                 <button name="btnsubmit" type="submit" class="btn btn-primary">Submit</button>
-                                <span><?php if(isset($_SESSION['error_login'])){echo $_SESSION['error_login'];}?></span>
+                                <span><?php if(isset($_SESSION['error_login'])){echo $_SESSION['error_login'];} unset($_SESSION['error_login'])?></span>
                             </form>
                         </div>
                     </div>

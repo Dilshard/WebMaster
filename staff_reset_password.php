@@ -9,11 +9,13 @@ include("head.php");
 $staffEmail = $_SESSION['email'];
 
 if(isset($_POST['btnsubmit'])){
+
     $pass1 = $_POST['pass1'];
     $pass2 = $_POST['pass2'];
 
     if($pass1 == $pass2){
-        $sql = "UPDATE `Staff` SET `password` = '$pass1', `pass_attempt` = 1  WHERE `staffemail` = '$staffEmail'";
+        $hashed_password = password_hash($pass1, PASSWORD_DEFAULT);
+        $sql = "UPDATE `Staff` SET `password` = '$hashed_password', `pass_attempt` = 1  WHERE `staffemail` = '$staffEmail'";
   
         if(mysqli_query($conn, $sql)){
             header("Location: index.php", true, 301);
@@ -21,6 +23,8 @@ if(isset($_POST['btnsubmit'])){
         }else{
             echo "Error!".mysqli_error($conn);
         }
+    }else{
+        echo "error!";
     }
     
    
