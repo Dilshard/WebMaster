@@ -54,10 +54,6 @@
                   $data = [];
                   array_push($data,"Schedule ID, Staff Email, IIT ID, Staff Role, Meeting Link, Meeting Date, Meeting Time, Hall");
                   while($row = mysqli_fetch_assoc($results)){
-                    array_push($data,"$row[schid],$row[staffemail],$row[iitid],$row[role],$row[link],$row[meeting_date],$row[meeting_time],$row[hall]");
-                    echo "<tr>";
-                      echo "<th scope='row'>".$row['schid']."</th>";
-                      echo "<td>".$row['staffemail']."</td>";
                       echo "<td>".$row['iitid']."</td>";
                       echo "<td>".$row['role']."</td>";
                       echo "<td>".$row['link']."</td>";

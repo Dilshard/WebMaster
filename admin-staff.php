@@ -24,7 +24,7 @@
     $_SESSION['mail-pass'] = $stpass;
     $_SESSION['mail-name'] = $stname;
 
-    $sql = "INSERT INTO `Staff` (`staffemail`, `password`, `staffname`, `contact`, `ftpt`, `area`, `role`, `pass_attempt`) VALUES ('$email', '$stpass_hashed', '$stname', '$stcontact', '$ftpt', '$stspecial', '$strole', 0);";
+    $sql = "INSERT INTO `Staff` (`staffemail`, `password`, `staffname`, `contact`, `ftpt`, `area`, `role`, `pass_attempt`, `slots`) VALUES ('$email', '$stpass_hashed', '$stname', '$stcontact', '$ftpt', '$stspecial', '$strole', 0, 10);";
 
     if(mysqli_query($conn, $sql)){
       email();

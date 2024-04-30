@@ -58,6 +58,13 @@
         echo "Error!".mysqli_error($conn);
       }
 
+      $sqldelsupevisor = "DELETE FROM supervisor WHERE iitid = $iitid";
+      if(mysqli_query($conn, $sqldelsupevisor)){
+        $status .= "Supervisor ";
+      }else{
+        echo "Error!".mysqli_error($conn);
+      }
+
       // ---- update log ------
       $log_details = "Deleted from examiner_mark, sup_mark_pp_pspd, chair, schedule, Student table";
 

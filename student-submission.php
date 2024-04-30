@@ -52,56 +52,6 @@ include("validate_student.php");
 require_once 'vendor/autoload.php';
 
 if(isset($_POST['btnsub'])){
-    // Read PDF from HTML form
-    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["pdfFile"])) {
-        $targetDir = "PDFs/"; 
-        $targetFile = $targetDir .$_SESSION['iitid'].'_'. basename($_FILES["pdfFile"]["name"]);
-        $uploadOk = 1;
-        $pdfFileType = strtolower(pathinfo($targetFile,PATHINFO_EXTENSION));
-
-        unlink("PDFs/".$_SESSION['iitid'].'_'. basename($_FILES["pdfFile"]["name"]));
-
-        // Check if the file is a PDF
-        if($pdfFileType != "pdf") {
-            echo "Only PDF files are allowed.";
-            $uploadOk = 0;
-        }
-
-        // Check if file already exists
-        if (file_exists($targetFile)) {
-            echo "File already exists.";
-            $uploadOk = 0;
-        }
-
-        // Check file size (optional)
-        if ($_FILES["pdfFile"]["size"] > 15000000) {
-            echo "File is too large.- ".$_FILES["pdfFile"]["size"];
-            $uploadOk = 0;
-        }
-
-        // Upload file
-        if ($uploadOk == 0) {
-            echo "Sorry, your file was not uploaded.";
-        } else {
-            if (move_uploaded_file($_FILES["pdfFile"]["tmp_name"], $targetFile)) {
-                //echo "The file ". htmlspecialchars( time().'_'.basename( $_FILES["pdfFile"]["name"])). " has been uploaded.";
-                $PDF_File_name = $_SESSION['iitid'].'_'.basename( $_FILES["pdfFile"]["name"]);
-            } else {
-                echo "Sorry, there was an error uploading your file.";
-            }
-        }
-    } else {
-        echo "No file uploaded.";
-    }
-    //--------- End
-
-    $parser = new \Smalot\PdfParser\Parser();
-    $pdf = $parser->parseFile('PDFs/'.$PDF_File_name);
-
-    $text = $pdf->getText();
-
-    $project_proposals = $text;
-
 
     // Function to categorize project proposals
     function categorize_proposals($proposal, $ml_keywords,$deep_learning,$artificial_intelligence,$natural_language_processing,$data_mining,$gamification,$ui_ux,$web_application_development,$cloud_computing,$cyber_security,$iot,$virtualization,$large_language_models,$devops,$generative_ai,$robotics,$web_mobile_development,$image_classification) {
@@ -155,6 +105,13 @@ if(isset($_POST['btnsub'])){
         }
         $cat_percentage = ($high_score/$other_score*100);
         $_SESSION['file_cat_status'] = $cat_name." - ".round($cat_percentage,2)."%";
+
+        // --- update student table --
+        include("con.php");
+        $sql_update_student_area = "UPDATE `Student` SET `resarea` = '$cat_name' WHERE `Student`.`iitid` = $_SESSION[iitid];";
+        mysqli_query($conn, $sql_update_student_area);
+
+
         header("Location: student-submission.php", true, 301);
         exit();
     }
@@ -195,7 +152,66 @@ if(isset($_POST['btnsub'])){
     $web_mobile_development = ["HTML", "CSS", "JavaScript", "Frontend Frameworks", "Backend Frameworks", "Mobile Development Platforms", "Responsive Design", "Progressive Web Apps", "Cross-platform Development", "Native Development","iOS","Android","PWAs"];
     $image_classification = ["Convolutional Neural Networks", "Transfer Learning", "Fine-tuning", "Data Augmentation", "Image Preprocessing", "Object Detection", "Image Segmentation", "Feature Extraction", "Deep Learning Models", "Classification Algorithms","CNN"];
 
-    // add keywords lists to main function
-    categorize_proposals($project_proposals, $ml_keywords,$deep_learning,$artificial_intelligence,$natural_language_processing,$data_mining,$gamification,$ui_ux,$web_application_development,$cloud_computing,$cyber_security,$iot,$virtualization,$large_language_models,$devops,$generative_ai,$robotics,$web_mobile_development,$image_classification);
+
+    // Read PDF from HTML form
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["pdfFile"])) {
+        $targetDir = "PDFs/"; 
+        $targetFile = $targetDir .$_SESSION['iitid'].basename( $_FILES["pdfFile"]["name"]);
+        $uploadOk = 1;
+        $pdfFileType = strtolower(pathinfo($targetFile,PATHINFO_EXTENSION));
+        
+        // Check wether the file is a PDF
+        if($pdfFileType != "pdf") {
+            echo "<div class='offset-md-2 p-3'>Only PDF files are allowed.</div>";
+            $_SESSION['file_cat_status'] = "Only PDF files are allowed.";
+            $uploadOk = 0;
+        }else{
+            //Rename the file
+            $targetFile = $targetDir .$_SESSION['iitid'].'.pdf';
+
+            //Delete if exists
+            unlink("PDFs/".$_SESSION['iitid'].'.pdf');
+            
+            // Check if file already exists
+            if (file_exists($targetFile)) {
+                echo "File already exists.";
+                $uploadOk = 0;
+            }
+
+            // Check file size (optional)
+            if ($_FILES["pdfFile"]["size"] > 15000000) {
+                echo "File is too large.- ".$_FILES["pdfFile"]["size"];
+                $uploadOk = 0;
+            }
+
+            // Upload file
+            if ($uploadOk == 0) {
+                echo "Sorry, your file was not uploaded.";
+            } else {
+                if (move_uploaded_file($_FILES["pdfFile"]["tmp_name"], $targetFile)) {
+                    //echo "The file ". htmlspecialchars( time().'_'.basename( $_FILES["pdfFile"]["name"])). " has been uploaded.";
+                    $PDF_File_name = $_SESSION['iitid'].'.pdf';
+                } else {
+                    echo "Sorry, there was an error uploading your file.";
+                }
+            }
+
+            $parser = new \Smalot\PdfParser\Parser();
+            $pdf = $parser->parseFile('PDFs/'.$PDF_File_name);
+        
+            $text = $pdf->getText();
+        
+            $project_proposals = $text;
+
+            // add keywords lists to main function
+            categorize_proposals($project_proposals, $ml_keywords,$deep_learning,$artificial_intelligence,$natural_language_processing,$data_mining,$gamification,$ui_ux,$web_application_development,$cloud_computing,$cyber_security,$iot,$virtualization,$large_language_models,$devops,$generative_ai,$robotics,$web_mobile_development,$image_classification);
+        }
+
+        
+    } else {
+        echo "No file uploaded.";
+    }
+    //--------- End
+    
 }
 ?>

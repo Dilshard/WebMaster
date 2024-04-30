@@ -29,7 +29,7 @@ if(isset($_POST['btnsub'])){
   $sql = "UPDATE `sup_mark_pp_pspd` SET `planning` = '$plan', `staffemail` = '$staffEmail' WHERE `sup_mark_pp_pspd`.`iitid` = $iitId";
 
   if(mysqli_query($conn, $sql)){
-    //email();
+    email();
     $_SESSION['status'] = "Updated!";
     header("Location: staff-schedules.php", true, 301);
     exit();

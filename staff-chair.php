@@ -152,7 +152,7 @@ if(isset($_POST['btnsub'])){
   WHERE `iitid` = $iitId;";
 
   if(mysqli_query($conn, $sql_chair_student)){
-    //email();
+    email();
     header('Location: staff-schedules.php');
   }else{
     echo "Error!".mysqli_error($conn);

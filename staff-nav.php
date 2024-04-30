@@ -11,6 +11,9 @@
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="staff-schedules.php">Schedules</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="staff-supervisor-request.php">Requests</a>
+                </li>
                 <!-- <li class="nav-item">
                     <a class="nav-link" href="#">Students supervising</a>
                 </li>

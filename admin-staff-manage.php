@@ -54,6 +54,13 @@
       $status .= "Error!".mysqli_error($conn);
     }
 
+    $sqldelsupervisor = "DELETE FROM supervisor WHERE staffemail = '$staffEmailDeleted'";
+    if(mysqli_query($conn, $sqldelschedule)){
+      $status .= "Supervisor ";
+    }else{
+      $status .= "Error!".mysqli_error($conn);
+    }
+
     
 
     // ---- update log ------
