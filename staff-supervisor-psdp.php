@@ -39,8 +39,10 @@ include("validate.php");
     $sql = "UPDATE `sup_mark_pp_pspd` SET `staffemail` = '$staffEmail', `aim` = $aims,`stakehold` = $stak,`elicitation` = $elicit,`reqlist_pspd` = $listofreq,`reqana` = $req,`ref` = $reff,`protodemo` = $proto,`supfeed_pspd` = '$supfeed',`below40_pspd` = '$below40',`tot_pspd` = $total_psdp  WHERE `sup_mark_pp_pspd`.`iitid` = $iitId";
 
     if(mysqli_query($conn, $sql)){
-      email();
+      //email();
       $_SESSION['status'] = "Success!";
+      header("Location: staff-schedules.php", true, 301);
+      exit();
     }else{
       echo "Error!".mysqli_error($conn);
     }

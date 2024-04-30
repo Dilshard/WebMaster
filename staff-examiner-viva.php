@@ -46,8 +46,10 @@ if(isset($_POST['btnsub'])){
   $sql = "UPDATE `examiner_mark` SET `staffemail` = '$staffEmail',`examiner_count` = $exCount, `difficulty` = $difficulty,`exisskill` = $exisskill,`newskill` = $newskill,`proimp` = $proimp,`understand` = $understand,`addedval` = '$addedval',`overallcom` = '$overallcom',`total_viva` = $tot_viva  WHERE `examiner_mark`.`iitid` = $iitId AND `examiner_count` = $exCount";
 
   if(mysqli_query($conn, $sql)){
-    email();
+    //email();
     $_SESSION['ex_status'] = "Success!";
+    header("Location: staff-schedules.php", true, 301);
+    exit();
   }else{
     echo "Error!".mysqli_error($conn);
   }

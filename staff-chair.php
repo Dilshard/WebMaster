@@ -63,30 +63,30 @@ if(mysqli_num_rows($results_ex2) > 0){
 
 //Chair table update
 if(isset($_POST['btnsub'])){
-  $ex1_rep_mk = $_POST['ex1_rep_mk'];
-  $ex1_viva_mk = $_POST['ex1_viva_mk'];
-  $ex1_difficult = $_POST['ex1_difficult'];
-  $ex1_understand = $_POST['ex1_understand'];
-  $ex1_exiskill = $_POST['ex1_exiskill'];
-  $ex1_newskill = $_POST['ex1_newskill'];
-  $ex1_proimpl = $_POST['ex1_proimpl'];
+  $ex1_rep_mk = floatval($_POST['ex1_rep_mk']);
+  $ex1_viva_mk = floatval($_POST['ex1_viva_mk']);
+  $ex1_difficult = floatval($_POST['ex1_difficult']);
+  $ex1_understand = floatval($_POST['ex1_understand']);
+  $ex1_exiskill = floatval($_POST['ex1_exiskill']);
+  $ex1_newskill = floatval($_POST['ex1_newskill']);
+  $ex1_proimpl = floatval($_POST['ex1_proimpl']);
   $ex1_addedval = $_POST['ex1_addedval'];
-  $ex1_overall = $_POST['ex1_overall'];
+  $ex1_overall = htmlspecialchars($_POST['ex1_overall']);
 
-  $ex2_rep_mk = $_POST['ex2_rep_mk'];
-  $ex2_viva_mk = $_POST['ex2_viva_mk'];
-  $ex2_difficult = $_POST['ex2_difficult'];
-  $ex2_understand = $_POST['ex2_understand'];
-  $ex2_exiskill = $_POST['ex2_exiskill'];
-  $ex2_newskill = $_POST['ex2_newskill'];
-  $ex2_proimpl = $_POST['ex2_proimpl'];
+  $ex2_rep_mk = floatval($_POST['ex2_rep_mk']);
+  $ex2_viva_mk = floatval($_POST['ex2_viva_mk']);
+  $ex2_difficult = floatval($_POST['ex2_difficult']);
+  $ex2_understand = floatval($_POST['ex2_understand']);
+  $ex2_exiskill = floatval($_POST['ex2_exiskill']);
+  $ex2_newskill = floatval($_POST['ex2_newskill']);
+  $ex2_proimpl = floatval($_POST['ex2_proimpl']);
   $ex2_addedval = $_POST['ex2_addedval'];
-  $ex2_overall = $_POST['ex2_overall'];
+  $ex2_overall = $_POST['ex2_overall']; 
 
   $simindex = $_POST['simindex'];
   $similaritycon = $_POST['similaritycon'];
   $thirdmk = $_POST['thirdmk'];
-  $final_mk_chair = $_POST['final_mk_chair'];
+  $final_mk_chair = floatval($_POST['final_mk_chair']);
   $chair_feed = $_POST['chair_feed'];
   $final_viva_mk_update = $_POST['final_viva_mk_update'];
   $final_report_mk_update = $_POST['final_report_mk_update'];
@@ -99,26 +99,20 @@ if(isset($_POST['btnsub'])){
   $_SESSION['final_proj_mail'] = $final_project_mk_update;
   $_SESSION['final_module_mail'] = $final_module_mk_update;
   $_SESSION['chair_feed_mail'] = $chair_feed;
-
-  // $_SESSION['ex1_report_mail'] = $$ex1_rep_mk;
-  // $_SESSION['ex1_viva_mail'] = $ex1_viva_mk;
-
-  // $_SESSION['ex2_report_mail'] = $ex2_rep_mk;
-  // $_SESSION['ex2_viva_mail'] = $ex2_viva_mk;
   //---
 
   $sql_chair = "UPDATE `chair` SET 
   `simindex`= $simindex, 
-  `simcon` = '$similaritycon', 
-  `thirdmark` = '$thirdmk', 
+  `simcon` = '$similaritycon',
+  `thirdmark` = '$thirdmk',
   `finalmk` = $final_mk_chair, 
   `chfeed` = '$chair_feed', 
 
   `ex1_report_total` = $ex1_rep_mk, 
-  `ex1_viva_total` = $ex1_viva_mk, 
-  `ex1_difficulty` = $ex1_difficult, 
+  `ex1_viva_total` = $ex1_viva_mk, -- ok
+  `ex1_difficulty` = $ex1_difficult, -- ok
   `ex1_exisskill` = $ex1_exiskill, 
-  `ex1_newskill` = $ex1_newskill , 
+  `ex1_newskill` = $ex1_newskill, 
   `ex1_proimp` = $ex1_proimpl, 
   `ex1_understand` = $ex1_understand, 
   `ex1_addedval` = '$ex1_addedval', 
@@ -135,10 +129,10 @@ if(isset($_POST['btnsub'])){
   `ex2_overallcom` = '$ex2_overall', 
   `staffemail` = '$staffEmail',
 
-  `final_viva_mark` = '$final_viva_mk_update',
-  `final_report_mark` = '$final_report_mk_update',
-  `final_project_mark` = '$final_project_mk_update',
-  `final_module_mark` = '$final_module_mk_update'
+  `final_viva_mark` = $final_viva_mk_update,
+  `final_report_mark` = $final_report_mk_update,
+  `final_project_mark` = $final_project_mk_update,
+  `final_module_mark` = $final_module_mk_update
   
   WHERE `iitid` = $iitId;";
 
@@ -149,7 +143,7 @@ if(isset($_POST['btnsub'])){
   }
 
   // ----- student table update ----
-  $sql_chair = "UPDATE `Student` SET 
+  $sql_chair_student = "UPDATE `Student` SET 
   `final_viva_mark`= $final_viva_mk_update, 
   `final_report_mark` = $final_report_mk_update, 
   `final_project_mark` = $final_project_mk_update, 
@@ -157,19 +151,22 @@ if(isset($_POST['btnsub'])){
   
   WHERE `iitid` = $iitId;";
 
-  if(mysqli_query($conn, $sql_chair)){
-    email();
+  if(mysqli_query($conn, $sql_chair_student)){
+    //email();
     header('Location: staff-schedules.php');
   }else{
     echo "Error!".mysqli_error($conn);
   }
 
-     // ---- update log ------
-     $log_details = strval($ex1_rep_mk.", ".$ex1_viva_mk.", ".$ex1_difficult.", ".$ex1_understand.", ".$ex1_exiskill.", ".$ex1_newskill.", ".$ex1_proimpl.", ".$ex1_addedval.", ".$ex1_overall.", ".$ex2_rep_mk.", ".$ex2_viva_mk.", ".$ex2_difficult.", ".$ex2_understand.", ".$ex2_exiskill.", ".$ex2_newskill.", ".$ex2_proimpl.", ".$ex2_addedval.", ".$ex2_overall.", ".$simindex.", ".$similaritycon.", ".$thirdmk.", ".$final_mk_chair.", ".$chair_feed.", ".$final_viva_mk_update.", ".$final_report_mk_update.", ".$final_project_mk_update.", ".$final_module_mk_update);
+  // ---- update log ------
+  $log_details = strval($ex1_rep_mk.", ".$ex1_viva_mk.", ".$ex1_difficult.", ".$ex1_understand.", ".$ex1_exiskill.", ".$ex1_newskill.", ".$ex1_proimpl.", ".$ex1_addedval.", ".$ex1_overall.", ".$ex2_rep_mk.", ".$ex2_viva_mk.", ".$ex2_difficult.", ".$ex2_understand.", ".$ex2_exiskill.", ".$ex2_newskill.", ".$ex2_proimpl.", ".$ex2_addedval.", ".$ex2_overall.", ".$simindex.", ".$similaritycon.", ".$thirdmk.", ".$final_mk_chair.", ".$chair_feed.", ".$final_viva_mk_update.", ".$final_report_mk_update.", ".$final_project_mk_update.", ".$final_module_mk_update);
 
-     $sql_log = "INSERT INTO `logs` (`table_name`, `login_email`, `log`, `time`,`student_id`) VALUES ('Chair', '$staffEmail', '$log_details',now(),'$iitId');";
-     mysqli_query($conn, $sql_log);
+  $sql_log = "INSERT INTO `logs` (`table_name`, `login_email`, `log`, `time`,`student_id`) VALUES ('Chair', '$staffEmail', '$log_details',now(),'$iitId');";
+  mysqli_query($conn, $sql_log);
 
+  // ---- update schedule ------
+  $sql_chair_schedule = "UPDATE `schedule` SET `status`= 1 WHERE `iitid` = $iitId";
+  mysqli_query($conn, $sql_chair_schedule);
      
 }
 
@@ -199,38 +196,8 @@ function email(){
       $_SESSION["chair_feed_mail"] = "N/A";
     }
 
-    //---
-
-    // if(empty($_SESSION['tot_pp'])){
-    //   $_SESSION["tot_pp"] = "N/A";
-    // }
-
-    // if(empty($_SESSION['tot_pspd'])){
-    //   $_SESSION["tot_pspd"] = "N/A";
-    // }
-
-    // if(empty($_SESSION['planning'])){
-    //   $_SESSION["planning"] = "N/A";
-    // }
-
-    // if(empty($_SESSION['ex1_report_mail'])){
-    //   $_SESSION["aaaaaa"] = "N/A";
-    // }
-
-    // if(empty($_SESSION['ex2_report_mail'])){
-    //   $_SESSION["aaaaaa"] = "N/A";
-    // }
-
-    // if(empty($_SESSION['ex1_viva_mail'])){
-    //   $_SESSION["aaaaaa"] = "N/A";
-    // }
-
-    // if(empty($_SESSION['ex2_viva_mail'])){
-    //   $_SESSION["aaaaaa"] = "N/A";
-    // }
-
     
-    $email_id = $_GET['staffEmail']; //Change This!
+    $email_id = $_GET['staffEmail'];
     $subject = "Final Project Marking Receipt (".$_GET['iitid'].") - Chair";
     $body = '
     <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -627,7 +594,7 @@ function email(){
                 <div class="row mt-3">
                   <div class="col-md-3">
                     <label class="form-label">Report </label>
-                    <input name="ex1_rep_mk" value="<?php if(isset($_SESSION[$iitId.'tot_report'])){echo $_SESSION[$iitId.'tot_report'];}else{echo -1;}?>" type="number" class="form-control" disabled>
+                    <input name="ex1_rep_mk" value="<?php if(isset($_SESSION[$iitId.'tot_report'])){echo $_SESSION[$iitId.'tot_report'];}else{echo -1;}?>" type="number" class="form-control">
                   </div>
                   <div class="col-md-3">
                     <label class="form-label">VIVA </label>
@@ -638,40 +605,40 @@ function email(){
                 <div class="row mt-3">
                   <div class="col-md-6">
                     <label class="form-label">Difficulty</label>
-                    <input name="ex1_difficult" value="<?php if(isset($_SESSION[$iitId.'difficulty'])){echo $_SESSION[$iitId.'difficulty'];}else{echo -1;}?>" type="number" class="form-control" disabled>
+                    <input name="ex1_difficult" value="<?php if(isset($_SESSION[$iitId.'difficulty'])){echo $_SESSION[$iitId.'difficulty'];}else{echo -1;}?>" type="number" class="form-control">
                   </div>
                   <div class="col-md-6">
                     <label class="form-label">Understanding</label>
-                    <input name="ex1_understand" value="<?php if(isset($_SESSION[$iitId.'understand'])){echo $_SESSION[$iitId.'understand'];}else{echo -1;}?>" type="number" class="form-control" disabled>
+                    <input name="ex1_understand" value="<?php if(isset($_SESSION[$iitId.'understand'])){echo $_SESSION[$iitId.'understand'];}else{echo -1;}?>" type="number" class="form-control">
                   </div>
                 </div>
 
                 <div class="row mt-3">
                   <div class="col-md-6">
                     <label class="form-label">Development of existing skills</label>
-                    <input name="ex1_exiskill" value="<?php if(isset($_SESSION[$iitId.'exisskill'])){echo $_SESSION[$iitId.'exisskill'];}else{echo -1;}?>" type="number" class="form-control" disabled>
+                    <input name="ex1_exiskill" value="<?php if(isset($_SESSION[$iitId.'exisskill'])){echo $_SESSION[$iitId.'exisskill'];}else{echo -1;}?>" type="number" class="form-control">
                   </div>
                   <div class="col-md-6">
                     <label class="form-label">Development of new skills</label>
-                    <input name="ex1_newskill" value="<?php if(isset($_SESSION[$iitId.'newskill'])){echo $_SESSION[$iitId.'newskill'];}else{echo -1;}?>" type="number" class="form-control" disabled>
+                    <input name="ex1_newskill" value="<?php if(isset($_SESSION[$iitId.'newskill'])){echo $_SESSION[$iitId.'newskill'];}else{echo -1;}?>" type="number" class="form-control">
                   </div>
                 </div>
 
                 <div class="row mt-3">
                   <div class="col-md-12">
                     <label class="form-label">Product/Implementation/Application/Research</label>
-                    <input name="ex1_proimpl" value="<?php if(isset($_SESSION[$iitId.'proimp'])){echo $_SESSION[$iitId.'proimp'];}else{echo -1;}?>" type="number" class="form-control" disabled>
+                    <input name="ex1_proimpl" value="<?php if(isset($_SESSION[$iitId.'proimp'])){echo $_SESSION[$iitId.'proimp'];}else{echo -1;}?>" type="number" class="form-control">
                   </div>
                 </div>
 
                 <div class="row mt-3">
                   <div class="col-md-6">
                     <label class="form-label">Added Value</label>
-                    <textarea name="ex1_addedval" class="form-control" rows="4" disabled><?php if(isset($_SESSION[$iitId.'addedval'])){echo $_SESSION[$iitId.'addedval'];}else{echo "Not updated!";}?></textarea>
+                    <textarea name="ex1_addedval" class="form-control" rows="4"><?php if(isset($_SESSION[$iitId.'addedval'])){echo $_SESSION[$iitId.'addedval'];}else{echo "Not updated!";}?></textarea>
                   </div>
                   <div class="col-md-6">
                     <label class="form-label">Over all comment</label>
-                    <textarea name="ex1_overall" class="form-control" rows="4" disabled><?php if(isset($_SESSION[$iitId.'overallcom'])){echo $_SESSION[$iitId.'overallcom'];}else{echo "Not updated!";}?></textarea>
+                    <textarea name="ex1_overall" class="form-control" rows="4"><?php if(isset($_SESSION[$iitId.'overallcom'])){echo $_SESSION[$iitId.'overallcom'];}else{echo "Not updated!";}?></textarea>
                   </div>
                 </div>
                 
@@ -687,7 +654,7 @@ function email(){
                 <div class="row mt-3">
                   <div class="col-md-3">
                     <label class="form-label">Report </label>
-                    <input name="ex2_rep_mk" value="<?php if(isset($_SESSION[$iitId.'tot_report_ex2'])){echo $_SESSION[$iitId.'tot_report_ex2'];}else{echo -1;}?>" type="number" class="form-control" disabled>
+                    <input name="ex2_rep_mk" value="<?php if(isset($_SESSION[$iitId.'tot_report_ex2'])){echo $_SESSION[$iitId.'tot_report_ex2'];}else{echo -1;}?>" type="number" class="form-control">
                   </div>
                   <div class="col-md-3">
                     <label class="form-label">VIVA </label>
@@ -698,40 +665,40 @@ function email(){
                 <div class="row mt-3">
                   <div class="col-md-6">
                     <label class="form-label">Difficulty</label>
-                    <input name="ex2_difficult" value="<?php if(isset($_SESSION[$iitId.'difficulty_ex2'])){echo $_SESSION[$iitId.'difficulty_ex2'];}else{echo -1;}?>" type="number" class="form-control" disabled>
+                    <input name="ex2_difficult" value="<?php if(isset($_SESSION[$iitId.'difficulty_ex2'])){echo $_SESSION[$iitId.'difficulty_ex2'];}else{echo -1;}?>" type="number" class="form-control">
                   </div>
                   <div class="col-md-6">
                     <label class="form-label">Understanding</label>
-                    <input name="ex2_understand" value="<?php if(isset($_SESSION[$iitId.'understand_ex2'])){echo $_SESSION[$iitId.'understand_ex2'];}else{echo -1;}?>" type="number" class="form-control" disabled>
+                    <input name="ex2_understand" value="<?php if(isset($_SESSION[$iitId.'understand_ex2'])){echo $_SESSION[$iitId.'understand_ex2'];}else{echo -1;}?>" type="number" class="form-control">
                   </div>
                 </div>
 
                 <div class="row mt-3">
                   <div class="col-md-6">
                     <label class="form-label">Development of existing skills</label>
-                    <input name="ex2_exiskill" value="<?php if(isset($_SESSION[$iitId.'exisskill_ex2'])){echo $_SESSION[$iitId.'exisskill_ex2'];}else{echo -1;}?>" type="number" class="form-control" disabled>
+                    <input name="ex2_exiskill" value="<?php if(isset($_SESSION[$iitId.'exisskill_ex2'])){echo $_SESSION[$iitId.'exisskill_ex2'];}else{echo -1;}?>" type="number" class="form-control">
                   </div>
                   <div class="col-md-6">
                     <label class="form-label">Development of new skills</label>
-                    <input name="ex2_newskill" value="<?php if(isset($_SESSION[$iitId.'newskill_ex2'])){echo $_SESSION[$iitId.'newskill_ex2'];}else{echo -1;}?>" type="number" class="form-control" disabled>
+                    <input name="ex2_newskill" value="<?php if(isset($_SESSION[$iitId.'newskill_ex2'])){echo $_SESSION[$iitId.'newskill_ex2'];}else{echo -1;}?>" type="number" class="form-control">
                   </div>
                 </div>
 
                 <div class="row mt-3">
                   <div class="col-md-12">
                     <label class="form-label">Product/Implementation/Application/Research</label>
-                    <input name="ex2_proimpl" value="<?php if(isset($_SESSION[$iitId.'proimp_ex2'])){echo $_SESSION[$iitId.'proimp_ex2'];}else{echo -1;}?>" type="number" class="form-control" disabled>
+                    <input name="ex2_proimpl" value="<?php if(isset($_SESSION[$iitId.'proimp_ex2'])){echo $_SESSION[$iitId.'proimp_ex2'];}else{echo -1;}?>" type="number" class="form-control">
                   </div>
                 </div>
 
                 <div class="row mt-3">
                   <div class="col-md-6">
                     <label class="form-label">Added Value</label>
-                    <textarea name="ex2_addedval" class="form-control" rows="4" disabled><?php if(isset($_SESSION[$iitId.'addedval_ex2'])){echo $_SESSION[$iitId.'addedval_ex2'];}else{echo "Not updated!";}?></textarea>
+                    <textarea name="ex2_addedval" class="form-control" rows="4"><?php if(isset($_SESSION[$iitId.'addedval_ex2'])){echo $_SESSION[$iitId.'addedval_ex2'];}else{echo "Not updated!";}?></textarea>
                   </div>
                   <div class="col-md-6">
                     <label class="form-label">Over all comment</label>
-                    <textarea name="ex2_overall" class="form-control" rows="4" disabled><?php if(isset($_SESSION[$iitId.'overallcom_ex2'])){echo $_SESSION[$iitId.'overallcom_ex2'];}else{echo "Not updated!";}?></textarea>
+                    <textarea name="ex2_overall" class="form-control" rows="4"><?php if(isset($_SESSION[$iitId.'overallcom_ex2'])){echo $_SESSION[$iitId.'overallcom_ex2'];}else{echo "Not updated!";}?></textarea>
                   </div>
                 </div>
               </div>
@@ -747,10 +714,6 @@ function email(){
                   <div class="col-md-12 mt-4">
                     <label class="form-check-label">Is the similarity index at concerning amount?</label> <br>                    
                   </div>
-                  <!-- <div class="col-md-12">
-                    Yes <input name="similaritycon" class="form-check-input" type="radio" value="Yes">
-                    No <input name="similaritycon" class="form-check-input" type="radio" value="No">
-                  </div> -->
                   <div class="col-md-12">
                     <select name="similaritycon" id="inputState" class="form-select">
                       <option selected value="No">No</option>
@@ -766,8 +729,6 @@ function email(){
                     <label class="form-label">Third Marking required?</label>
                   </div>
                   <div class="col-md-12 mt-4">
-                    <!-- Yes <input name="thirdmk" class="form-check-input" type="radio" value="Yes">
-                    No <input name="thirdmk" class="form-check-input" type="radio" value="No"> -->
                     <select name="thirdmk" id="inputState" class="form-select">
                       <option selected value="No">No</option>
                       <option value="Yes">Yes</option>
@@ -778,7 +739,7 @@ function email(){
                 <div class="row mt-3">
                   <div class="col-md-12 mt-4">
                     <label class="form-label">Final VIVA Marks by chair (Without Planning)</label>
-                    <input name="final_mk_chair" type="text" class="form-control" value="" disabled>
+                    <input name="final_mk_chair" type="text" class="form-control" value="">
                   </div>
                   <div class="col-md-12 mt-4">
                     <label class="form-label">Report Average : <span id="rep_avg"></span> Difference : <span id="rep_dif"></span></label> <br>
@@ -848,7 +809,6 @@ function email(){
                 
               </div>
               <div class="col-12">
-                <!-- <button name="btnsub" type="submit" class="btn btn-success">Submit</button> -->
                 <input type="submit" name="btnsub" class="btn btn-success" value="Submit" onclick="f1()">
                 <button type="reset" class="btn btn-warning">Clear</button>
               </div>
@@ -860,8 +820,6 @@ function email(){
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
       crossorigin="anonymous"></script>
   <script>
-    // <label class="form-label">Report Average : <span id="rep_avg"></span><span id="rep_dif"></span></label> <br>
-    // <label class="form-label">VIVA Average : <span id="viva_avg"></span> Difference : <span id="viva_dif"></span></label>
 
     function report_viva_avg(){
       let ex1_rep = document.getElementsByName("ex1_rep_mk")[0].value;

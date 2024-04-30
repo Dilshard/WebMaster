@@ -11,10 +11,12 @@
     $hall = $_POST['hall'];
     $mlink = $_POST['mlink'];
     $role = $_POST['role'];
+    $status = 0;
     $iitid = $_POST['iitid'];
     $staffemail = $_POST['staffemail'];
+    
 
-    $sql = "INSERT INTO `schedule` (`meeting_time`, `meeting_date`, `hall`, `link`, `role`, `iitid`, `staffemail`) VALUES ('$time', '$date', '$hall', '$mlink', '$role', '$iitid', '$staffemail');";
+    $sql = "INSERT INTO `schedule` (`meeting_time`, `meeting_date`, `hall`, `link`, `role`, `status`, `iitid`, `staffemail`) VALUES ('$time', '$date', '$hall', '$mlink', '$role', '$status', '$iitid', '$staffemail');";
 
     if(mysqli_query($conn, $sql)){
       header('Location: admin-schedule-manage.php');
@@ -50,6 +52,7 @@ if(isset($_POST['schedule_bulk_upload'])){
               $hall = $line[2];
               $mlink = $line[3];
               $role = $line[4];
+              $status = 0;
               $iitid = $line[5];
               $staffemail = $line[6];
               
@@ -62,7 +65,7 @@ if(isset($_POST['schedule_bulk_upload'])){
                   $conn->query("UPDATE schedule SET meeting_time = '".$time."',meeting_date = '".$date."',hall = '".$hall."',link = '".$mlink."'  WHERE iitid = '".$iitid."' AND role = '".$role."' AND staffemail = '".$staffemail."'");
               }else{
                   // Insert schedule data in the database
-                  $conn->query("INSERT INTO `schedule` (`meeting_time`, `meeting_date`, `hall`, `link`, `role`, `iitid`, `staffemail`) VALUES ('$time', '$date', '$hall', '$mlink', '$role', '$iitid', '$staffemail');");
+                  $conn->query("INSERT INTO `schedule` (`meeting_time`, `meeting_date`, `hall`, `link`, `role`, `status`, `iitid`, `staffemail`) VALUES ('$time', '$date', '$hall', '$mlink', '$role', '$status', '$iitid', '$staffemail');");
               }
           }
           

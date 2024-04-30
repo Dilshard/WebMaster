@@ -12,7 +12,7 @@
     exit();
   }
 
-  $sql = "SELECT * FROM schedule WHERE staffemail = '$staffEmail' ORDER BY iitid";
+  $sql = "SELECT * FROM schedule WHERE staffemail = '$staffEmail' AND `status` = 0 ORDER BY iitid";
 
   $results = mysqli_query($conn, $sql);
 ?>

@@ -86,7 +86,7 @@
                 <tr>
                   <th scope="col">#</th>
                   <th scope="col">Staff email</th>
-                  <th scope="col">Password</th>
+                  <!-- <th scope="col">Password</th> -->
                   <th scope="col">Name</th>
                   <th scope="col">Contact</th>
                   <th scope="col">FT/FT</th>
@@ -106,7 +106,7 @@
                     echo "<tr>";
                       echo "<td>".$row['staffid']."</td>";
                       echo "<td>".$row['staffemail']."</td>";
-                      echo "<td style='color:white'>".$row['password']."</td>";
+                      // echo "<td style='color:white'>".$row['password']."</td>";
                       echo "<td>".$row['staffname']."</td>";
                       echo "<td>".$row['contact']."</td>";
                       echo "<td>".$row['ftpt']."</td>";

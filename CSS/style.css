@@ -53,4 +53,6 @@ body {
 .green {
     background-color: rgb(146, 239, 146);
     border-color: green;
+    /* float: left; */
+    /* display: block; */
 }

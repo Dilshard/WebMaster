@@ -12,6 +12,7 @@
   if(isset($_POST['btnsub'])){
     $email = $_POST['stemail'];
     $stpass = generatePass();
+    $stpass_hashed = password_hash($stpass, PASSWORD_DEFAULT);
     $ftpt = $_POST['ftpt'];
     $stname = $_POST['stname'];
     $stspecial = $_POST['stspecial'];
@@ -23,7 +24,7 @@
     $_SESSION['mail-pass'] = $stpass;
     $_SESSION['mail-name'] = $stname;
 
-    $sql = "INSERT INTO `Staff` (`staffemail`, `password`, `staffname`, `contact`, `ftpt`, `area`, `role`, `pass_attempt`) VALUES ('$email', '$stpass', '$stname', '$stcontact', '$ftpt', '$stspecial', '$strole', 0);";
+    $sql = "INSERT INTO `Staff` (`staffemail`, `password`, `staffname`, `contact`, `ftpt`, `area`, `role`, `pass_attempt`) VALUES ('$email', '$stpass_hashed', '$stname', '$stcontact', '$ftpt', '$stspecial', '$strole', 0);";
 
     if(mysqli_query($conn, $sql)){
       email();
@@ -541,10 +542,10 @@ function generatePass($length = 8) {
                 <label class="form-label">Email</label>
                 <input name="stemail" type="email" class="form-control">
               </div>
-              <div class="col-md-6">
+              <!-- <div class="col-md-6">
                 <label class="form-label">Password</label>
                 <input name="stpass" type="password" class="form-control">
-              </div>
+              </div> -->
               <div class="col-md-6">
                 <label class="form-label">FT / PT</label>
                 <select name="ftpt" id="inputState" class="form-select">

@@ -1,3 +1,29 @@
+<?php
+session_start();
+if(isset($_POST["btnsub"])){
+    include("con.php");
+    if(empty($_POST['email']) || empty($_POST['pass'])){
+        $_SESSION['error_login'] = "Error: Email or password cannot be empty!";
+    }else{
+        $email = mysqli_real_escape_string($conn, $_POST['email']);
+        $pass = mysqli_real_escape_string($conn, $_POST['pass']);
+
+        $result = mysqli_query($conn,"SELECT * FROM Student WHERE email = '$email' AND pass = '$pass'");
+        $count = mysqli_num_rows($result);
+        if($count == 1){
+            while($row = mysqli_fetch_assoc($result)){
+                $iitid = $row['iitid'];
+                $_SESSION['iitid'] = $iitid;
+                header("Location: student.php", true, 301);
+                exit();
+            }
+        }else{
+            $_SESSION['error_login'] = "Login Failed, Please check your credentials!";
+        }
+
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -32,22 +58,18 @@
                 <div class="row">
                 <div class="left-login col-md-12 d-flex justify-content-center" style="text-align-last: left;">
                         <div class="col-md-8">
-                            <form action="staff.php">
+                            <form method="post">
                                 <div class="mb-3">
                                     <label for="exampleInputEmail1" class="form-label">Email address</label>
-                                    <input type="email" class="form-control" id="exampleInputEmail1"
-                                        aria-describedby="emailHelp">
+                                    <input name="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                                     
                                 </div>
                                 <div class="mb-3">
                                     <label for="exampleInputPassword1" class="form-label">Password</label>
-                                    <input type="password" class="form-control" id="exampleInputPassword1">
+                                    <input name="pass" type="password" class="form-control" id="exampleInputPassword1">
                                 </div>
-                                <!-- <div class="mb-3 form-check">
-                                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                                </div> -->
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <button name="btnsub" type="submit" class="btn btn-primary">Submit</button>
+                                <span><?php if(isset($_SESSION['error_login'])){echo $_SESSION['error_login'];} unset($_SESSION['error_login'])?></span>
                             </form>
                         </div>
                     </div>

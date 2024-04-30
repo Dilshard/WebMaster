@@ -2,7 +2,7 @@
     $servername = "localhost";
     $username = "root";
     $password = "";
-    $database = "WebMaster";
+    $database = "WebMaster-msc";
 
     // $servername = "localhost";
     // $username = "acd";

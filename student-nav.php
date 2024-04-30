@@ -8,18 +8,19 @@
             <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Schedules</a>
+                    <a class="nav-link active" aria-current="page" href="student.php">Schedules</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Meeting</a>
+                    <a class="nav-link" href="student-submission.php">Submission</a>
                 </li>
                 
                 <li class="nav-item">
-                    <a class="nav-link" href="staff-schedules.php">Schedules</a>
+                    <a class="nav-link" href="student-supervisor.php">Supervisor</a>
                 </li>
             </ul>
             <span class="navbar-text">
-                <button class="btn btn-danger">Sign out</button>
+                <!-- <button class="btn btn-danger">Sign out</button> -->
+                <a class="btn btn-danger" href="logout.php">Sign out</a>
             </span>
             </div>
         </div>

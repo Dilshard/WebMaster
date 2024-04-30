@@ -67,6 +67,7 @@
                       echo '
                       <td>
                       <form method="post" onsubmit="return confirm(\'Do you really want to delete?\');"> <input name="id" type="text" value="'.$row['schid'].'" hidden> <input name="btndel" type="submit" class="btn btn-danger" value="D">  </form>
+                      <form method="post" action="admin_schedule_edit.php"> <input name="id" type="text" value="'.$row['schid'].'" hidden> <input name="btnedit" type="submit" class="btn btn-warning" value="E">  </form>
                       </td>';
                     echo "</tr>";
                   }
